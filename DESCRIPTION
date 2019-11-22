@@ -1,13 +1,13 @@
 Type: Package
 Package: SpeedyMarkov
-Title: Speed up Discrete Markov Model Simulations.
+Title: Speed up Discrete Markov Model Simulations
 Version: 0.1.0
 Authors@R: c(
     person(given = "Sam Abbott",
            role = c("aut", "cre"),
            email = "contact@samabbott.co.uk",
            comment = c(ORCID = "0000-0001-8057-8037")))
-Description: Speed up Discrete Markov Model Simulations
+Description: Speed up Discrete Markov Model Simulations.
 License: GPL-3 | file LICENSE
 URL: https://www.samabbott.co.uk/SpeedyMarkov,
     https://github.com/seabbs/SpeedyMarkov
@@ -30,5 +30,5 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 Language: en-GB

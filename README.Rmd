@@ -79,7 +79,7 @@ This package has been developed in docker based on the `rocker/tidyverse` image,
 
 ```{bash, eval = FALSE}
 docker pull seabbs/SpeedyMarkov
-docker run -d -p 8787:8787 -e USER=SpeedyMarkov -e PASSWORD=SpeedyMarkov --name SpeedyMarkov seabbs/SpeedyMarkov
+docker run -d -p 8787:8787 -e USER=SpeedyMarkov -e PASSWORD=SpeedyMarkov --name SpeedyMarkov seabbs/speedymarkov
 ```
 
 The rstudio client can be accessed on port `8787` at `localhost` (or your machines ip). The default username is ceplotr and the default password is SpeedyMarkov. Alternatively, access the development environment via [binder](https://mybinder.org/v2/gh/seabbs/SpeedyMarkov/master?urlpath=rstudio).
