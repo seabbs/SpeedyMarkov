@@ -3,7 +3,7 @@
 default: all
 
 
-all: update_deps package docs man/figures/logo.png README.md check_package git_commit
+all: update_deps package docs man/figures/logo.png README.md git_commit
 
 ## Update dependencies based on those installed
 .PHONY: update_deps
