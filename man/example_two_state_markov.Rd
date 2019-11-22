@@ -26,7 +26,7 @@ that can then be simulated and analysed. Unlike \code{reference_two_state_markov
 }
 \examples{
 ## Example model run
-example_two_state_markov(cycles = 10, samples = 100)
+example_two_state_markov()
 
 }
 \author{

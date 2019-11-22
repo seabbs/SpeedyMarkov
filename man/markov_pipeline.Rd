@@ -2,21 +2,38 @@
 % Please edit documentation in R/markov_pipeline.R
 \name{markov_pipeline}
 \alias{markov_pipeline}
-\title{Title}
+\title{Markov Sampling, Simulation, and Analysis Pipeline}
 \usage{
-markov_pipeline(model = NULL)
+markov_pipeline(
+  markov_model = NULL,
+  duration = NULL,
+  discount = 1.035,
+  samples = 1,
+  type = "base"
+)
 }
 \arguments{
-\item{model}{}
+\item{markov_model}{A list of functions that define a markov model across multiple interventions. See \code{example_two_state_markov}
+for the correct format.}
+
+\item{duration}{Numeric, how many long to run the model for.}
+
+\item{discount}{Numeric, the discount that should be applied to the costs and QALYs. Defaults to 1.035.}
+
+\item{samples}{Numeric, defaults to 1. The number of markov model samples to use.}
+
+\item{type}{A character string specifying the approach to use in the modelling pipeline. Currently implemented
+approaches are "base" with "base" as the default.}
 }
 \value{
 
 }
 \description{
-Title
+Markov Sampling, Simulation, and Analysis Pipeline
 }
 \examples{
 
-## Code
-markov_pipeline
+
+markov_pipeline(example_two_state_markov(), duration = 10, samples = 2)
+  
 }
