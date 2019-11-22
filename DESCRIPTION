@@ -1,0 +1,34 @@
+Type: Package
+Package: SpeedyMarkov
+Title: Speed up Discrete Markov Model Simulations.
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Sam Abbott",
+           role = c("aut", "cre"),
+           email = "contact@samabbott.co.uk",
+           comment = c(ORCID = "0000-0001-8057-8037")))
+Description: Speed up Discrete Markov Model Simulations
+License: GPL-3 | file LICENSE
+URL: https://www.samabbott.co.uk/SpeedyMarkov,
+    https://github.com/seabbs/SpeedyMarkov
+BugReports: https://github.com/seabbs/SpeedyMarkov/issues
+Depends: 
+    R (>= 3.3.0)
+Imports: 
+    magrittr (>= 1.5)
+Suggests:
+    spelling (>= 2.1),
+    covr (>= 3.3.2),
+    devtools (>= 2.2.1),
+    usethis (>= 1.5.1),
+    knitr (>= 1.25),
+    pkgnet (>= 0.4.0),
+    rmarkdown (>= 1.16),
+    testthat (>= 2.2.1)
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Language: en-GB

@@ -1,0 +1,26 @@
+url: samabbott.co.uk/SpeedyMarkov/
+template:
+  params:
+    bootswatch: lumen
+    docsearch:
+      api_key: 6c737a6c632ea7eab75c912a6b07b5f1
+      index_name: SpeedyMarkov
+
+development:
+  mode: release
+  
+navbar:
+  type: inverse
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Getting Started"
+      href: articles/intro.html
+    - text: News
+      menu:
+      - text: "Change log"
+        href: news/index.html
+    - icon: fa-file-code-o 
+      text: "Functions"
+      href: reference/index.html
+        
