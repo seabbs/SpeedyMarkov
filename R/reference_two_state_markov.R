@@ -1,12 +1,13 @@
 #' Reference Two State Markov Model
-#' @description This is a two state Markov model - modelling smoking cessation used as a baseline and reference.
+#' @description This is a two state Markov model - modelling smoking cessation - used as a baseline and reference. Unlike
+#' other markov functions the reference functions contain all model setup, sampling, simulation and analysis code.
 #'  It has been developed primarily using base R and makes use of a nested array structure. This array is then looped
 #'  over using a series of nested for loops with a core loop running a the markov model for each sample and intervention. 
 #'  Profiling suggestions that this core loop may take the majority of compute time.
 #'
 #' @param cycles Numeric, the number of cylces (time horizon / cycle length). No default supplied.
 #' @param samples Numeric, the number of samples to use. No default supplied.
-#' @return Output
+#' @return A named list of cost effectiveness output.
 #' @export
 #' @importFrom VGAM rdiric
 #' @author Howard Thom

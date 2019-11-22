@@ -20,7 +20,8 @@ Depends:
     R (>= 3.3.0)
 Imports: 
     magrittr (>= 1.5),
-    VGAM (>= 1.1.1)
+    VGAM (>= 1.1.1),
+    dplyr (>= 0.8.3)
 Suggests:
     spelling (>= 2.1),
     covr (>= 3.3.2),
