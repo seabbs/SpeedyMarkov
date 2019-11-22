@@ -6,7 +6,11 @@ Authors@R: c(
     person(given = "Sam Abbott",
            role = c("aut", "cre"),
            email = "contact@samabbott.co.uk",
-           comment = c(ORCID = "0000-0001-8057-8037")))
+           comment = c(ORCID = "0000-0001-8057-8037")),
+    person(given = "Howard Thom",
+           role = c("aut"),
+           email = "",
+           comment = c(ORCID = "0000-0001-8576-5552")))
 Description: Speed up Discrete Markov Model Simulations.
 License: GPL-3 | file LICENSE
 URL: https://www.samabbott.co.uk/SpeedyMarkov,
@@ -21,10 +25,10 @@ Suggests:
     covr (>= 3.3.2),
     devtools (>= 2.2.1),
     usethis (>= 1.5.1),
-    knitr (>= 1.25),
+    knitr (>= 1.26),
     pkgnet (>= 0.4.0),
-    rmarkdown (>= 1.16),
-    testthat (>= 2.2.1)
+    rmarkdown (>= 1.17),
+    testthat (>= 2.3.0)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

@@ -22,5 +22,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Sam Abbott \email{contact@samabbott.co.uk} (\href{https://orcid.org/0000-0001-8057-8037}{ORCID})
 
+Authors:
+\itemize{
+  \item Howard Thom (\href{https://orcid.org/0000-0001-8576-5552}{ORCID})
+}
+
 }
 \keyword{internal}

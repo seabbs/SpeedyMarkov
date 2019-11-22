@@ -8,7 +8,7 @@ library(ggplot2)
 
 # Make plot ---------------------------------------------------------------
 
-plot <- example_simulation %>% 
+plot <- mtcars %>% 
         ggplot() + 
         labs(x = "", y = "") +
         theme_void() + theme_transparent()+

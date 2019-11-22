@@ -3,12 +3,7 @@
 default: all
 
 
-all: build_data update_deps package docs man/figures/logo.png README.md check_package git_commit
-
-#Update data
-.PHONY: build_data
-build_data:
-		cd data-raw && make
+all: update_deps package docs man/figures/logo.png README.md check_package git_commit
 
 ## Update dependencies based on those installed
 .PHONY: update_deps

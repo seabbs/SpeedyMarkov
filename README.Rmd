@@ -10,16 +10,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-# `{ceplotr}`: Model agnostic plotting for cost effectiveness analysis <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# `{SpeedyMarkov}`: Speed up Discrete Markov Model Simulations <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![badge](https://img.shields.io/badge/Launch-ceplotr-blue.svg)](https://mybinder.org/v2/gh/seabbs/SpeedyMarkov/master?urlpath=rstudio) 
 [![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/SpeedyMarkov)](https://CRAN.R-project.org/package=SpeedyMarkov)
 [![develVersion](https://img.shields.io/badge/devel%20version-0.1.0-blue.svg?style=flat)](https://github.com/seabbs/SpeedyMarkov)
 [![DOI](https://zenodo.org/badge/219757940.svg)](https://zenodo.org/badge/latestdoi/219757940)
 
+**Work in progress**
+
+The work in this package was started at the Health Economic 2019 hackathon hosted at Imperial. Much of this work is based on that develped by the [hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The original reference approach was developed by [Howard Thom](https://orcid.org/0000-0001-8576-5552). 
+
+
 This package aims to: 
 
-
+* Compare a functional markov modelling approach to a reference approach for several example models.
+* Explore approaches to speeding up Markov modelling in a principled fashion.
+* Inspire more efficient markov modelling code. 
+* Provide a toolkit for use in discrete Markov modelling.
 
 For help getting started see the [Getting Started](https://www.samabbott.co.uk/SpeedyMarkov/articles/intro.html) vignette.
 
