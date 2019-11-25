@@ -71,8 +71,6 @@ SpeedyMarkov::example_two_state_markov()
 Once a model has been specified a cost effectiveness analysis can run using the following function call.
 
 ```{r}
-future::plan(future::sequential())
-
 SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(), 
                                  duration = 10, samples = 5, discount = 1.035, 
                                  baseline = 1, willingness_to_pay_thresold = 20000)

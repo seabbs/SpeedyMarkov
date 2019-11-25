@@ -11,7 +11,8 @@ markov_ce_pipeline(
   samples = 1,
   baseline = 1,
   willingness_to_pay_thresold = 20000,
-  type = "base"
+  type = "base",
+  debug = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ may be considered cost effective in the UK.}
 
 \item{type}{A character string specifying the approach to use in the modelling pipeline. Currently implemented
 approaches are "base" with "base" as the default.}
+
+\item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 }
 \value{
 A list containing the model samples and simulations and cost effectiveness summary measures.

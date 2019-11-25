@@ -72,122 +72,166 @@ See `?example_two_state_markov` for more details.
 SpeedyMarkov::example_two_state_markov()
 #> $transitions_list
 #> $transitions_list$SoC
-#> function() {
-#>     tmp <- rbind(VGAM::rdiric(1, c(88,12)),
-#>                  VGAM::rdiric(1, c(8,92)))
+#> function(samples = NULL) {
+#>     # Sample transitions
+#>     tmp <- list(VGAM::rdiric(samples, c(88, 12)),
+#>                  VGAM::rdiric(samples, c(8, 92)))
 #>     
-#>     colnames(tmp) <- c("Smoking", "Not smoking")
-#>     rownames(tmp) <- c("Smoking", "Not smoking")
+#>     # Map transitions into matrices
+#>     dim <- length(tmp)
+#>     out <- matrix(NA, dim, dim)
+#>     colnames(out) <- c("Smoking", "Not smoking")
+#>     rownames(out) <- c("Smoking", "Not smoking")
+#>     
+#>     tmp <- purrr::map(1:nrow(tmp[[1]]),~  {
+#>     
+#>       for (i in 1:dim) {
+#>         out[i, ] <- tmp[[i]][., ]
+#>       }
+#>       return(out)
+#>     })
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x5624eb56eb58>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x561111551d10>
+#> <environment: 0x5611115e09f0>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
-#>     baseline[1, ] <- VGAM::rdiric(1,c(85,15))
 #>     
-#>     return(baseline)
+#>     #Sample transitions for each baseline matrix
+#>     samples <- length(baseline)
+#>     tmp <- VGAM::rdiric(samples,c(85,15))
+#>     
+#>     # Update baseline
+#>     updated <- purrr::map(1:samples, function(sample) {
+#>       update <- baseline[[sample]]
+#>       update[1, ] <- tmp[sample, ]
+#>       return(update)
+#>       })
+#>     
+#>     return(updated)
 #>   }
-#> <bytecode: 0x5624eb574378>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x561111567648>
+#> <environment: 0x5611115e09f0>
 #> 
 #> 
 #> $qalys
-#> function() {
+#> function(samples = NULL) {
 #>     qaly <- function(samples = 1) {
-#>       smoking <- stats::rnorm(1, mean = 0.95,sd = 0.01) / 2
-#>       not_smoking <- 1 / 2
+#>       smoking <- stats::rnorm(samples, mean = 0.95,sd = 0.01) / 2
+#>       not_smoking <- rep(1 / 2, samples)
 #>       
-#>       out <- c(smoking, not_smoking)
-#>       names(out) <- c("Smoking", "Not smoking")
+#>       out <- purrr::map(1:samples, ~ {
+#>         out <- c(smoking[.], not_smoking[.])
+#>         names(out) <- c("Smoking", "Not smoking")
+#>         
+#>         return(out)
+#>       })
 #>       
 #>       return(out)
-#>       
 #>     }
 #>     
-#>     soc <- qaly()
+#>     soc <- qaly(samples = samples)
 #>     soc_with_website <- soc
 #>     
 #>     out <- list(soc, soc_with_website)
 #>     names(out) <- list("SoC", "Soc with Website")
 #>     
+#>     out <- purrr::transpose(out)
+#>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5624eb577c78>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x561111579f08>
+#> <environment: 0x5611115e09f0>
 #> 
 #> $intervention_costs
-#> function(samples = 1) {
-#>     soc <- 0
-#>     soc_with_website <- 50
+#> function(samples = NULL) {
+#>     soc <- rep(0, samples)
+#>     soc_with_website <- rep(50, samples)
 #>     
-#>     out <- c(soc, soc_with_website)
-#>     names(out) <- c("SoC", "Soc with Website")
+#>     out <- purrr::map(1:samples, ~ {
+#>       out <- c(soc[.], soc_with_website[.])
+#>       names(out) <- c("SoC", "Soc with Website")
+#>       
+#>       return(out)
+#>     })
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5624eb586f20>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x5611115962b0>
+#> <environment: 0x5611115e09f0>
 #> 
 #> $state_costs
-#> function(samples = 1) {
+#> function(samples = NULL) {
 #>     state_cost <- function(samples = 1) {
-#>       smoking <- 0
-#>       not_smoking <- 0
+#>       smoking <- rep(0, samples)
+#>       not_smoking <- rep(0, samples)
 #>       
-#>       out <- c(smoking, not_smoking)
-#>       names(out) <- c("Smoking", "Not smoking")
+#>       
+#>       out <- purrr::map(1:samples, ~ {
+#>         out <- c(smoking[.], not_smoking[.])
+#>         names(out) <- c("Smoking", "Not smoking")
+#>         
+#>         return(out)
+#>       })
 #>       
 #>       return(out)
 #>       
 #>     }
 #>     
-#>     soc <- state_cost()
+#>     soc <- state_cost(samples = samples)
 #>     soc_with_website <- soc
 #>     
 #>     out <- list(soc, soc_with_website)
 #>     names(out) <- list("SoC", "Soc with Website")
+#>     
+#>     out <- purrr::transpose(out)
+#>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5624eb58d8f8>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x5611115a71d0>
+#> <environment: 0x5611115e09f0>
 #> 
 #> $cohorts
-#> function() {
+#> function(samples = NULL) {
 #>     
-#>     cohort <- function() {
-#>       smoking <- 1
-#>       not_smoking <- 0
+#>     cohort <- function(samples = 1) {
+#>       smoking <- rep(1, samples)
+#>       not_smoking <- rep(0, samples)
 #>       
-#>       out <- matrix(c(smoking, not_smoking), ncol = 2)
-#>       colnames(out) <- c("Smoking", "Not smoking")
-#>       
+#>       out <- purrr::map(1:samples, ~ {
+#>         out <- matrix(c(smoking[.], not_smoking[.]), ncol = 2)
+#>         colnames(out) <- c("Smoking", "Not smoking")
+#>         
+#>         return(out)
+#>       })
+#> 
 #>       return(out)
 #>     }
 #>     
-#>     soc <- cohort()
+#>     soc <- cohort(samples = samples)
 #>     soc_with_website <- soc
 #>     
 #>     out <- list(soc, soc_with_website)
 #>     names(out) <- list("SoC", "Soc with Website")
 #>     
+#>     out <- purrr::transpose(out)
+#>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5624eb59d188>
-#> <environment: 0x5624eb5af188>
+#> <bytecode: 0x5611115bcb08>
+#> <environment: 0x5611115e09f0>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
 ```
 
 Once a model has been specified a cost effectiveness analysis can run
-using the following function call.
+using the following function
+call.
 
 ``` r
-future::plan(future::sequential())
-
 SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(), 
                                  duration = 10, samples = 5, discount = 1.035, 
                                  baseline = 1, willingness_to_pay_thresold = 20000)
@@ -213,8 +257,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       4.15   0.0259          0      
-#> 2 Soc with We…         50        0       4.16   0.0325          0.00730
+#> 1 SoC                   0        0       4.11   0.0227           0     
+#> 2 Soc with We…         50        0       4.14   0.0333           0.0293
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,

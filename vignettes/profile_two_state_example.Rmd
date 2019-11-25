@@ -1,0 +1,54 @@
+---
+title: "Profiling the reference implementations"
+author: "Sam Abbott"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with {SpeedyMarkov}}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>",
+  fig.width = 7, fig.height = 7, 
+  fig.align = "center"
+)
+```
+
+
+## Background
+
+
+
+## Profiling
+
+Again profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time. This approach also has some additional data manipulation costs not seen in the array approach leading to a 15% slow down. 
+
+Strategies suggested for the reference application also hold here.
+
+```{r}
+library(SpeedyMarkov)
+library(profvis)
+library(future)
+
+plan(sequential)
+
+profvis({
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
+})
+```
+
+## Benchmark
+
+```{r}
+library(tictoc)
+
+plan(sequential)
+
+
+tic()
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
+toc()
+```

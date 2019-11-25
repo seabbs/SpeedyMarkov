@@ -9,6 +9,7 @@
 #' @importFrom data.table rbindlist
 #' @importFrom dplyr bind_cols
 #' @importFrom tibble as_tibble
+#' @importFrom purrr transpose map
 #' @inheritParams simulate_markov
 #' @inheritParams sample_markov
 #' @seealso sample_markov simulate_markov
@@ -18,23 +19,45 @@
 #' markov_simulation_pipeline(example_two_state_markov(), duration = 10, samples = 2)
 #'   
 markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
-                                       discount = 1.035, samples = 1, type = "base") {
+                                       discount = 1.035, samples = 1, 
+                                       type = "base", debug = FALSE) {
   
   # Generate samples --------------------------------------------------------
   
-  model_samples <- furrr::future_map(1:samples, ~ SpeedyMarkov::sample_markov(markov_model, type = type),
-                                     .progress = TRUE)
+  model_samples <- SpeedyMarkov::sample_markov(markov_model,
+                                               type = type,
+                                               debug = debug,
+                                               samples = samples)
   
-  ## Parallel data frame binding for samples from data.table
-  model_samples <- data.table::rbindlist(model_samples, idcol = "sample") 
+
+# Allocate simulation matrix ----------------------------------------------
+
+  ## This optional step gives a small speed boost by making preallocation occur once
+  ## rather than for every model simulation
+  ## Pull out a template transition matrix
+  template_transition <- model_samples$transition[[1]]
+  ## Set up simulation preallocation
+  sim_storage <- matrix(NA, nrow = duration, ncol = nrow(template_transition))
+  colnames(sim_storage) <- colnames(template_transition )
+   
   
-  results <- furrr::future_map(1:nrow(model_samples), 
+
+# Simulate model from samples ---------------------------------------------
+
+   
+  ## Map samples to a list for efficiency
+  samples_list <- purrr::transpose(model_samples)
+  
+  ## Simulate over samples and interventions
+  results <- furrr::future_map(samples_list, 
                                ~ SpeedyMarkov::simulate_markov(
-                                 markov_sample = model_samples[., ], 
+                                 markov_sample = ., 
                                  duration = duration,
                                  discount = discount, 
-                                 type = type) %>% 
-                                 tibble::as_tibble(),
+                                 type = type,
+                                 sim = sim_storage,
+                                 input_is_list = TRUE,
+                                 debug = debug),
                                .progress = TRUE)
   
   ## Parallel data frame binding for results from data.table
@@ -44,7 +67,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
   combined <- dplyr::bind_cols(model_samples, results)
   
   ## Convert to tibble for ease of interaction
-  combined <- as_tibble(combined)
+  combined <- tibble::as_tibble(combined)
   
   return(combined)
 }

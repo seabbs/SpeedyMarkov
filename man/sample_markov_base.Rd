@@ -9,7 +9,8 @@ sample_markov_base(
   state_costs = NULL,
   intervention_costs = NULL,
   cohorts = NULL,
-  qalys = NULL
+  qalys = NULL,
+  samples = 1
 )
 }
 \arguments{
@@ -25,12 +26,14 @@ see \code{example_two_state_markov} for an example of setting this up.}
 see \code{example_two_state_markov} for an example of setting this up.}
 
 \item{qalys}{A function that generates a list of QALYs for each intervention, see \code{example_two_state_markov} for an example of setting this up.}
+
+\item{samples}{Numeric, defaults to 1. The number of samples to take from the Markov model}
 }
 \value{
-A single sample of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).
+A data.frame of samples of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).
 }
 \description{
-This model agnostic function samples a single markov model specification using a base R implementation.
+This model agnostic function samples a markov model specification using a base R implementation.
 See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")} passing the
 model specification function.
 }
@@ -41,9 +44,9 @@ model specification function.
   
  sample_markov_base(
      transitions = markov_model$transitions_list,
-     cohort = markov_model$cohorts,
-     state_cost = markov_model$state_costs, 
-     intervention_cost = markov_model$intervention_costs, 
+     cohorts = markov_model$cohorts,
+     state_costs = markov_model$state_costs, 
+     intervention_costs = markov_model$intervention_costs, 
      qalys = markov_model$qalys
  ) 
   

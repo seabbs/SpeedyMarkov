@@ -9,7 +9,8 @@ markov_simulation_pipeline(
   duration = NULL,
   discount = 1.035,
   samples = 1,
-  type = "base"
+  type = "base",
+  debug = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ for the correct format.}
 
 \item{type}{A character string specifying the approach to use in the modelling pipeline. Currently implemented
 approaches are "base" with "base" as the default.}
+
+\item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 }
 \value{
 A list containing the model samples and simulations.

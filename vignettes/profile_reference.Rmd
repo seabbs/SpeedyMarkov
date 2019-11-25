@@ -1,0 +1,50 @@
+---
+title: "Profiling the reference implementations"
+author: "Sam Abbott"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with {SpeedyMarkov}}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>",
+  fig.width = 7, fig.height = 7, 
+  fig.align = "center"
+)
+```
+
+
+## Background
+
+The reference implementation of a Markov model makes use of an array structure and a series of nested loops to sample, simulate and summarise the model. This approach has some clear advantages including making optmisations possible across samples. However, its lack of modularity may make making optimisations more difficult and many also make generalising findings more difficult - as model definitions are linked to model sampling, solving and summarising. 
+
+In principle this approach may lead to the most efficient code but this may come at the cost of clarity and generalisability.
+
+## Profiling
+
+As expected profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time (this makes senses as R is notoriously slow when it comes to this use case). The remaining runtime is taken up by within loop allocation of samples and data summarisation but in comparison to the iterative foor loop compute costs are small.
+
+These results suggest several strategies. Firstly, to speed up the within for loop operation (here a matrix multiplication). This would also benefit other resource intensive matrix multiplications. Secondly, to decrease the costs of the iterative for loop itself - perhaps by moving to a `Rcpp` implementation. Finally, to make use of parallel compute to spread the costs of solving each sample across multiple CPUs.
+
+```{r}
+library(SpeedyMarkov)
+library(profvis)
+
+profvis({
+  reference_two_state_markov(cycles = 100, samples = 100000)
+})
+```
+
+## Benchmark
+
+```{r}
+library(tictoc)
+
+tic()
+  sims <- reference_two_state_markov(cycles = 100, samples = 100000)
+toc()
+```

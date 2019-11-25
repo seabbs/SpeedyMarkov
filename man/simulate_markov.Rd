@@ -8,7 +8,10 @@ simulate_markov(
   markov_sample = NULL,
   duration = NULL,
   discount = 1.035,
-  type = "base"
+  type = "base",
+  debug = FALSE,
+  input_is_list = NULL,
+  sim = NULL
 )
 }
 \arguments{
@@ -21,6 +24,14 @@ for the correct data format.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
 approaches are "base" with "base" as the default.}
+
+\item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
+
+\item{input_is_list}{Logical defaults to NULL. What type of input is \code{markov_sample}? A list or a dataframe.
+If not given then the input type will be checked and converted to a list as required.}
+
+\item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
+states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.}
 }
 \value{
 A list containing total costs and total QALYs as matrices across states

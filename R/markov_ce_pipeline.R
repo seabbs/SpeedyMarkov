@@ -12,7 +12,7 @@
 markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
                             willingness_to_pay_thresold = 20000,
-                            type = "base") {
+                            type = "base", debug = FALSE) {
   
   
 
@@ -21,7 +21,8 @@ markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                                             duration = duration,
                                             discount = discount, 
                                             samples = samples,
-                                            type = type)
+                                            type = type,
+                                            debug = debug)
   
   # Analyse model -----------------------------------------------------------
   

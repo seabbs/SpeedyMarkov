@@ -4,7 +4,7 @@
 \alias{sample_markov}
 \title{Sample a Markov Model}
 \usage{
-sample_markov(markov_model = NULL, type = "base")
+sample_markov(markov_model = NULL, type = "base", debug = FALSE, samples = 1)
 }
 \arguments{
 \item{markov_model}{A list of functions that define a markov model across multiple interventions. See \code{example_two_state_markov}
@@ -12,12 +12,14 @@ for the correct format.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
 approaches are "base" with "base" as the default.}
+
+\item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 }
 \value{
-A single sample of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).
+A data.frame of samples of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).
 }
 \description{
-This model agnostic function samples a single markov model specification. It wraps multiple approaches
+This model agnostic function samples a markov model specification. It wraps multiple approaches
 that may offer various advantages and disadvantages.
 }
 \examples{
