@@ -24,7 +24,6 @@
 #'
 example_two_state_markov <- function() {
   
-  
   # Transitions -------------------------------------------------------------
   # 1. Specify transition matrices for each intervention
   # Baseline - Soc
@@ -87,16 +86,12 @@ example_two_state_markov <- function() {
 
   qalys <- function(samples = NULL) {
     qaly <- function(samples = 1) {
-      smoking <- stats::rnorm(samples, mean = 0.95,sd = 0.01) / 2
-      not_smoking <- rep(1 / 2, samples)
+      ## Sample
+      tmp <- list(stats::rnorm(samples, mean = 0.95,sd = 0.01) / 2,
+                   rep(1 / 2, samples))
       
-      out <- purrr::map(1:samples, ~ {
-        out <- c(smoking[.], not_smoking[.])
-        names(out) <- c("Smoking", "Not smoking")
-        
-        return(out)
-      })
-      
+      out <- SpeedyMarkov::vector_arrange(tmp)
+  
       return(out)
     }
     
@@ -118,16 +113,12 @@ example_two_state_markov <- function() {
   # 3. Specify costs per intervention (random sampling)
   
   intervention_costs <- function(samples = NULL) {
-    soc <- rep(0, samples)
-    soc_with_website <- rep(50, samples)
+    ## Sample
+    tmp <- list(rep(0, samples),
+                 rep(50, samples))
     
-    out <- purrr::map(1:samples, ~ {
-      out <- c(soc[.], soc_with_website[.])
-      names(out) <- c("SoC", "Soc with Website")
-      
-      return(out)
-    })
-    
+    out <- SpeedyMarkov::vector_arrange(tmp)
+
     return(out)
   }
   
@@ -135,16 +126,10 @@ example_two_state_markov <- function() {
   
   state_costs <- function(samples = NULL) {
     state_cost <- function(samples = 1) {
-      smoking <- rep(0, samples)
-      not_smoking <- rep(0, samples)
+      tmp <- list(rep(0, samples),
+                 rep(0, samples))
       
-      
-      out <- purrr::map(1:samples, ~ {
-        out <- c(smoking[.], not_smoking[.])
-        names(out) <- c("Smoking", "Not smoking")
-        
-        return(out)
-      })
+      out <- SpeedyMarkov::vector_arrange(tmp)
       
       return(out)
       
@@ -169,15 +154,10 @@ example_two_state_markov <- function() {
   cohorts <- function(samples = NULL) {
     
     cohort <- function(samples = 1) {
-      smoking <- rep(1, samples)
-      not_smoking <- rep(0, samples)
+      tmp <- list(rep(1, samples),
+                  rep(0, samples))
       
-      out <- purrr::map(1:samples, ~ {
-        out <- matrix(c(smoking[.], not_smoking[.]), ncol = 2)
-        colnames(out) <- c("Smoking", "Not smoking")
-        
-        return(out)
-      })
+      out <- SpeedyMarkov::vector_arrange(tmp)
 
       return(out)
     }
