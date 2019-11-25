@@ -10,6 +10,7 @@
 #' approaches are "base" with "base" as the default.
 #' @param debug Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.
 #' @export
+#' @inheritParams sample_markov_base
 #' @inherit sample_markov_base return
 #' @examples
 #' 
@@ -32,9 +33,9 @@ sample_markov <- function(markov_model = NULL,
   if (type == "base") {
     out <- sample_markov_base(
       transitions = markov_model[["transitions_list"]],
-      cohort = markov_model[["cohorts"]],
-      state_cost = markov_model[["state_costs"]], 
-      intervention_cost = markov_model[["intervention_costs"]], 
+      cohorts = markov_model[["cohorts"]],
+      state_costs = markov_model[["state_costs"]], 
+      intervention_costs = markov_model[["intervention_costs"]], 
       qalys = markov_model[["qalys"]],
       samples = samples
     )
@@ -63,7 +64,7 @@ sample_markov <- function(markov_model = NULL,
 #' @export
 #' @importFrom purrr map transpose
 #' @importFrom tidyr unnest
-#' @importFrom tibble as_tibble
+#' @importFrom tibble tibble
 #' @examples
 #'   
 #'   
@@ -90,30 +91,21 @@ sample_markov_base <- function(transitions = NULL, state_costs = NULL,
   #update transitions as a single sample
   transitions[[1]] <- baseline
   transitions[-1] <- interventions
+  
+  ## Organise as dataframe
+  ## Unlist interventions
+  samples_df <- tibble::tibble(
+                             sample = unlist(purrr::map(1:samples, 
+                                                        ~ rep(., length(transitions)))),
+                             intervention = rep(names(transitions), samples),
+                             transition = purrr::flatten(purrr::transpose(transitions)), 
+                             state_cost = purrr::flatten(state_costs(samples = samples)), 
+                             intervention_cost = unlist(intervention_costs(samples = samples)),
+                             cohort = purrr::flatten(cohorts(samples = samples)),
+                             qalys = purrr::flatten(qalys(samples = samples)))
+  
 
-  
-  ## Organise as data.table - this section could easily be optimised
-  samples <- data.table::data.table(sample = 1:samples,
-                           intervention = list(names(transitions)),
-                           transition = purrr::transpose(transitions), 
-                           state_cost = state_costs(samples = samples), 
-                           intervention_cost = intervention_costs(samples = samples),
-                           cohort = cohorts(samples = samples),
-                           qalys = qalys(samples = samples))
-  
-  
-  ## unnest data for readability/usability etc. 
-  samples <-  samples[, .(intervention = unlist(intervention),
-                          transition = purrr::flatten(transition),
-                          state_cost = purrr::flatten(state_cost),
-                          intervention_cost = unlist(intervention_cost),
-                          cohort = purrr::flatten(cohort),
-                          qalys = purrr::flatten(qalys)),
-                      by = sample]
-  
-  samples <- tibble::as_tibble(samples)
-  
-  return(samples)
+  return(samples_df)
 }
 
 

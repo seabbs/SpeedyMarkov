@@ -49,7 +49,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
   samples_list <- purrr::transpose(model_samples)
   
   ## Simulate over samples and interventions
-  results <- furrr::future_map(samples_list, 
+  results <- purrr::map(samples_list, 
                                ~ SpeedyMarkov::simulate_markov(
                                  markov_sample = ., 
                                  duration = duration,
@@ -57,8 +57,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
                                  type = type,
                                  sim = sim_storage,
                                  input_is_list = TRUE,
-                                 debug = debug),
-                               .progress = TRUE)
+                                 debug = debug))
   
   ## Parallel data frame binding for results from data.table
   results <- data.table::rbindlist(results)

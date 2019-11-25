@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ## Profiling
 
-Again profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time. This approach also has some additional data manipulation costs not seen in the array approach leading to a 15% slow down. 
+Again profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time. 
 
 Strategies suggested for the reference application also hold here.
 
@@ -32,8 +32,6 @@ Strategies suggested for the reference application also hold here.
 library(SpeedyMarkov)
 library(profvis)
 library(future)
-
-plan(sequential)
 
 profvis({
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)

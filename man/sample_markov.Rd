@@ -14,6 +14,8 @@ for the correct format.}
 approaches are "base" with "base" as the default.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
+
+\item{samples}{Numeric, defaults to 1. The number of samples to take from the Markov model}
 }
 \value{
 A data.frame of samples of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).
