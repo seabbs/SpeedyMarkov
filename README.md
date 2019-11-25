@@ -63,12 +63,169 @@ Status](https://img.shields.io/codecov/c/github/seabbs/SpeedyMarkov/master.svg)]
 
 ## Quick start
 
-Lets get started quickly by
+The first step is to specify a Markov model in the format specificed by
+`SpeedyMarkov`. An example framework is `example_two_state_markov` which
+is a two state Markov model that compares an intervention to a baseline.
+See `?example_two_state_markov` for more details.
+
+``` r
+SpeedyMarkov::example_two_state_markov()
+#> $transitions_list
+#> $transitions_list$SoC
+#> function() {
+#>     tmp <- rbind(VGAM::rdiric(1, c(88,12)),
+#>                  VGAM::rdiric(1, c(8,92)))
+#>     
+#>     colnames(tmp) <- c("Smoking", "Not smoking")
+#>     rownames(tmp) <- c("Smoking", "Not smoking")
+#>     
+#>     return(tmp)
+#>   }
+#> <bytecode: 0x5597ef6c40f8>
+#> <environment: 0x5597ef704728>
+#> 
+#> $transitions_list$`Soc with Website`
+#> function(baseline = NULL) {
+#>     baseline[1, ] <- VGAM::rdiric(1,c(85,15))
+#>     
+#>     return(baseline)
+#>   }
+#> <bytecode: 0x5597ef6c9918>
+#> <environment: 0x5597ef704728>
+#> 
+#> 
+#> $qalys
+#> function() {
+#>     qaly <- function(samples = 1) {
+#>       smoking <- stats::rnorm(1, mean = 0.95,sd = 0.01) / 2
+#>       not_smoking <- 1 / 2
+#>       
+#>       out <- c(smoking, not_smoking)
+#>       names(out) <- c("Smoking", "Not smoking")
+#>       
+#>       return(out)
+#>       
+#>     }
+#>     
+#>     soc <- qaly()
+#>     soc_with_website <- soc
+#>     
+#>     out <- list(soc, soc_with_website)
+#>     names(out) <- list("SoC", "Soc with Website")
+#>     
+#>     return(out)
+#>   }
+#> <bytecode: 0x5597ef6cd218>
+#> <environment: 0x5597ef704728>
+#> 
+#> $intervention_costs
+#> function(samples = 1) {
+#>     soc <- 0
+#>     soc_with_website <- 50
+#>     
+#>     out <- c(soc, soc_with_website)
+#>     names(out) <- c("SoC", "Soc with Website")
+#>     
+#>     return(out)
+#>   }
+#> <bytecode: 0x5597ef6dc4c0>
+#> <environment: 0x5597ef704728>
+#> 
+#> $state_costs
+#> function(samples = 1) {
+#>     state_cost <- function(samples = 1) {
+#>       smoking <- 0
+#>       not_smoking <- 0
+#>       
+#>       out <- c(smoking, not_smoking)
+#>       names(out) <- c("Smoking", "Not smoking")
+#>       
+#>       return(out)
+#>       
+#>     }
+#>     
+#>     soc <- state_cost()
+#>     soc_with_website <- soc
+#>     
+#>     out <- list(soc, soc_with_website)
+#>     names(out) <- list("SoC", "Soc with Website")
+#>     return(out)
+#>   }
+#> <bytecode: 0x5597ef6e2e98>
+#> <environment: 0x5597ef704728>
+#> 
+#> $cohorts
+#> function() {
+#>     
+#>     cohort <- function() {
+#>       smoking <- 1
+#>       not_smoking <- 0
+#>       
+#>       out <- matrix(c(smoking, not_smoking), ncol = 2)
+#>       colnames(out) <- c("Smoking", "Not smoking")
+#>       
+#>       return(out)
+#>     }
+#>     
+#>     soc <- cohort()
+#>     soc_with_website <- soc
+#>     
+#>     out <- list(soc, soc_with_website)
+#>     names(out) <- list("SoC", "Soc with Website")
+#>     
+#>     return(out)
+#>   }
+#> <bytecode: 0x5597ef6f2728>
+#> <environment: 0x5597ef704728>
+#> 
+#> attr(,"class")
+#> [1] "SpeedyMarkov" "list"
+```
+
+Once a model has been specified a cost effectiveness analysis can run
+using the following function call.
+
+``` r
+future::plan(future::sequential())
+
+SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(), 
+                                 duration = 10, samples = 5, discount = 1.035, 
+                                 baseline = 1, willingness_to_pay_thresold = 20000)
+#> $simulations_with_ce
+#> # A tibble: 10 x 12
+#>    sample intervention transition state_cost intervention_co… cohort qalys
+#>     <int> <chr>        <list>     <list>                <dbl> <list> <lis>
+#>  1      1 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl[… <dbl…
+#>  2      1 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl[… <dbl…
+#>  3      2 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl[… <dbl…
+#>  4      2 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl[… <dbl…
+#>  5      3 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl[… <dbl…
+#>  6      3 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl[… <dbl…
+#>  7      4 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl[… <dbl…
+#>  8      4 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl[… <dbl…
+#>  9      5 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl[… <dbl…
+#> 10      5 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl[… <dbl…
+#> # … with 5 more variables: total_costs <dbl>, total_qalys <dbl>,
+#> #   incremental_costs <dbl>, incremental_qalys <dbl>,
+#> #   incremental_net_benefit <dbl>
+#> 
+#> $summarised_ce
+#> # A tibble: 2 x 13
+#>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
+#>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
+#> 1 SoC                   0        0       4.14   0.0280           0     
+#> 2 Soc with We…         50        0       4.16   0.0346           0.0264
+#> # … with 7 more variables: sd_incremental_qlays <dbl>,
+#> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
+#> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,
+#> #   probability_cost_effective <dbl>, icer <dbl>
+```
 
 See
 [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html)
-for more details of the functions used and for more package
-functionality.
+for more details of the functions included in the package
+(`markov_ce_pipeline` for example wraps multiple modular - user
+customisable - functions) and for more package functionality.
 
 ## Contributing
 

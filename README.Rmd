@@ -62,10 +62,24 @@ remotes::install_github("seabbs/SpeedyMarkov")
 
 ## Quick start
 
-Lets get started quickly by 
+The first step is to specify a Markov model in the format specificed by `SpeedyMarkov`. An example framework is `example_two_state_markov` which is a two state Markov model that compares an intervention to a baseline. See `?example_two_state_markov` for more details.
+
+```{r}
+SpeedyMarkov::example_two_state_markov()
+```
+
+Once a model has been specified a cost effectiveness analysis can run using the following function call.
+
+```{r}
+future::plan(future::sequential())
+
+SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(), 
+                                 duration = 10, samples = 5, discount = 1.035, 
+                                 baseline = 1, willingness_to_pay_thresold = 20000)
+```
 
 
-See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions used and for more package functionality.
+See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions included in the package (`markov_ce_pipeline` for example wraps multiple modular - user customisable - functions) and for more package functionality.
 
 ## Contributing
 
