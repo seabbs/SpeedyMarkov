@@ -2,7 +2,7 @@ citHeader("To cite SpeedyMarkov in publications use:")
 
 citEntry(entry = "Article",
   title        = "SpeedyMarkov",
-  author       = personList(as.person("Sam Abbott")),
+  author       = personList(as.person("Sam Abbott"), as.person("Howard Thom")),
   journal      = "-",
   year         = "2019",
   volume       = "",

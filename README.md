@@ -81,8 +81,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x5597ef6c40f8>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb56eb58>
+#> <environment: 0x5624eb5af188>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
@@ -90,8 +90,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(baseline)
 #>   }
-#> <bytecode: 0x5597ef6c9918>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb574378>
+#> <environment: 0x5624eb5af188>
 #> 
 #> 
 #> $qalys
@@ -115,8 +115,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5597ef6cd218>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb577c78>
+#> <environment: 0x5624eb5af188>
 #> 
 #> $intervention_costs
 #> function(samples = 1) {
@@ -128,8 +128,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5597ef6dc4c0>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb586f20>
+#> <environment: 0x5624eb5af188>
 #> 
 #> $state_costs
 #> function(samples = 1) {
@@ -151,8 +151,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     names(out) <- list("SoC", "Soc with Website")
 #>     return(out)
 #>   }
-#> <bytecode: 0x5597ef6e2e98>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb58d8f8>
+#> <environment: 0x5624eb5af188>
 #> 
 #> $cohorts
 #> function() {
@@ -175,8 +175,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x5597ef6f2728>
-#> <environment: 0x5597ef704728>
+#> <bytecode: 0x5624eb59d188>
+#> <environment: 0x5624eb5af188>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
@@ -213,8 +213,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       4.14   0.0280           0     
-#> 2 Soc with We…         50        0       4.16   0.0346           0.0264
+#> 1 SoC                   0        0       4.15   0.0259          0      
+#> 2 Soc with We…         50        0       4.16   0.0325          0.00730
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,
@@ -225,7 +225,7 @@ See
 [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html)
 for more details of the functions included in the package
 (`markov_ce_pipeline` for example wraps multiple modular - user
-customisable - functions) and for more package functionality.
+customisable - functions).
 
 ## Contributing
 
@@ -255,7 +255,7 @@ citation("SpeedyMarkov")
 #> 
 #>   @Article{,
 #>     title = {SpeedyMarkov},
-#>     author = {Sam Abbott},
+#>     author = {Sam Abbott and Howard Thom},
 #>     journal = {-},
 #>     year = {2019},
 #>   }

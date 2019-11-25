@@ -79,7 +79,7 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 ```
 
 
-See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions included in the package (`markov_ce_pipeline` for example wraps multiple modular - user customisable - functions) and for more package functionality.
+See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions included in the package (`markov_ce_pipeline` for example wraps multiple modular - user customisable - functions).
 
 ## Contributing
 
