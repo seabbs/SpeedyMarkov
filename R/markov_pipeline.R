@@ -5,7 +5,8 @@
 #' approaches are "base" with "base" as the default.
 #' @return
 #' @export
-#' @importFrom furrr future_map_dfr
+#' @importFrom furrr future_map
+#' @importFrom data.table rbindlist
 #' @importFrom dplyr bind_cols
 #' @importFrom tibble as_tibble
 #' @inheritParams simulate_markov
@@ -13,17 +14,21 @@
 #' @examples
 #' 
 #' 
-#' markov_pipeline(example_two_state_markov(), duration = 10, samples = 2)
+#' markov_pipeline(example_two_state_markov(), duration = 10, samples = 10)
 #'   
 markov_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, type = "base") {
   
   # Generate samples --------------------------------------------------------
   
-  model_samples <- furrr::future_map_dfr(1:samples, ~ SpeedyMarkov::sample_markov(markov_model, type = type),
+  model_samples <- furrr::future_map(1:samples, ~ SpeedyMarkov::sample_markov(markov_model, type = type),
                                    .id = "sample", .progress = TRUE)
   
-  results <- furrr::future_map_dfr(1:nrow(model_samples), 
+  ## Parallel data frame binding for samples from data.table
+  model_samples <- data.table::rbindlist(model_samples) 
+  
+  
+  results <- furrr::future_map(1:nrow(model_samples), 
                                    ~ SpeedyMarkov::simulate_markov(
                                      markov_sample = model_samples[., ], 
                                      duration = duration,
@@ -32,16 +37,23 @@ markov_pipeline <- function(markov_model = NULL, duration = NULL,
                                      tibble::as_tibble(),
                                    .progress = TRUE)
   
-  combined <- dplyr::bind_cols(samples, results)
+  ## Parallel data frame binding for results from data.table
+  results <- data.table::rbindlist(results)
+  
+  ## Combine samples and simulation results
+  combined <- dplyr::bind_cols(model_samples, results)
+  
+  ## Convert to tibble for ease of interaction
+  combined <- as_tibble(combined)
   
   # Analyse model -----------------------------------------------------------
   
   #sum <- SpeedyMarkov::analyse_markov(combined)
-  
+  sum <- NULL
 # Define pipeline output --------------------------------------------------
 
   
-  output <- list(results, sum)
+  output <- list(combined, sum)
   names(output) <- c("simulations", "cost_effectiveness")
   return(output)
 }

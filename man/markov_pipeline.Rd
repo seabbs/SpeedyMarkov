@@ -34,6 +34,6 @@ Markov Sampling, Simulation, and Analysis Pipeline
 \examples{
 
 
-markov_pipeline(example_two_state_markov(), duration = 10, samples = 2)
+markov_pipeline(example_two_state_markov(), duration = 10, samples = 10)
   
 }
