@@ -14,6 +14,7 @@
 #' Please  see the code for more details on each required list item.
 #' @export
 #' @importFrom VGAM rdiric
+#' @importFrom stats rnorm
 #' @author Sam Abbott
 #' @examples 
 #' ## Example model run
@@ -62,7 +63,7 @@ example_two_state_markov <- function() {
 
   qalys <- function() {
     qaly <- function(samples = 1) {
-      smoking <- rnorm(1, mean = 0.95,sd = 0.01) / 2
+      smoking <- stats::rnorm(1, mean = 0.95,sd = 0.01) / 2
       not_smoking <- 1 / 2
       
       out <- c(smoking, not_smoking)
