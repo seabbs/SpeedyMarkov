@@ -8,13 +8,6 @@
 
 <title>Simulate a Markov Model Sample using RcppArmadillo — ArmaSimulateMarkov • SpeedyMarkov</title>
 
-<!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -231,7 +224,8 @@ and the duration of the model</p>
 
 <span class='co'>## Simulate using R</span>
 <span class='no'>sim_r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simulate_markov_base.html'>simulate_markov_base</a></span>(
-        <span class='co'>## Specify the storage simulation matrix to maintain consistency here (but not needed for the base implementation).</span>
+        <span class='co'>## Specify the storage simulation matrix to maintain consistency </span>
+        <span class='co'>##here (but not needed for the base implementation).</span>
         <span class='kw'>sim</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]])),
         <span class='kw'>transition</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>cohort</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>cohort</span><span class='kw'>[[</span><span class='fl'>1</span>]],
@@ -239,8 +233,8 @@ and the duration of the model</p>
         <span class='kw'>intervention_cost</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>intervention_cost</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>qalys</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>),
-        <span class='kw'>markov_loop_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/markov_loop.html'>markov_loop</a></span>
+        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>),
+        <span class='kw'>markov_loop_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='no'><a href='samabbott.co.uk/SpeedyMarkov//reference/markov_loop.html'>markov_loop</a></span>
 )
 
 <span class='co'># RcppArmadillo implementation</span>
@@ -252,7 +246,7 @@ and the duration of the model</p>
         <span class='kw'>intervention_cost</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>intervention_cost</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>qalys</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>)
+        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>)
 )
 
 <span class='co'># Check results are within tolerances</span>
@@ -267,8 +261,8 @@ and the duration of the model</p>
         <span class='kw'>intervention_cost</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>intervention_cost</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>qalys</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>100</span>),
-        <span class='kw'>markov_loop_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/markov_loop.html'>markov_loop</a></span>),
+        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>100</span>),
+        <span class='kw'>markov_loop_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='no'><a href='samabbott.co.uk/SpeedyMarkov//reference/markov_loop.html'>markov_loop</a></span>),
         <span class='fu'>ArmaSimulateMarkov</span>(
         <span class='kw'>sim</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]])),
         <span class='kw'>transition</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]],
@@ -277,14 +271,14 @@ and the duration of the model</p>
         <span class='kw'>intervention_cost</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>intervention_cost</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>qalys</span><span class='kw'>[[</span><span class='fl'>1</span>]],
         <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>100</span>)),
+        <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>100</span>)),
         <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
 #&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  expr
 #&gt;  simulate_markov_base(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100), markov_loop_fn = SpeedyMarkov::markov_loop)
 #&gt;                                                ArmaSimulateMarkov(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100))
-#&gt;      min       lq      mean   median       uq      max neval
-#&gt;  138.040 142.3175 154.26562 144.9670 153.3030 3441.233  1000
-#&gt;   69.731  71.5050  72.87631  72.1705  73.1525  160.110  1000</div></pre>
+#&gt;      min      lq      mean  median       uq      max neval
+#&gt;  142.598 147.427 171.71917 149.696 153.5185 5871.962  1000
+#&gt;   40.386  41.899  43.20448  42.560  43.5220  132.649  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -52,7 +52,8 @@ markov_sample <- sample_markov(example_two_state_markov())
 
 ## Simulate using R
 sim_r <- simulate_markov_base(
-        ## Specify the storage simulation matrix to maintain consistency here (but not needed for the base implementation).
+        ## Specify the storage simulation matrix to maintain consistency 
+        ##here (but not needed for the base implementation).
         sim =  matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
         transition = markov_sample$transition[[1]],
         cohort = markov_sample$cohort[[1]],

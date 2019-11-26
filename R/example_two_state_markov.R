@@ -33,7 +33,7 @@ example_two_state_markov <- function() {
                  VGAM::rdiric(samples, c(8, 92)))
     
     # Arrange as matrices
-    tmp <- matrix_arrange(tmp)
+    tmp <- SpeedyMarkov::matrix_arrange(tmp)
     
     return(tmp)
   }
