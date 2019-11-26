@@ -4,7 +4,6 @@
 .Ruserdata
 inst/doc
 inst/shiny/ce_dashboard/rsconnect/
-docs
 .rstudio
 .local
 .config
