@@ -14,8 +14,12 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Getting Started"
-      href: articles/intro.html
+    - text: "Code profiling"
+      menu:
+      - text: Reference two state implementation
+        href: articles/profile_reference.html
+      - text: SpeedyMarkov two state implementation
+        href: articles/profile_two_state_example.html
     - text: News
       menu:
       - text: "Change log"

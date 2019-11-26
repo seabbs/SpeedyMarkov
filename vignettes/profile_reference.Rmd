@@ -35,7 +35,7 @@ library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  reference_two_state_markov(cycles = 100, samples = 100000)
+  reference_two_state_markov(cycles = 100, samples = 10000)
 })
 ```
 
@@ -45,6 +45,6 @@ profvis({
 library(tictoc)
 
 tic()
-  sims <- reference_two_state_markov(cycles = 100, samples = 100000)
+  sims <- reference_two_state_markov(cycles = 100, samples = 10000)
 toc()
 ```
