@@ -31,7 +31,6 @@ Strategies suggested for the reference application also hold here.
 ```{r}
 library(SpeedyMarkov)
 library(profvis)
-library(future)
 
 profvis({
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
@@ -42,9 +41,6 @@ profvis({
 
 ```{r}
 library(tictoc)
-
-plan(sequential)
-
 
 tic()
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)

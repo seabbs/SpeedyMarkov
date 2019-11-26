@@ -24,7 +24,6 @@ Imports:
     dplyr (>= 0.8.3),
     tibble (>= 2.1.3),
     purrr (>= 0.3.3),
-    furrr (>= 0.1.0),
     data.table (>= 1.12.6),
     tidyr (>= 1.0.0)
 Suggests:
@@ -36,7 +35,8 @@ Suggests:
     pkgnet (>= 0.4.0),
     rmarkdown (>= 1.17),
     testthat (>= 2.3.0),
-    profvis (>= 0.3.6)
+    profvis (>= 0.3.6),
+    furrr (>= 0.1.0),
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

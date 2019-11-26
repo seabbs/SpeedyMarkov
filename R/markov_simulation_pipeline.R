@@ -3,9 +3,10 @@
 #' @param samples Numeric, defaults to 1. The number of markov model samples to use. 
 #' @param type  A character string specifying the approach to use in the modelling pipeline. Currently implemented
 #' approaches are "base" with "base" as the default.
+#' @param map_fn An R function used to iterate over the model samples and run simulations. Must accept a functon 
+#' as an argument. Defaults to using `purrr::map` if not supplied.
 #' @return A list containing the model samples and simulations.
 #' @export
-#' @importFrom furrr future_map
 #' @importFrom data.table rbindlist
 #' @importFrom dplyr bind_cols
 #' @importFrom tibble as_tibble
@@ -20,7 +21,8 @@
 #'   
 markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
                                        discount = 1.035, samples = 1, 
-                                       type = "base", debug = FALSE) {
+                                       type = "base", map_fn = NULL, 
+                                       debug = FALSE) {
   
   # Generate samples --------------------------------------------------------
   
@@ -48,16 +50,22 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
   ## Map samples to a list for efficiency
   samples_list <- purrr::transpose(model_samples)
   
+  ## Default to purrr map function if not supplied
+  if (is.null(map_fn)) {
+    map_fun <- purrr::map
+  }
+  
   ## Simulate over samples and interventions
-  results <- purrr::map(samples_list, 
-                               ~ SpeedyMarkov::simulate_markov(
-                                 markov_sample = ., 
-                                 duration = duration,
-                                 discount = discount, 
-                                 type = type,
-                                 sim = sim_storage,
-                                 input_is_list = TRUE,
-                                 debug = debug))
+  results <- map_fun(samples_list, function(sample) {
+    SpeedyMarkov::simulate_markov(
+      markov_sample = sample, 
+      duration = duration,
+      discount = discount, 
+      type = type,
+      sim = sim_storage,
+      input_is_list = TRUE,
+      debug = debug)
+  })
   
   ## Parallel data frame binding for results from data.table
   results <- data.table::rbindlist(results)
