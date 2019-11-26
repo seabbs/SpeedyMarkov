@@ -28,16 +28,13 @@ for the correct format.}
 \item{sample_type}{A character string specifying the approach to use to sample the model.
 Options and defaults inherited from \code{sample_markov}.}
 
+\item{sim_type}{A character string specifying the approach to use to simulate the model.
+Options and defaults inherited from \code{simulate_markov}.}
+
 \item{map_fn}{An R function used to iterate over the model samples and run simulations. Must accept a functon
 as an argument. Defaults to using \code{purrr::map} if not supplied.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
-
-\item{type}{A character string specifying the approach to use in the modelling pipeline. Currently implemented
-approaches are "base" with "base" as the default.}
-
-\item{sim_type.}{A character string specifying the approach to use to simulate the model.
-Options and defaults inherited from \code{simulate_markov}.}
 }
 \value{
 A list containing the model samples and simulations.

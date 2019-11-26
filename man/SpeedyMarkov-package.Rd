@@ -6,6 +6,8 @@
 \alias{SpeedyMarkov-package}
 \title{SpeedyMarkov: Speed up Discrete Markov Model Simulations}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Speed up Discrete Markov Model Simulations.
 }
 \seealso{

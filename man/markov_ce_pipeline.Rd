@@ -34,6 +34,9 @@ may be considered cost effective in the UK.}
 \item{sample_type}{A character string specifying the approach to use to sample the model.
 Options and defaults inherited from \code{sample_markov}.}
 
+\item{sim_type}{A character string specifying the approach to use to simulate the model.
+Options and defaults inherited from \code{simulate_markov}.}
+
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 }
 \value{

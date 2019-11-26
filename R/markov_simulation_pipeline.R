@@ -1,11 +1,9 @@
 #' Markov Sampling and Simulation Pipeline
 #'
 #' @param samples Numeric, defaults to 1. The number of markov model samples to use. 
-#' @param type  A character string specifying the approach to use in the modelling pipeline. Currently implemented
-#' approaches are "base" with "base" as the default.
 #' @param sample_type A character string specifying the approach to use to sample the model. 
 #' Options and defaults inherited from `sample_markov`.
-#' @param sim_type. A character string specifying the approach to use to simulate the model. 
+#' @param sim_type A character string specifying the approach to use to simulate the model. 
 #' Options and defaults inherited from `simulate_markov`.
 #' @param map_fn An R function used to iterate over the model samples and run simulations. Must accept a functon 
 #' as an argument. Defaults to using `purrr::map` if not supplied.
