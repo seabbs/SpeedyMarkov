@@ -12,7 +12,8 @@
 markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
                             willingness_to_pay_thresold = 20000,
-                            type = "base", debug = FALSE) {
+                            sample_type = "base", sim_type = "base",
+                            debug = FALSE) {
   
   
 
@@ -21,14 +22,14 @@ markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                                             duration = duration,
                                             discount = discount, 
                                             samples = samples,
-                                            type = type,
+                                            sample_type = sample_type,
+                                            sim_type = sim_type,
                                             debug = debug)
   
   # Analyse model -----------------------------------------------------------
   
   sum <- SpeedyMarkov::analyse_ce(simulations, baseline = baseline,
-                                  willingness_to_pay_thresold = willingness_to_pay_thresold,
-                                  type = type)
+                                  willingness_to_pay_thresold = willingness_to_pay_thresold)
   
   return(sum)
 }

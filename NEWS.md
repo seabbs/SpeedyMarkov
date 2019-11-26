@@ -5,6 +5,8 @@
 * Added reference model
 * Added initial working implementation of the reference model
 * Added core package functionality around a tidy implementation of Markov modelling
+* Optimised core implementation using profiling
+* Added a`RcppArmadillo` based inner loop to optimise model solving.
 
 ## Package updates
 

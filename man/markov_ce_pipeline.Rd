@@ -11,7 +11,8 @@ markov_ce_pipeline(
   samples = 1,
   baseline = 1,
   willingness_to_pay_thresold = 20000,
-  type = "base",
+  sample_type = "base",
+  sim_type = "base",
   debug = FALSE
 )
 }
@@ -30,8 +31,8 @@ for the correct format.}
 \item{willingness_to_pay_thresold}{Numeric, defaulting to 20,000. This is the thresold at which an intervention
 may be considered cost effective in the UK.}
 
-\item{type}{A character string specifying the approach to use in the modelling pipeline. Currently implemented
-approaches are "base" with "base" as the default.}
+\item{sample_type}{A character string specifying the approach to use to sample the model.
+Options and defaults inherited from \code{sample_markov}.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 }

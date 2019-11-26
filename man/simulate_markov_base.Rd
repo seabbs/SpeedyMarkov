@@ -12,14 +12,14 @@ simulate_markov_base(
   qalys = NULL,
   duration = NULL,
   discount = 1.035,
-  sim = NULL
+  sim = NULL,
+  markov_loop_fn = NULL
 )
 }
 \arguments{
 \item{transition}{A transition matrix, see \code{example_two_state_markov} for an example of setting this up.}
 
-\item{cohort}{A list containing the initial state for each intervention,
-see \code{example_two_state_markov} for an example of setting this up.}
+\item{cohort}{A vector containing the initial state.}
 
 \item{state_cost}{A list of state costs for each intervention,
 see \code{example_two_state_markov} for an example of setting this up.}
@@ -34,6 +34,9 @@ see \code{example_two_state_markov} for an example of setting this up.}
 
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
 states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.}
+
+\item{markov_loop_fn}{A function, defaults to ] \code{NULL}. The function to use to solve the inner markov loops. Built in examples
+are \code{markov_loop} (using \code{R}) and \code{ArmaMarkovLoop} (using \code{RcppArmadillo})}
 }
 \value{
 A list containing total costs and total QALYs as matrices across states
@@ -43,6 +46,8 @@ and the duration of the model
 This model agnostic function runs a single markov model for the specified duration using a base R implementation.
 See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")} and
 the output from \code{sample_markov}.
+
+see \code{example_two_state_markov} for an example of setting this up.
 }
 \examples{
   
@@ -54,7 +59,8 @@ the output from \code{sample_markov}.
      state_cost = markov_sample$state_cost[[1]], 
      intervention_cost = markov_sample$intervention_cost[[1]], 
      qalys = markov_sample$qalys[[1]], 
-     duration = 10
+     duration = 10,
+     markov_loop_fn = SpeedyMarkov::markov_loop
  )  
   
   

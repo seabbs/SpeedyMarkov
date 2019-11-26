@@ -3,6 +3,10 @@
 #' @param samples Numeric, defaults to 1. The number of markov model samples to use. 
 #' @param type  A character string specifying the approach to use in the modelling pipeline. Currently implemented
 #' approaches are "base" with "base" as the default.
+#' @param sample_type A character string specifying the approach to use to sample the model. 
+#' Options and defaults inherited from `sample_markov`.
+#' @param sim_type. A character string specifying the approach to use to simulate the model. 
+#' Options and defaults inherited from `simulate_markov`.
 #' @param map_fn An R function used to iterate over the model samples and run simulations. Must accept a functon 
 #' as an argument. Defaults to using `purrr::map` if not supplied.
 #' @return A list containing the model samples and simulations.
@@ -21,13 +25,15 @@
 #'   
 markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
                                        discount = 1.035, samples = 1, 
-                                       type = "base", map_fn = NULL, 
+                                       sample_type = "base",
+                                       sim_type = "base",
+                                       map_fn = NULL, 
                                        debug = FALSE) {
   
   # Generate samples --------------------------------------------------------
   
   model_samples <- SpeedyMarkov::sample_markov(markov_model,
-                                               type = type,
+                                               type = sample_type,
                                                debug = debug,
                                                samples = samples)
   
@@ -61,7 +67,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
       markov_sample = sample, 
       duration = duration,
       discount = discount, 
-      type = type,
+      type = sim_type,
       sim = sim_storage,
       input_is_list = TRUE,
       debug = debug)

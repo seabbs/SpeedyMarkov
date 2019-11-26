@@ -28,12 +28,27 @@ Again profiling indicates that the interior iteratively updated for loop operati
 
 Strategies suggested for the reference application also hold here.
 
+
+### R implementation
+
 ```{r}
 library(SpeedyMarkov)
 library(profvis)
 
 profvis({
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
+})
+```
+
+### R augmented with Rcpp implementation
+
+```{r}
+library(SpeedyMarkov)
+library(profvis)
+
+profvis({
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
+                     sim_type = "armadillo_inner")
 })
 ```
 
