@@ -7,3 +7,4 @@ inst/shiny/ce_dashboard/rsconnect/
 .rstudio
 .local
 .config
+pkgdown

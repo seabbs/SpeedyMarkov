@@ -40,24 +40,22 @@ simulate_markov <- function(markov_sample = NULL,
       stop("Only 1 sample may be simulated at a time.")
       
     }
-    
-    ## If the input type is not given check for a dataframe and convert as required
-    if (is.null(input_is_list) | isFALSE(input_is_list)) {
-      if (is.data.frame(markov_sample)) {
-        # Flip input format into a nested list
-        markov_sample <- purrr::transpose(markov_sample)
-        # Extract the first object from the list
-        markov_sample <- markov_sample[[1]]
-      }
-    }
-    
-    
+  
     if (type == "armadillo_all" & is.null(sim)) {
       stop("This implementation requires the sim matrix to be prespecified. 
             See the docs for details.")
     }
   }
   
+  ## If the input type is not given check for a dataframe and convert as required
+  if (is.null(input_is_list) | isFALSE(input_is_list)) {
+    if (is.data.frame(markov_sample)) {
+      # Flip input format into a nested list
+      markov_sample <- purrr::transpose(markov_sample)
+      # Extract the first object from the list
+      markov_sample <- markov_sample[[1]]
+    }
+  }
 
   
   if (type == "base") {

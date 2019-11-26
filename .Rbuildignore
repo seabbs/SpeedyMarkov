@@ -20,3 +20,4 @@
 ^binder$
 ^vignettes/profile_reference\.Rmd$
 ^vignettes/profile_two_state_example\.Rmd$
+^pkgdown$
