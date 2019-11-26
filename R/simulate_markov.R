@@ -8,7 +8,8 @@
 #' @param markov_sample A single row dataframe or a list with no default. See `sample_markov` 
 #' for the correct data format.
 #' @param type A character string specifying the approach to use to simulate the model. Currently implemented
-#' approaches are "base" with "base" as the default.
+#' approaches are "base", "armadillo_inner" and "armadillo_all with "armadillo_inner" as the default.
+#' "armadillo_all" is likely to be generally faster but has a slightly reduced feature set.
 #' @param debug Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.
 #' @param input_is_list Logical defaults to NULL. What type of input is `markov_sample`? A list or a dataframe.
 #' If not given then the input type will be checked and converted to a list as required. 
@@ -24,7 +25,7 @@
 simulate_markov <- function(markov_sample = NULL, 
                             duration = NULL,
                             discounting = NULL, 
-                            type = "base",
+                            type = "armadillo_inner",
                             debug = FALSE,
                             input_is_list = NULL,
                             sim = NULL) { 
@@ -39,21 +40,28 @@ simulate_markov <- function(markov_sample = NULL,
       stop("Only 1 sample may be simulated at a time.")
       
     }
-  }
-  
-  ## If the input type is not given check for a dataframe and convert as required
-  if (is.null(input_is_list) | isFALSE(input_is_list)) {
-    if (is.data.frame(markov_sample)) {
-      # Flip input format into a nested list
-      markov_sample <- purrr::transpose(markov_sample)
-      # Extract the first object from the list
-      markov_sample <- markov_sample[[1]]
+    
+    ## If the input type is not given check for a dataframe and convert as required
+    if (is.null(input_is_list) | isFALSE(input_is_list)) {
+      if (is.data.frame(markov_sample)) {
+        # Flip input format into a nested list
+        markov_sample <- purrr::transpose(markov_sample)
+        # Extract the first object from the list
+        markov_sample <- markov_sample[[1]]
+      }
+    }
+    
+    
+    if (type == "armadillo_all" & is.null(sim)) {
+      stop("This implementation requires the sim matrix to be prespecified. 
+            See the docs for details.")
     }
   }
   
+
   
   if (type == "base") {
-    out <- simulate_markov_base(      
+    out <- SpeedyMarkov::simulate_markov_base(      
       transition = markov_sample[["transition"]],
       cohort = markov_sample[["cohort"]],
       state_cost = markov_sample[["state_cost"]],
@@ -65,7 +73,7 @@ simulate_markov <- function(markov_sample = NULL,
       markov_loop_fn = SpeedyMarkov::markov_loop
     )
   }else if (type == "armadillo_inner") {
-    out <- simulate_markov_base(      
+    out <- SpeedyMarkov::simulate_markov_base(      
       transition = markov_sample[["transition"]],
       cohort = markov_sample[["cohort"]],
       state_cost = markov_sample[["state_cost"]],
@@ -75,6 +83,17 @@ simulate_markov <- function(markov_sample = NULL,
       discounting = discounting,
       sim = sim,
       markov_loop_fn = SpeedyMarkov::ArmaMarkovLoop
+    )
+  }else if (type == "armadillo_all") {
+    out <- SpeedyMarkov::ArmaSimulateMarkov(      
+      transition = markov_sample[["transition"]],
+      cohort = markov_sample[["cohort"]],
+      state_cost = markov_sample[["state_cost"]],
+      intervention_cost = markov_sample[["intervention_cost"]] , 
+      qalys = markov_sample[["qalys"]], 
+      duration = duration,
+      discounting = discounting,
+      sim = sim
     )
   }
   
@@ -147,6 +166,5 @@ simulate_markov_base <- function(transition = NULL, cohort = NULL, state_cost = 
   
   return(out)
 }
-
 
 

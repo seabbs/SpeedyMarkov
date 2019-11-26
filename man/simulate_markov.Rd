@@ -8,7 +8,7 @@ simulate_markov(
   markov_sample = NULL,
   duration = NULL,
   discounting = NULL,
-  type = "base",
+  type = "armadillo_inner",
   debug = FALSE,
   input_is_list = NULL,
   sim = NULL
@@ -24,7 +24,8 @@ for the correct data format.}
 This must be the same legnth as \code{duration}.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
-approaches are "base" with "base" as the default.}
+approaches are "base", "armadillo_inner" and "armadillo_all with "armadillo_inner" as the default.
+"armadillo_all" is likely to be generally faster but has a slightly reduced feature set.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 

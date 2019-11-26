@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{ArmaSimulateMarkov}
 \alias{ArmaSimulateMarkov}
-\title{An inner Markov loop implemented using RcppArmadillo}
+\title{Simulate a Markov Model Sample using RcppArmadillo}
 \usage{
 ArmaSimulateMarkov(
   sim,
@@ -40,11 +40,10 @@ A list containing total costs and total QALYs as matrices across states
 and the duration of the model
 }
 \description{
-This model agnostic function runs a single markov model for the specified duration using a base R implementation.
-See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")} and
-the output from \code{sample_markov}.
-
-see \code{example_two_state_markov} for an example of setting this up.
+This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
+See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")}
+and the output from \code{sample_markov}. Unlike \code{simulate_markov_base} this implementation requires the prespecification of the
+simulation storage matrix.
 }
 \examples{
 
@@ -53,6 +52,7 @@ markov_sample <- sample_markov(example_two_state_markov())
 
 ## Simulate using R
 sim_r <- simulate_markov_base(
+        ## Specify the storage simulation matrix to maintain consistency here (but not needed for the base implementation).
         sim =  matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
         transition = markov_sample$transition[[1]],
         cohort = markov_sample$cohort[[1]],

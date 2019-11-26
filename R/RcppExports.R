@@ -30,7 +30,12 @@ ArmaMarkovLoop <- function(sim, cohort, transition, duration) {
     .Call(`_SpeedyMarkov_ArmaMarkovLoop`, sim, cohort, transition, duration)
 }
 
-#' @title An inner Markov loop implemented using RcppArmadillo
+#' @title Simulate a Markov Model Sample using RcppArmadillo
+#' 
+#' @description This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
+#'  See `example_two_state_markov` for an example of the required input. Alternatively use `sample_markov(type = "base")`
+#'   and the output from `sample_markov`. Unlike `simulate_markov_base` this implementation requires the prespecification of the
+#'   simulation storage matrix.
 #' @inherit simulate_markov_base
 #' @export
 #' @useDynLib SpeedyMarkov, .registration=TRUE
@@ -41,6 +46,7 @@ ArmaMarkovLoop <- function(sim, cohort, transition, duration) {
 #' 
 #' ## Simulate using R
 #' sim_r <- simulate_markov_base(
+#'         ## Specify the storage simulation matrix to maintain consistency here (but not needed for the base implementation).
 #'         sim =  matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
 #'         transition = markov_sample$transition[[1]],
 #'         cohort = markov_sample$cohort[[1]],

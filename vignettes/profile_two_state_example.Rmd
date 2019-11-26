@@ -36,11 +36,12 @@ library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
+                     sim_type = "base")
 })
 ```
 
-### R augmented with Rcpp implementation
+### R  implementation augmented with Rcpp 
 
 ```{r}
 library(SpeedyMarkov)
@@ -52,12 +53,17 @@ profvis({
 })
 ```
 
-## Benchmark
+### R implementation further augmented with Rcpp
 
 ```{r}
-library(tictoc)
+library(SpeedyMarkov)
+library(profvis)
 
-tic()
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000)
-toc()
+profvis({
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
+                     sim_type = "armadillo_all")
+})
 ```
+
+## Benchmark
+
