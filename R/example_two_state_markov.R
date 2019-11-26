@@ -32,19 +32,8 @@ example_two_state_markov <- function() {
     tmp <- list(VGAM::rdiric(samples, c(88, 12)),
                  VGAM::rdiric(samples, c(8, 92)))
     
-    # Map transitions into matrices
-    dim <- length(tmp)
-    out <- matrix(NA, dim, dim)
-    colnames(out) <- c("Smoking", "Not smoking")
-    rownames(out) <- c("Smoking", "Not smoking")
-    
-    tmp <- purrr::map(1:nrow(tmp[[1]]),~  {
-    
-      for (i in 1:dim) {
-        out[i, ] <- tmp[[i]][., ]
-      }
-      return(out)
-    })
+    # Arrange as matrices
+    tmp <- matrix_arrange(tmp)
     
     return(tmp)
   }
