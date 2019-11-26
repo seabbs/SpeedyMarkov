@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     texinfo \
     libqpdf-dev \
     libmagick++-dev \
+    gdb \
     && apt-get clean
 
 ADD . /home/rstudio/SpeedyMarkov

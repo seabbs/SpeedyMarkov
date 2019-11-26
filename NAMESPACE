@@ -2,7 +2,9 @@
 
 export("%>%")
 export(ArmaMarkovLoop)
+export(ArmaSimulateMarkov)
 export(analyse_ce)
+export(calc_discounting)
 export(example_two_state_markov)
 export(markov_ce_pipeline)
 export(markov_loop)

@@ -7,7 +7,7 @@
 simulate_markov(
   markov_sample = NULL,
   duration = NULL,
-  discount = 1.035,
+  discounting = NULL,
   type = "base",
   debug = FALSE,
   input_is_list = NULL,
@@ -20,7 +20,8 @@ for the correct data format.}
 
 \item{duration}{Numeric, how many long to run the model for.}
 
-\item{discount}{Numeric, the discount that should be applied to the costs and QALYs. Defaults to 1.035.}
+\item{discounting}{Numeric vector, the discount that should be applied to the costs and QALYs for each time period.
+This must be the same legnth as \code{duration}.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
 approaches are "base" with "base" as the default.}
@@ -45,6 +46,6 @@ that may offer various advantages and disadvantages.
 
 sample <- sample_markov(example_two_state_markov())
   
-simulate_markov(sample[1, ], duration = 10)
+simulate_markov(sample[1, ], duration = 10, discounting = SpeedyMarkov::calc_discounting(1.035, 10))
   
 }

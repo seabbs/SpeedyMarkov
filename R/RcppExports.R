@@ -30,3 +30,66 @@ ArmaMarkovLoop <- function(sim, cohort, transition, duration) {
     .Call(`_SpeedyMarkov_ArmaMarkovLoop`, sim, cohort, transition, duration)
 }
 
+#' @title An inner Markov loop implemented using RcppArmadillo
+#' @inherit simulate_markov_base
+#' @export
+#' @useDynLib SpeedyMarkov, .registration=TRUE
+#' @examples
+#' 
+#' ## Sample model
+#' markov_sample <- sample_markov(example_two_state_markov())
+#' 
+#' ## Simulate using R
+#' sim_r <- simulate_markov_base(
+#'         sim =  matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
+#'         transition = markov_sample$transition[[1]],
+#'         cohort = markov_sample$cohort[[1]],
+#'         state_cost = markov_sample$state_cost[[1]], 
+#'         intervention_cost = markov_sample$intervention_cost[[1]], 
+#'         qalys = markov_sample$qalys[[1]], 
+#'         duration = 10,
+#'         discounting = SpeedyMarkov::calc_discounting(1.035, 10),
+#'         markov_loop_fn = SpeedyMarkov::markov_loop
+#')  
+#' 
+#' # RcppArmadillo implementation
+#' sim_rcppArma <- ArmaSimulateMarkov(
+#'         sim =  matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
+#'         transition = markov_sample$transition[[1]],
+#'         cohort = markov_sample$cohort[[1]],
+#'         state_cost = markov_sample$state_cost[[1]], 
+#'         intervention_cost = markov_sample$intervention_cost[[1]], 
+#'         qalys = markov_sample$qalys[[1]], 
+#'         duration = 10,
+#'         discounting = SpeedyMarkov::calc_discounting(1.035, 10)
+#')  
+#' 
+#' # Check results are within tolerances
+#' all.equal(sim_r, sim_rcppArma)
+#' 
+#' # Benchmark
+#' library(microbenchmark)
+#' microbenchmark(simulate_markov_base(
+#'         sim =  matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),
+#'         transition = markov_sample$transition[[1]],
+#'         cohort = markov_sample$cohort[[1]],
+#'         state_cost = markov_sample$state_cost[[1]], 
+#'         intervention_cost = markov_sample$intervention_cost[[1]], 
+#'         qalys = markov_sample$qalys[[1]], 
+#'         duration = 100,
+#'         discounting = SpeedyMarkov::calc_discounting(1.035, 100),
+#'         markov_loop_fn = SpeedyMarkov::markov_loop),
+#'         ArmaSimulateMarkov(
+#'         sim =  matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),
+#'         transition = markov_sample$transition[[1]],
+#'         cohort = markov_sample$cohort[[1]],
+#'         state_cost = markov_sample$state_cost[[1]], 
+#'         intervention_cost = markov_sample$intervention_cost[[1]], 
+#'         qalys = markov_sample$qalys[[1]], 
+#'         duration = 100,
+#'         discounting = SpeedyMarkov::calc_discounting(1.035, 100)),
+#'         times = 1000)
+ArmaSimulateMarkov <- function(sim, cohort, transition, duration, state_cost, discounting, qalys, intervention_cost) {
+    .Call(`_SpeedyMarkov_ArmaSimulateMarkov`, sim, cohort, transition, duration, state_cost, discounting, qalys, intervention_cost)
+}
+

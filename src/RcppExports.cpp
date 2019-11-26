@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // ArmaMarkovLoop
-SEXP ArmaMarkovLoop(arma::mat sim, arma::rowvec cohort, arma::mat transition, int duration);
+arma::mat ArmaMarkovLoop(arma::mat sim, arma::rowvec cohort, arma::mat transition, int duration);
 RcppExport SEXP _SpeedyMarkov_ArmaMarkovLoop(SEXP simSEXP, SEXP cohortSEXP, SEXP transitionSEXP, SEXP durationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -20,9 +20,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ArmaSimulateMarkov
+Rcpp::List ArmaSimulateMarkov(arma::mat sim, arma::rowvec cohort, arma::mat transition, int duration, arma::colvec state_cost, arma::vec discounting, arma::colvec qalys, double intervention_cost);
+RcppExport SEXP _SpeedyMarkov_ArmaSimulateMarkov(SEXP simSEXP, SEXP cohortSEXP, SEXP transitionSEXP, SEXP durationSEXP, SEXP state_costSEXP, SEXP discountingSEXP, SEXP qalysSEXP, SEXP intervention_costSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type sim(simSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type cohort(cohortSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type transition(transitionSEXP);
+    Rcpp::traits::input_parameter< int >::type duration(durationSEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type state_cost(state_costSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type discounting(discountingSEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type qalys(qalysSEXP);
+    Rcpp::traits::input_parameter< double >::type intervention_cost(intervention_costSEXP);
+    rcpp_result_gen = Rcpp::wrap(ArmaSimulateMarkov(sim, cohort, transition, duration, state_cost, discounting, qalys, intervention_cost));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SpeedyMarkov_ArmaMarkovLoop", (DL_FUNC) &_SpeedyMarkov_ArmaMarkovLoop, 4},
+    {"_SpeedyMarkov_ArmaSimulateMarkov", (DL_FUNC) &_SpeedyMarkov_ArmaSimulateMarkov, 8},
     {NULL, NULL, 0}
 };
 

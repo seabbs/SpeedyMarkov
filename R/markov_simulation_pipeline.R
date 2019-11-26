@@ -5,6 +5,7 @@
 #' Options and defaults inherited from `sample_markov`.
 #' @param sim_type A character string specifying the approach to use to simulate the model. 
 #' Options and defaults inherited from `simulate_markov`.
+#' @param discount Numeric, the discount that should be applied to the costs and QALYs. Defaults to 1.035.
 #' @param map_fn An R function used to iterate over the model samples and run simulations. Must accept a functon 
 #' as an argument. Defaults to using `purrr::map` if not supplied.
 #' @return A list containing the model samples and simulations.
@@ -46,7 +47,11 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
   sim_storage <- matrix(NA, nrow = duration, ncol = nrow(template_transition))
   colnames(sim_storage) <- colnames(template_transition )
    
-  
+
+
+# Calculate discounting ---------------------------------------------------
+
+  discounting <-  SpeedyMarkov::calc_discounting(discount, duration)  
 
 # Simulate model from samples ---------------------------------------------
 
@@ -64,7 +69,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
     SpeedyMarkov::simulate_markov(
       markov_sample = sample, 
       duration = duration,
-      discount = discount, 
+      discounting = discounting, 
       type = sim_type,
       sim = sim_storage,
       input_is_list = TRUE,
