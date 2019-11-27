@@ -12,7 +12,8 @@ markov_simulation_pipeline(
   sample_type = "base",
   sim_type = "base",
   map_fn = NULL,
-  debug = FALSE
+  debug = FALSE,
+  ...
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ Options and defaults inherited from \code{simulate_markov}.}
 as an argument. Defaults to using \code{purrr::map} if not supplied.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
+
+\item{...}{Additional arguements passed to \code{map_fn}.}
 }
 \value{
 A list containing the model samples and simulations.

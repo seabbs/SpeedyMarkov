@@ -8,6 +8,7 @@
 #' @param discount Numeric, the discount that should be applied to the costs and QALYs. Defaults to 1.035.
 #' @param map_fn An R function used to iterate over the model samples and run simulations. Must accept a functon 
 #' as an argument. Defaults to using `purrr::map` if not supplied.
+#' @param ... Additional arguements passed to `map_fn`.
 #' @return A list containing the model samples and simulations.
 #' @export
 #' @importFrom data.table rbindlist
@@ -27,7 +28,8 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
                                        sample_type = "base",
                                        sim_type = "base",
                                        map_fn = NULL, 
-                                       debug = FALSE) {
+                                       debug = FALSE, 
+                                       ...) {
   
   # Generate samples --------------------------------------------------------
   
@@ -74,7 +76,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
       sim = sim_storage,
       input_is_list = TRUE,
       debug = debug)
-  })
+  }, ...)
   
   ## Parallel data frame binding for results from data.table
   results <- data.table::rbindlist(results)

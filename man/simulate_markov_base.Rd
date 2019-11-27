@@ -55,7 +55,7 @@ see \code{example_two_state_markov} for an example of setting this up.
  markov_sample <- sample_markov(example_two_state_markov())
  
  simulate_markov_base(
-     sim = matrix(NA, nrow = duration, ncol = nrow(markov_sample$transition[[1]])),
+     sim = matrix(NA, nrow = 10, ncol = nrow(markov_sample$transition[[1]])),
      transition = markov_sample$transition[[1]],
      cohort = markov_sample$cohort[[1]],
      state_cost = markov_sample$state_cost[[1]], 

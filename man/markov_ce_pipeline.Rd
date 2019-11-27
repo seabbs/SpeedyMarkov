@@ -13,7 +13,8 @@ markov_ce_pipeline(
   willingness_to_pay_thresold = 20000,
   sample_type = "base",
   sim_type = "base",
-  debug = FALSE
+  debug = FALSE,
+  ...
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ Options and defaults inherited from \code{sample_markov}.}
 Options and defaults inherited from \code{simulate_markov}.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
+
+\item{...}{Additional arguements passed to \code{map_fn}.}
 }
 \value{
 A list containing the model samples and simulations and cost effectiveness summary measures.
