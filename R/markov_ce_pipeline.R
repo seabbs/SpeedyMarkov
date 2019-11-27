@@ -13,17 +13,18 @@ markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
                             willingness_to_pay_thresold = 20000,
                             sample_type = "base", sim_type = "base",
-                            debug = FALSE, ...) {
+                            map_fn = NULL, debug = FALSE, ...) {
   
   
 
   # Sample and simulation markov --------------------------------------------
-  simulations <- markov_simulation_pipeline(markov_model = markov_model, 
+  simulations <- SpeedyMarkov::markov_simulation_pipeline(markov_model = markov_model, 
                                             duration = duration,
                                             discount = discount, 
                                             samples = samples,
                                             sample_type = sample_type,
                                             sim_type = sim_type,
+                                            map_fn = map_fn,
                                             debug = debug, ...)
   
   # Analyse model -----------------------------------------------------------

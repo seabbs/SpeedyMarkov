@@ -63,11 +63,11 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
   
   ## Default to purrr map function if not supplied
   if (is.null(map_fn)) {
-    map_fun <- purrr::map
+    map_fn <- purrr::map
   }
   
   ## Simulate over samples and interventions
-  results <- map_fun(samples_list, function(sample) {
+  results <- map_fn(samples_list, function(sample) {
     SpeedyMarkov::simulate_markov(
       markov_sample = sample, 
       duration = duration,

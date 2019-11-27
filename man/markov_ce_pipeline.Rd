@@ -13,6 +13,7 @@ markov_ce_pipeline(
   willingness_to_pay_thresold = 20000,
   sample_type = "base",
   sim_type = "base",
+  map_fn = NULL,
   debug = FALSE,
   ...
 )
@@ -37,6 +38,9 @@ Options and defaults inherited from \code{sample_markov}.}
 
 \item{sim_type}{A character string specifying the approach to use to simulate the model.
 Options and defaults inherited from \code{simulate_markov}.}
+
+\item{map_fn}{An R function used to iterate over the model samples and run simulations. Must accept a functon
+as an argument. Defaults to using \code{purrr::map} if not supplied.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 
