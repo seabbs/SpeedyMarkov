@@ -8,7 +8,7 @@ simulate_markov(
   markov_sample = NULL,
   duration = NULL,
   discounting = NULL,
-  type = "armadillo_inner",
+  type = "armadillo_all",
   debug = FALSE,
   input_is_list = NULL,
   sim = NULL
@@ -33,7 +33,7 @@ approaches are "base", "armadillo_inner" and "armadillo_all with "armadillo_inne
 If not given then the input type will be checked and converted to a list as required.}
 
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.}
+states in the model. Used to store model simulatons.}
 }
 \value{
 A list containing total costs and total QALYs as matrices across states

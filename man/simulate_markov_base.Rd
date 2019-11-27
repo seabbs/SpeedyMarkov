@@ -34,7 +34,7 @@ see \code{example_two_state_markov} for an example of setting this up.}
 This must be the same legnth as \code{duration}.}
 
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.}
+states in the model. Used to store model simulatons.}
 
 \item{markov_loop_fn}{A function, defaults to ] \code{NULL}. The function to use to solve the inner markov loops. Built in examples
 are \code{markov_loop} (using \code{R}) and \code{ArmaMarkovLoop} (using \code{RcppArmadillo})}
@@ -55,6 +55,7 @@ see \code{example_two_state_markov} for an example of setting this up.
  markov_sample <- sample_markov(example_two_state_markov())
  
  simulate_markov_base(
+     sim = matrix(NA, nrow = duration, ncol = nrow(markov_sample$transition[[1]])),
      transition = markov_sample$transition[[1]],
      cohort = markov_sample$cohort[[1]],
      state_cost = markov_sample$state_cost[[1]], 

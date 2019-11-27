@@ -17,7 +17,7 @@ ArmaSimulateMarkov(
 }
 \arguments{
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.}
+states in the model. Used to store model simulatons.}
 
 \item{cohort}{A vector containing the initial state.}
 
@@ -42,8 +42,7 @@ and the duration of the model
 \description{
 This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
 See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")}
-and the output from \code{sample_markov}. Unlike \code{simulate_markov_base} this implementation requires the prespecification of the
-simulation storage matrix.
+and the output from \code{sample_markov}.
 }
 \examples{
 

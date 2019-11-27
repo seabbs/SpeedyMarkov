@@ -25,7 +25,7 @@
 simulate_markov <- function(markov_sample = NULL, 
                             duration = NULL,
                             discounting = NULL, 
-                            type = "armadillo_inner",
+                            type = "armadillo_all",
                             debug = FALSE,
                             input_is_list = NULL,
                             sim = NULL) { 
@@ -56,11 +56,18 @@ simulate_markov <- function(markov_sample = NULL,
       markov_sample <- markov_sample[[1]]
     }
   }
+  
+  ## Assign transition
+  transition <- markov_sample[["transition"]]
 
+  ## Preallocate
+  if (is.null(sim)) {
+    sim <- matrix(NA, nrow = duration, ncol = nrow(transition))
+  }
   
   if (type == "base") {
     out <- SpeedyMarkov::simulate_markov_base(      
-      transition = markov_sample[["transition"]],
+      transition = transition,
       cohort = markov_sample[["cohort"]],
       state_cost = markov_sample[["state_cost"]],
       intervention_cost = markov_sample[["intervention_cost"]] , 
@@ -72,7 +79,7 @@ simulate_markov <- function(markov_sample = NULL,
     )
   }else if (type == "armadillo_inner") {
     out <- SpeedyMarkov::simulate_markov_base(      
-      transition = markov_sample[["transition"]],
+      transition = transition,
       cohort = markov_sample[["cohort"]],
       state_cost = markov_sample[["state_cost"]],
       intervention_cost = markov_sample[["intervention_cost"]] , 
@@ -84,7 +91,7 @@ simulate_markov <- function(markov_sample = NULL,
     )
   }else if (type == "armadillo_all") {
     out <- SpeedyMarkov::ArmaSimulateMarkov(      
-      transition = markov_sample[["transition"]],
+      transition = transition,
       cohort = markov_sample[["cohort"]],
       state_cost = markov_sample[["state_cost"]],
       intervention_cost = markov_sample[["intervention_cost"]] , 
@@ -113,7 +120,7 @@ simulate_markov <- function(markov_sample = NULL,
 #' @param discounting Numeric vector, the discount that should be applied to the costs and QALYs for each time period. 
 #' This must be the same legnth as `duration`.
 #' @param sim Matrix with the same number of rows as the duration of the model and the same number of columns as the number of 
-#' states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.
+#' states in the model. Used to store model simulatons.
 #' @param markov_loop_fn A function, defaults to ] \code{NULL}. The function to use to solve the inner markov loops. Built in examples
 #' are `markov_loop` (using `R`) and `ArmaMarkovLoop` (using `RcppArmadillo`)
 #' @return A list containing total costs and total QALYs as matrices across states
@@ -126,6 +133,7 @@ simulate_markov <- function(markov_sample = NULL,
 #'  markov_sample <- sample_markov(example_two_state_markov())
 #'  
 #'  simulate_markov_base(
+#'      sim = matrix(NA, nrow = duration, ncol = nrow(markov_sample$transition[[1]])),
 #'      transition = markov_sample$transition[[1]],
 #'      cohort = markov_sample$cohort[[1]],
 #'      state_cost = markov_sample$state_cost[[1]], 
@@ -141,11 +149,6 @@ simulate_markov_base <- function(transition = NULL, cohort = NULL, state_cost = 
                                  intervention_cost = NULL, qalys = NULL, duration = NULL,
                                  discounting = NULL, sim = NULL, 
                                  markov_loop_fn = NULL) {
-  
-  ## Preallocate
-  if (is.null(sim)) {
-    sim <- matrix(NA, nrow = duration, ncol = nrow(transition))
-  }
   
   # Simulate model over the loop
   sim <-  markov_loop_fn(sim, cohort, transition, duration)

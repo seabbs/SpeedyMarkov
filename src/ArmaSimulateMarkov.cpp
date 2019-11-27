@@ -44,8 +44,7 @@ arma::mat ArmaMarkovLoop(arma::mat sim, arma::rowvec cohort, arma::mat transitio
 //' 
 //' @description This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
 //'  See `example_two_state_markov` for an example of the required input. Alternatively use `sample_markov(type = "base")`
-//'   and the output from `sample_markov`. Unlike `simulate_markov_base` this implementation requires the prespecification of the
-//'   simulation storage matrix.
+//'   and the output from `sample_markov`. 
 //' @inherit simulate_markov_base
 //' @export
 //' @useDynLib SpeedyMarkov, .registration=TRUE

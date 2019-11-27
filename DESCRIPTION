@@ -1,6 +1,6 @@
 Type: Package
 Package: SpeedyMarkov
-Title: Speed up Discrete Markov Model Simulations
+Title: Speed up Discrete Markov Model Cost Effectiveness Simulations
 Version: 0.1.0
 Authors@R: c(
     person(given = "Sam Abbott",
@@ -11,7 +11,7 @@ Authors@R: c(
            role = c("aut"),
            email = "",
            comment = c(ORCID = "0000-0001-8576-5552")))
-Description: Speed up Discrete Markov Model Simulations.
+Description: Speed up discrete markov model cost effectiveness simulations.
 License: GPL-3 | file LICENSE
 URL: https://www.samabbott.co.uk/SpeedyMarkov,
     https://github.com/seabbs/SpeedyMarkov
