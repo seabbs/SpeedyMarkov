@@ -4,7 +4,7 @@ author: "Sam Abbott"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started with {SpeedyMarkov}}
+  %\VignetteIndexEntry{Profiling the reference implementations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,7 @@ In principle this approach may lead to the most efficient code but this may come
 
 ## Profiling
 
-As expected profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time (this makes senses as R is notoriously slow when it comes to this use case). The remaining runtime is taken up by within loop allocation of samples and data summarisation but in comparison to the iterative foor loop compute costs are small.
+As expected profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time (this makes senses as R is notoriously slow when it comes to this use case). The remaining run-time is taken up by within loop allocation of samples and data summarisation but in comparison to the iterative for loop compute costs are small. Profiling is implemented using the `profvis` package (**Note: Profiling output will be more detailed in an interactive session post package install**).
 
 These results suggest several strategies. Firstly, to speed up the within for loop operation (here a matrix multiplication). This would also benefit other resource intensive matrix multiplications. Secondly, to decrease the costs of the iterative for loop itself - perhaps by moving to a `Rcpp` implementation. Finally, to make use of parallel compute to spread the costs of solving each sample across multiple CPUs.
 
@@ -35,16 +35,8 @@ library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  reference_two_state_markov(cycles = 100, samples = 10000)
+  reference_two_state_markov(cycles = 100, samples = 100000)
 })
 ```
 
-## Benchmark
 
-```{r}
-library(tictoc)
-
-tic()
-  sims <- reference_two_state_markov(cycles = 100, samples = 10000)
-toc()
-```

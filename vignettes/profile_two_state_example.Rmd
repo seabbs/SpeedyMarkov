@@ -1,10 +1,10 @@
 ---
-title: "Profiling the reference implementations"
+title: "Profiling the {SpeedyMarkov} implementation"
 author: "Sam Abbott"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started with {SpeedyMarkov}}
+  %\VignetteIndexEntry{Profiling the {SpeedyMarkov} implementation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,50 +20,58 @@ knitr::opts_chunk$set(
 
 ## Background
 
+`SpeedyMarkov` uses a functional approach with the Markov model first being specified as a series of functions. These functions are then sampled using package functionality. Once samples from the model have been taken for each intervention `SpeedyMarkov` can then be used to simulate the Markov model and internally estimate total costs and QALYs, discounted forward in time. Finally, a separate function can be applied to produce cost effectiveness summary measures. These package steps are wrapped into a single function `markov_ce_pipeline` - exploring the documentation of this function and the code and documentation of the functions it itself wraps may be a useful approach to understanding the underlying mechanisms of the package. 
 
+In principle this functional approach may lead to slightly less efficient code as steps are separated from each other. On the other hand, it may aid generalisability, readability, and make optimising areas of the code easier. A major aim of `SpeedyMarkov` is to provide an easy to use end-to-end tool chain. However, all code should be highly reusable if users wish to use it in a more modular fashion or as part of more complex workflows.
 
 ## Profiling
 
-Again profiling indicates that the interior iteratively updated for loop operation accounts for the vast majority of the function run time. 
-
-Strategies suggested for the reference application also hold here.
-
-
 ### R implementation
+
+The R implementation of the `SpeedyMarkov` approach is roughly 25% faster than the reference implementation for this example with a substantially reduced memory footprint. However, some of this memory saving may be due to not saving individual simulations which may be desirable behaviour. The inner Markov for loop dominates the run-time - taking roughly 75% of the overall run-time. However, a substantial amount of time is also spent sampling data, summarising the findings and allocating samples to be simulated meaning that some optimisations may be possible here as well. Profiling is implemented using the `profvis` package (**Note: Profiling output will be more detailed in an interactive session post package install**).
+
+Strategies for optimisation suggested for the reference application also hold here with the most pressing being the optimisation of the inner Markov loop.
+
 
 ```{r}
 library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 10000,
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
                      sim_type = "base")
 })
 ```
 
 ### R  implementation augmented with Rcpp 
 
+An obvious optimisation of the inner Markov Loop is to rewrite it into C++ code, this can be done easily using the `RcppArmadillo` package which aids in the use of the Armadillo C++ library in R. See [here](https://github.com/seabbs/SpeedyMarkov/blob/master/R/markov_loop.R) for the R implementation and [here](https://github.com/seabbs/SpeedyMarkov/blob/master/src/ArmaSimulateMarkov.cpp) for the C++ implementation.
+
+Profiling this new approach we see a substantial decrease in run-time of around two times compared to the `SpeedyMarkov` R implementation and around 4 times compared to the reference approach. Memory usage has also roughly halved compared to the `SpeedyMarkov` R implementation. This speed up comes with minimal increase in code complexity and should scale extremely well to more complex models - as this would increase computational costs versus the cost of moving data to and from C++. The speed up 
+
 ```{r}
 library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 10000,
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
                      sim_type = "armadillo_inner")
 })
 ```
 
 ### R implementation further augmented with Rcpp
 
+The next step is to rewrite the entire Markov simulation step into C++ (again using the `RcppArmadillo` package). See [here](https://github.com/seabbs/SpeedyMarkov/blob/master/R/simulate_markov.R) for the R implementation and [here](https://github.com/seabbs/SpeedyMarkov/blob/master/src/ArmaSimulateMarkov.cpp) for the C++ implementation. This implementation now takes around 25% of the time that the reference implementation took with a fraction of the memory overhead.  
+
+Using profiling we see a small speed up (of 20% compared to the previous implementation) and a reduced memory usage (with 50% of the memory footprint) compared to the partial C++ approach above. As the majority of the run-time is still being spent within the simulation function this indicates that increase the efficiency of sampling and/or summarisation would have minimal impact on this example (although it is still worth doing if readability and robustness can be preserved). Much of the computational cost appears to be in accessing and passing sample data to the simulation function. Finding optimised solutions to this could therefore be the next priority. 
+
 ```{r}
 library(SpeedyMarkov)
 library(profvis)
 
 profvis({
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 10000,
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
                      sim_type = "armadillo_all")
 })
 ```
-
-## Benchmark
 

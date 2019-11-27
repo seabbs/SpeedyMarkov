@@ -19,17 +19,15 @@ knitr::opts_chunk$set(
 
 **Work in progress**
 
-The work in this package was started at the Health Economic 2019 hackathon hosted at Imperial. Much of this work is based on that develped by the [hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The original reference approach was developed by [Howard Thom](https://orcid.org/0000-0001-8576-5552). 
-
-
 This package aims to: 
 
 * Compare a functional markov modelling approach to a reference approach for several example models.
-* Explore approaches to speeding up Markov modelling in a principled fashion.
-* Inspire more efficient markov modelling code. 
+* Explore approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.
+* Detail the benefits of parallisation and provide a code structure in which parallisation is easy to make use of. 
 * Provide a toolkit for use in discrete Markov modelling.
+* Provide optimised code that may be ported into other applications and workflows.
 
-For help getting started see the [Getting Started](https://www.samabbott.co.uk/SpeedyMarkov/articles/intro.html) vignette.
+The work in this package was started at the Health Economic 2019 hackathon hosted at Imperial. Much of this work is based on that developed by the [hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The original reference approach was developed by [Howard Thom](https://orcid.org/0000-0001-8576-5552). 
 
 ## Installation
 
@@ -77,7 +75,7 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 ```
 
 
-See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions included in the package (`markov_ce_pipeline` for example wraps multiple modular - user customisable - functions).
+See [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html) for more details of the functions included in the package (`markov_ce_pipeline` for example wraps multiple modular - user customisable - functions). The package vignettes also provide more detail.
 
 ## Contributing
 

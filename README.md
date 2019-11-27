@@ -8,25 +8,24 @@
 
 **Work in progress**
 
-The work in this package was started at the Health Economic 2019
-hackathon hosted at Imperial. Much of this work is based on that
-develped by the
-[hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The
-original reference approach was developed by [Howard
-Thom](https://orcid.org/0000-0001-8576-5552).
-
 This package aims to:
 
   - Compare a functional markov modelling approach to a reference
     approach for several example models.
   - Explore approaches to speeding up Markov modelling in a principled
-    fashion.
-  - Inspire more efficient markov modelling code.
+    fashion making use of C++ when required.
+  - Detail the benefits of parallisation and provide a code structure in
+    which parallisation is easy to make use of.
   - Provide a toolkit for use in discrete Markov modelling.
+  - Provide optimised code that may be ported into other applications
+    and workflows.
 
-For help getting started see the [Getting
-Started](https://www.samabbott.co.uk/SpeedyMarkov/articles/intro.html)
-vignette.
+The work in this package was started at the Health Economic 2019
+hackathon hosted at Imperial. Much of this work is based on that
+developed by the
+[hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The
+original reference approach was developed by [Howard
+Thom](https://orcid.org/0000-0001-8576-5552).
 
 ## Installation
 
@@ -82,8 +81,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x55f89eea56c0>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae3bc078>
+#> <environment: 0x559cae4305d0>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
@@ -101,8 +100,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(updated)
 #>   }
-#> <bytecode: 0x55f89eeab7a0>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae3c2158>
+#> <environment: 0x559cae4305d0>
 #> 
 #> 
 #> $qalys
@@ -127,8 +126,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55f89eebbcb8>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae3d8b68>
+#> <environment: 0x559cae4305d0>
 #> 
 #> $intervention_costs
 #> function(samples = NULL) {
@@ -140,8 +139,8 @@ SpeedyMarkov::example_two_state_markov()
 #> 
 #>     return(out)
 #>   }
-#> <bytecode: 0x55f89eed1a78>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae3eaab0>
+#> <environment: 0x559cae4305d0>
 #> 
 #> $state_costs
 #> function(samples = NULL) {
@@ -165,8 +164,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55f89eed93d8>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae3ee5e0>
+#> <environment: 0x559cae4305d0>
 #> 
 #> $cohorts
 #> function(samples = NULL) {
@@ -190,8 +189,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55f89eefd458>
-#> <environment: 0x55f89ef09f90>
+#> <bytecode: 0x559cae414278>
+#> <environment: 0x559cae4305d0>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
@@ -237,8 +236,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       14.0   0.0831           0     
-#> 2 Soc with We…         50        0       14.0   0.0667           0.0572
+#> 1 SoC                   0        0       14.0   0.0398           0     
+#> 2 Soc with We…         50        0       14.0   0.0593           0.0145
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,
@@ -249,7 +248,8 @@ See
 [Functions](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html)
 for more details of the functions included in the package
 (`markov_ce_pipeline` for example wraps multiple modular - user
-customisable - functions).
+customisable - functions). The package vignettes also provide more
+detail.
 
 ## Contributing
 

@@ -8,6 +8,13 @@
 
 <title>Simulate a Markov Model Sample using RcppArmadillo — ArmaSimulateMarkov • SpeedyMarkov</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -18,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -44,8 +51,7 @@
 <meta property="og:title" content="Simulate a Markov Model Sample using RcppArmadillo — ArmaSimulateMarkov" />
 <meta property="og:description" content="This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
 See example_two_state_markov for an example of the required input. Alternatively use sample_markov(type = &quot;base&quot;)
-and the output from sample_markov. Unlike simulate_markov_base this implementation requires the prespecification of the
-simulation storage matrix." />
+and the output from sample_markov." />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -99,7 +105,7 @@ simulation storage matrix." />
       <a href="../articles/profile_reference.html">Reference two state implementation</a>
     </li>
     <li>
-      <a href="../articles/profile_two_state_example.html">SpeedyMarkov two state implementation</a>
+      <a href="../articles/profile_two_state_example.html">Profiling the {SpeedyMarkov} implementation</a>
     </li>
   </ul>
 </li>
@@ -157,8 +163,7 @@ simulation storage matrix." />
     <div class="ref-description">
     <p>This model agnostic function runs a single markov model for the specified duration using a Armadillo implementation.
 See <code>example_two_state_markov</code> for an example of the required input. Alternatively use <code><a href='sample_markov.html'>sample_markov(type = "base")</a></code>
-and the output from <code>sample_markov</code>. Unlike <code>simulate_markov_base</code> this implementation requires the prespecification of the
-simulation storage matrix.</p>
+and the output from <code>sample_markov</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ArmaSimulateMarkov</span>(
@@ -178,7 +183,7 @@ simulation storage matrix.</p>
     <tr>
       <th>sim</th>
       <td><p>Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.</p></td>
+states in the model. Used to store model simulatons.</p></td>
     </tr>
     <tr>
       <th>cohort</th>
@@ -276,9 +281,9 @@ and the duration of the model</p>
 #&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  expr
 #&gt;  simulate_markov_base(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100), markov_loop_fn = SpeedyMarkov::markov_loop)
 #&gt;                                                ArmaSimulateMarkov(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100))
-#&gt;      min      lq      mean  median       uq      max neval
-#&gt;  142.598 147.427 171.71917 149.696 153.5185 5871.962  1000
-#&gt;   40.386  41.899  43.20448  42.560  43.5220  132.649  1000</div></pre>
+#&gt;      min       lq     mean   median       uq      max neval
+#&gt;  150.410 158.4190 173.5498 163.7645 170.6375 3638.060  1000
+#&gt;   61.958  64.2845  72.5241  65.1720  66.5755 3844.841  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -298,7 +303,7 @@ and the duration of the model</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

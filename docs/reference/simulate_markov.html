@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -104,7 +104,7 @@ that may offer various advantages and disadvantages." />
       <a href="../articles/profile_reference.html">Reference two state implementation</a>
     </li>
     <li>
-      <a href="../articles/profile_two_state_example.html">SpeedyMarkov two state implementation</a>
+      <a href="../articles/profile_two_state_example.html">Profiling the {SpeedyMarkov} implementation</a>
     </li>
   </ul>
 </li>
@@ -168,7 +168,7 @@ that may offer various advantages and disadvantages.</p>
   <span class='kw'>markov_sample</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>duration</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"armadillo_inner"</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"armadillo_all"</span>,
   <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>input_is_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>sim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
@@ -209,7 +209,7 @@ If not given then the input type will be checked and converted to a list as requ
     <tr>
       <th>sim</th>
       <td><p>Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons. Rather than setting up for each sample this can be preallocated initially to increase efficiency.</p></td>
+states in the model. Used to store model simulatons.</p></td>
     </tr>
     </table>
 
@@ -222,7 +222,12 @@ and the duration of the model</p>
     <pre class="examples"><div class='input'>
 <span class='no'>sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sample_markov.html'>sample_markov</a></span>(<span class='fu'><a href='example_two_state_markov.html'>example_two_state_markov</a></span>())
 
-<span class='fu'>simulate_markov</span>(<span class='no'>sample</span>[<span class='fl'>1</span>, ], <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpeedyMarkov/man/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='error'>Error in matrix(NA, nrow = duration, ncol = nrow(transition)): non-numeric matrix extent</span></div><div class='input'>  
+<span class='fu'>simulate_markov</span>(<span class='no'>sample</span>[<span class='fl'>1</span>, ], <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>))</div><div class='output co'>#&gt; $total_costs
+#&gt; [1] 0
+#&gt; 
+#&gt; $total_qalys
+#&gt; [1] 4.190831
+#&gt; </div><div class='input'>  
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -243,7 +248,7 @@ and the duration of the model</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

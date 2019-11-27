@@ -18,7 +18,7 @@ navbar:
       menu:
       - text: Reference two state implementation
         href: articles/profile_reference.html
-      - text: SpeedyMarkov two state implementation
+      - text: Profiling the {SpeedyMarkov} implementation
         href: articles/profile_two_state_example.html
     - text: News
       menu:
