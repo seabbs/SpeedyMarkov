@@ -4,11 +4,11 @@
 \name{SpeedyMarkov-package}
 \alias{SpeedyMarkov}
 \alias{SpeedyMarkov-package}
-\title{SpeedyMarkov: Speed up Discrete Markov Model Simulations}
+\title{SpeedyMarkov: Speed up Discrete Markov Model Cost Effectiveness Simulations}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Speed up Discrete Markov Model Simulations.
+Speed up discrete markov model cost effectiveness simulations.
 }
 \seealso{
 Useful links:

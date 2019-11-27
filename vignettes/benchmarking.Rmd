@@ -18,29 +18,27 @@ knitr::opts_chunk$set(
 ```
 
 
-## Background
 
-`SpeedyMarkov` uses a functional approach with the Markov model first being specified as a series of functions. These functions are then sampled using package functionality. Once samples from the model have been taken for each intervention `SpeedyMarkov` can then be used to simulate the Markov model and internally estimate total costs and QALYs, discounted forward in time. Finally, a separate function can be applied to produce cost effectiveness summary measures. These package steps are wrapped into a single function `markov_ce_pipeline` - exploring the documentation of this function and the code and documentation of the functions it itself wraps may be a useful approach to understanding the underlying mechanisms of the package. 
-
-In principle this functional approach may lead to slightly less efficient code as steps are separated from each other. On the other hand, it may aid generalisability, readability, and make optimising areas of the code easier. A major aim of `SpeedyMarkov` is to provide an easy to use end-to-end tool chain. However, all code should be highly reusable if users wish to use it in a more modular fashion or as part of more complex workflows.
-
-## Profiling
-
-### R implementation
-
-The R implementation of the `SpeedyMarkov` approach is roughly 25% faster than the reference implementation for this example with a substantially reduced memory footprint. However, some of this memory saving may be due to not saving individual simulations which may be desirable behaviour. The inner Markov for loop dominates the run-time - taking roughly 75% of the overall run-time. However, a substantial amount of time is also spent sampling data, summarising the findings and allocating samples to be simulated meaning that some optimisations may be possible here as well. Profiling is implemented using the `profvis` package (**Note: Profiling output will be more detailed in an interactive session post package install**).
-
-Strategies for optimisation suggested for the reference application also hold here with the most pressing being the optimisation of the inner Markov loop.
+## Two state Markov model
 
 
 ```{r}
 library(SpeedyMarkov)
-library(profvis)
 
-profvis({
-  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
-                     sim_type = "base")
-})
+
+duration <- 1000
+samples <- 100000
+```
+
+
+
+
+```{r}
+library(SpeedyMarkov)
+
+markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
+                   sim_type = "base")
+
 ```
 
 ### R  implementation augmented with Rcpp 
