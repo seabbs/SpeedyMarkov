@@ -47,7 +47,7 @@ profvis({
 
 An obvious optimisation of the inner Markov Loop is to rewrite it into C++ code, this can be done easily using the `RcppArmadillo` package which aids in the use of the Armadillo C++ library in R. See [here](https://github.com/seabbs/SpeedyMarkov/blob/master/R/markov_loop.R) for the R implementation and [here](https://github.com/seabbs/SpeedyMarkov/blob/master/src/ArmaSimulateMarkov.cpp) for the C++ implementation.
 
-Profiling this new approach we see a substantial decrease in run-time of around two times compared to the `SpeedyMarkov` R implementation and around 4 times compared to the reference approach. Memory usage has also roughly halved compared to the `SpeedyMarkov` R implementation. This speed up comes with minimal increase in code complexity and should scale extremely well to more complex models - as this would increase computational costs versus the cost of moving data to and from C++. The speed up 
+Profiling this new approach we see a substantial decrease in run-time of around two times compared to the `SpeedyMarkov` R implementation and around 4 times compared to the reference approach. Memory usage has also roughly halved compared to the `SpeedyMarkov` R implementation. This speed up comes with minimal increase in code complexity and should scale extremely well to more complex models - as this would increase computational costs versus the cost of moving data to and from C++. 
 
 ```{r}
 library(SpeedyMarkov)

@@ -19,11 +19,11 @@ knitr::opts_chunk$set(
 
 ## Benchmarking setup
 
-The `SpeedMarkov` and reference implementations have been benchmarked with a range of optimisations including making use of `Rcpp` and parallisation. Several parallisation approaches have been explored as has the use of a varying number of cores. The benchmarking grid has been implemented within `SpeedyMarkov` - see below for details.
+The `SpeedyMarkov` and reference implementations have been benchmarked with a range of optimisations including making use of `Rcpp` and parallisation. Several parallisation approaches have been explored as has the use of a varying number of cores. The benchmarking grid has been implemented within `SpeedyMarkov` - see below for details.
 
 * Load required packages.
 
-```{r, include = FALSE}
+```{r}
 library(SpeedyMarkov)
 library(microbenchmark)
 library(parallel)
