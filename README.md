@@ -1,5 +1,5 @@
 
-# `{SpeedyMarkov}`: Speed up Discrete Markov Model Cost Effectiveness Simulations <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# Speed up Discrete Markov Model Cost Effectiveness Simulations <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![badge](https://img.shields.io/badge/Launch-SpeedyMarkov-blue.svg)](https://mybinder.org/v2/gh/seabbs/SpeedyMarkov/master?urlpath=rstudio)
 [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/SpeedyMarkov)](https://CRAN.R-project.org/package=SpeedyMarkov)
@@ -81,8 +81,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x559cae3bc078>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c06dac0>
+#> <environment: 0x56471c0ba438>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
@@ -100,8 +100,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(updated)
 #>   }
-#> <bytecode: 0x559cae3c2158>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c075ac0>
+#> <environment: 0x56471c0ba438>
 #> 
 #> 
 #> $qalys
@@ -126,8 +126,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x559cae3d8b68>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c0806a0>
+#> <environment: 0x56471c0ba438>
 #> 
 #> $intervention_costs
 #> function(samples = NULL) {
@@ -139,8 +139,8 @@ SpeedyMarkov::example_two_state_markov()
 #> 
 #>     return(out)
 #>   }
-#> <bytecode: 0x559cae3eaab0>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c093d98>
+#> <environment: 0x56471c0ba438>
 #> 
 #> $state_costs
 #> function(samples = NULL) {
@@ -164,8 +164,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x559cae3ee5e0>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c0978c8>
+#> <environment: 0x56471c0ba438>
 #> 
 #> $cohorts
 #> function(samples = NULL) {
@@ -189,8 +189,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x559cae414278>
-#> <environment: 0x559cae4305d0>
+#> <bytecode: 0x56471c0ab190>
+#> <environment: 0x56471c0ba438>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
@@ -207,7 +207,7 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> $simulations_with_ce
 #> # A tibble: 20 x 12
 #>    sample intervention transition state_cost intervention_co… cohort qalys
-#>     <int> <chr>        <named li> <named li>            <dbl> <name> <nam>
+#>     <int> <chr>        <list>     <list>                <dbl> <list> <lis>
 #>  1      1 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl … <dbl…
 #>  2      1 Soc with We… <dbl[,2] … <dbl [2]>                50 <dbl … <dbl…
 #>  3      2 SoC          <dbl[,2] … <dbl [2]>                 0 <dbl … <dbl…
@@ -236,8 +236,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       14.0   0.0398           0     
-#> 2 Soc with We…         50        0       14.0   0.0593           0.0145
+#> 1 SoC                   0        0       13.9   0.112            0     
+#> 2 Soc with We…         50        0       14.0   0.0982           0.0575
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,
