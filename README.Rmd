@@ -23,7 +23,7 @@ This package aims to:
 
 * Compare a functional markov modelling approach to a reference approach for several example models.
 * Explore approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.
-* Detail the benefits of parallisation and provide a code structure in which parallisation is easy to make use of. 
+* Detail the benefits of parallisation and provide a code structure in which parallisation is easy to make use of.
 * Provide a toolkit for use in discrete Markov modelling.
 * Provide optimised code that may be ported into other applications and workflows.
 
@@ -54,7 +54,7 @@ remotes::install_github("seabbs/SpeedyMarkov")
 
 ## Testing
 
-[![Travis-CI Build Status](https://travis-ci.org/seabbs/ceplotr.svg?branch=master)](https://travis-ci.org/seabbs/SpeedyMarkov)
+[![Travis-CI Build Status](https://travis-ci.org/seabbs/SpeedyMarkov.svg?branch=master)](https://travis-ci.org/seabbs/SpeedyMarkov)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/seabbs/SpeedyMarkov?branch=master&svg=true)](https://ci.appveyor.com/project/seabbs/SpeedyMarkov)
 [![Coverage Status](https://img.shields.io/codecov/c/github/seabbs/SpeedyMarkov/master.svg)](https://codecov.io/github/seabbs/SpeedyMarkov?branch=master)
 
