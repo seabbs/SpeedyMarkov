@@ -8,6 +8,18 @@ sudo: false
 r:
   - oldrel
   - release
+  after_success:
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'install.packages("pkgdown")'
+  - Rscript -e 'pkgdown::build_site()'
+  deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_PAT
+    keep-history: true
+    local-dir: docs
+    on:
+      branch: master
   - devel
 os:
   - linux
@@ -15,16 +27,3 @@ os:
 compiler:
   - gcc
 
-after_success:
-- Rscript -e 'covr::codecov()'
-- Rscript -e 'pkgdown::build_site()'
-
-
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_PAT
-  keep-history: true
-  local-dir: docs
-  on:
-    branch: master
