@@ -18,6 +18,7 @@ package:
 .PHONY: docs		 
 docs:
      Rscript -e 'devtools::document(roclets=c('rd', 'collate', 'namespace'))'
+     Rscript -e 'pkgdown::build_reference()'
 
 #update logo
 man/figures/logo.png: inst/scripts/generate_hex_sticker.R
@@ -27,6 +28,7 @@ man/figures/logo.png: inst/scripts/generate_hex_sticker.R
 README.md: README.Rmd
 		Rscript -e 'rmarkdown::render("README.Rmd")' && \
 		rm README.html
+		Rscript -e 'pkgdown::build_home()'
 
 #Commit updates
 .PHONY: git_commit

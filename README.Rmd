@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 [![badge](https://img.shields.io/badge/Launch-SpeedyMarkov-blue.svg)](https://mybinder.org/v2/gh/seabbs/SpeedyMarkov/master?urlpath=rstudio) 
 [![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/SpeedyMarkov)](https://CRAN.R-project.org/package=SpeedyMarkov)
 [![develVersion](https://img.shields.io/badge/devel%20version-0.1.0-blue.svg?style=flat)](https://github.com/seabbs/SpeedyMarkov)
-[![DOI](https://zenodo.org/badge/219757940.svg)](https://zenodo.org/badge/latestdoi/219757940)
+[![DOI](https://zenodo.org/badge/223414207.svg)](https://zenodo.org/badge/latestdoi/223414207)
 
 **Work in progress**
 
