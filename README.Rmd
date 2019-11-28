@@ -48,7 +48,6 @@ remotes::install_github("seabbs/SpeedyMarkov")
 
 [![Documentation](https://img.shields.io/badge/Documentation-release-lightgrey.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/)
 [![Development documentation](https://img.shields.io/badge/Documentation-development-lightblue.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/dev)
-[![Getting started](https://img.shields.io/badge/Documentation-getting started-yellow.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/articles/intro.html)
 [![Functions](https://img.shields.io/badge/Documentation-functions-orange.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html)
 
 

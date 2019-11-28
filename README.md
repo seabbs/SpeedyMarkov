@@ -47,8 +47,6 @@ remotes::install_github("seabbs/SpeedyMarkov")
 [![Documentation](https://img.shields.io/badge/Documentation-release-lightgrey.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/)
 [![Development
 documentation](https://img.shields.io/badge/Documentation-development-lightblue.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/dev)
-[![Getting
-started](https://img.shields.io/badge/Documentation-getting%20started-yellow.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/articles/intro.html)
 [![Functions](https://img.shields.io/badge/Documentation-functions-orange.svg?style=flat)](https://www.samabbott.co.uk/SpeedyMarkov/reference/index.html)
 
 ## Testing
@@ -81,8 +79,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x558322c5d100>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66dfd700>
+#> <environment: 0x561d66e4a078>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
@@ -100,8 +98,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(updated)
 #>   }
-#> <bytecode: 0x558322c631e0>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66e037e0>
+#> <environment: 0x561d66e4a078>
 #> 
 #> 
 #> $qalys
@@ -126,8 +124,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x558322c6fca8>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66e102a8>
+#> <environment: 0x561d66e4a078>
 #> 
 #> $intervention_costs
 #> function(samples = NULL) {
@@ -139,8 +137,8 @@ SpeedyMarkov::example_two_state_markov()
 #> 
 #>     return(out)
 #>   }
-#> <bytecode: 0x558322c7f5a8>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66e1fba8>
+#> <environment: 0x561d66e4a078>
 #> 
 #> $state_costs
 #> function(samples = NULL) {
@@ -164,8 +162,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x558322c86f08>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66e27508>
+#> <environment: 0x561d66e4a078>
 #> 
 #> $cohorts
 #> function(samples = NULL) {
@@ -189,8 +187,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x558322c95228>
-#> <environment: 0x558322ca9a78>
+#> <bytecode: 0x561d66e35828>
+#> <environment: 0x561d66e4a078>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
@@ -236,8 +234,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       14.0   0.0790           0     
-#> 2 Soc with We…         50        0       14.0   0.0727          -0.0148
+#> 1 SoC                   0        0       14.0   0.106            0     
+#> 2 Soc with We…         50        0       14.0   0.0961           0.0497
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,
