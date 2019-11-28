@@ -23,4 +23,4 @@ two_state_bench_dur_200 <- benchmark_markov(markov_model = example_two_state_mar
                                             duration = 200, samples = 100000,
                                             times = 10)
 
-saveRDS(two_state_bench_dur_200, "inst/benchmarks/two_state_duration_1000.rds")
+saveRDS(two_state_bench_dur_200, "inst/benchmarks/two_state_duration_200.rds")

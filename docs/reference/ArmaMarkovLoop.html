@@ -107,6 +107,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../articles/benchmarking.html">Benchmarks</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     News
@@ -210,12 +213,12 @@ states in the model.</p></td>
 <span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span>(<span class='fu'><a href='markov_loop.html'>markov_loop</a></span>(<span class='no'>sim</span>, <span class='no'>cohort</span>, <span class='no'>transition</span>, <span class='no'>duration</span>),
                <span class='fu'>ArmaMarkovLoop</span>(<span class='no'>sim</span>, <span class='no'>cohort</span>, <span class='no'>transition</span>, <span class='no'>duration</span>),
                <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
-#&gt;                                               expr     min       lq      mean
-#&gt;     markov_loop(sim, cohort, transition, duration) 108.403 116.4135 138.87465
-#&gt;  ArmaMarkovLoop(sim, cohort, transition, duration)  26.995  28.7125  32.40569
-#&gt;   median      uq      max neval
-#&gt;  126.988 152.184 2942.352  1000
-#&gt;   30.398  32.703  148.705  1000</div></pre>
+#&gt;                                               expr     min      lq      mean
+#&gt;     markov_loop(sim, cohort, transition, duration) 109.604 118.142 150.32187
+#&gt;  ArmaMarkovLoop(sim, cohort, transition, duration)  26.399  28.961  34.93364
+#&gt;    median       uq      max neval
+#&gt;  135.9045 162.2430 4014.981  1000
+#&gt;   30.6355  35.0405  195.107  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

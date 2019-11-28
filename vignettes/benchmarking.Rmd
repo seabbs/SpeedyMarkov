@@ -52,7 +52,7 @@ The two state Markov model has been benchmarked for both 100 cycles and 200 cycl
 * Table
 
 ```{r}
-two_state_bench_dur_100 <- readRDS("../inst/benchmarks/two_state_duration_100.rds")
+two_state_bench_dur_100 <- readRDS("../inst/benchmarks/two_state_duration_100.rds") 
 
 two_state_bench_dur_100
 ```
@@ -68,7 +68,7 @@ ggplot2::autoplot(two_state_bench_dur_100) +
 
 * Table
 
-```{r, width = 10, height = 10, eval = FALSE}
+```{r}
 two_state_bench_dur_200 <- readRDS("../inst/benchmarks/two_state_duration_200.rds")
 
 two_state_bench_dur_200
@@ -78,6 +78,6 @@ two_state_bench_dur_200
 * Plot
 
 ```{r, width = 16, height = 12}
-ggplot2::autoplot(two_state_bench_dur_1000) +
+ggplot2::autoplot(two_state_bench_dur_200) +
   theme_minimal()
 ```
