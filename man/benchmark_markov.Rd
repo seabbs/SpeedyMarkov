@@ -46,10 +46,10 @@ This function relies on suggested packages and so requires the installation of t
 \examples{
 
 \dontrun{
-# Run a benchmark for a single iteration
+# Run a benchmark across approaches for a small number of samples 
 results <- benchmark_markov(markov_model = example_two_state_markov,
                             reference = reference_two_state_markov,
-                            duration = 100, samples = 100,
+                            duration = 100, samples = 1000,
                             times = 10)
                                 
 results

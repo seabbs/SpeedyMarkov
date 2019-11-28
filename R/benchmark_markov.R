@@ -24,10 +24,10 @@
 #' @examples
 #' 
 #' \dontrun{
-#' # Run a benchmark across approaches for a small number of samples
+#' # Run a benchmark across approaches for a small number of samples 
 #' results <- benchmark_markov(markov_model = example_two_state_markov,
 #'                             reference = reference_two_state_markov,
-#'                             duration = 100, samples = 100,
+#'                             duration = 100, samples = 1000,
 #'                             times = 10)
 #'                                 
 #'results
@@ -38,7 +38,7 @@
 benchmark_markov <- function(markov_model = NULL, reference = NULL, 
                              duration = NULL, samples = NULL,
                              times = 1) {
-  ## Start up parallel sessions
+  ## Start up parallel sessions for future
   future::plan(future::multiprocess, workers = 4);
   
   benchmark <- microbenchmark::microbenchmark(
@@ -63,19 +63,13 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
                          samples = samples,
                          sim_type = "armadillo_all")
     },
-    "Rcpp simulation - lapply" = {
-      markov_ce_pipeline(markov_model(),
-                         duration = duration, 
-                         samples = samples,
-                         sim_type = "armadillo_all",
-                         map_fn = lapply)
-    },
     "Rcpp simulation - mclapply (2 cores)" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
-                         map_fn = parallel::mclapply,
+                         batches = 2,
+                         batch_fn = parallel::mclapply,
                          mc.cores = 2)
     },
     "Rcpp simulation - mclapply (4 cores)" = {
@@ -83,15 +77,19 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
-                         map_fn = parallel::mclapply,
+                         batches = 4,
+                         batch_fn = parallel::mclapply,
+                         mc.cores = 4
       )
     },
     "SpeedyMarkov - Rcpp simulation - furrr::future_map (4 cores)" = {
+      future::plan(future::multiprocess, workers = 4);
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
-                         map_fn = furrr::future_map)
+                         batches = 4,
+                         batch_fn = furrr::future_map)
     },
     times = times)
   

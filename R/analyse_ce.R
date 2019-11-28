@@ -13,7 +13,8 @@
 #' @return A list of dataframes including: Cost effectiveness measures for each sample, and summarised cost effectiveness 
 #' measures across samples.
 #' @export
-#' @importFrom dplyr group_by mutate ungroup summarise n
+#' @importFrom purrr map
+#' @importFrom data.table as.data.table
 #' @importFrom stats sd
 #' @examples
 #' 
@@ -32,37 +33,40 @@ analyse_ce <- function(markov_simulations = NULL,
   intervention <- NULL; incremental_net_benefit <- NULL; mean_costs <- NULL; mean_qalys <- NULL;
   total_costs <- NULL; total_costs <- NULL;
   
-  ## Incremental costs and qalys
-  incremental_sims <- markov_simulations %>% 
-    dplyr::group_by(sample) %>% 
-    dplyr::mutate(incremental_costs = total_costs - total_costs[baseline],
-                  incremental_qalys = total_qalys - total_qalys[baseline],
-                  incremental_net_benefit =
-                    willingness_to_pay_thresold * incremental_qalys - incremental_costs) %>% 
-    dplyr::ungroup()
-              
-   
-  ## Summarise costs - this could be shorter and/or may be incorrect.
-  summarised_sims <-  incremental_sims %>% 
-    dplyr::group_by(intervention) %>% 
-    dplyr::summarise(
-      mean_costs = mean(total_costs),
-      sd_costs = stats::sd(total_costs),
-      mean_qalys = mean(total_qalys),
-      sd_qlays = stats::sd(total_qalys),
-      mean_incremental_qalys = mean(incremental_qalys),
-      sd_incremental_qlays = stats::sd(incremental_qalys),
-      mean_incremental_costs = mean(incremental_costs),
-      sd_incremental_costs = stats::sd(incremental_costs),
-      mean_incremental_net_benefit = mean(incremental_net_benefit),
-      sd_incremental_net_benefit = stats::sd(incremental_net_benefit),
-      probability_cost_effective = sum(incremental_net_benefit > 0) / dplyr::n()
-    ) %>% 
-    dplyr::mutate(icer = mean_costs / mean_qalys) %>% 
-    dplyr::ungroup()
-
+  ## Convert to data.table
+  incremental_sims <- data.table::as.data.table(incremental_sims) 
+  
+  ## Calculate incremental costs and qalys
+  incremental_sims <- incremental_sims[, c("incremental_costs", "incremental_qalys") :=
+               list(total_costs - total_costs[baseline],
+                    total_qalys - total_qalys[baseline]),
+             by = "sample"][,
+               incremental_net_benefit := willingness_to_pay_thresold * incremental_qalys - incremental_costs
+             ,]
+  
+  ## Summarise costs
+  summarised_sims <- incremental_sims[,
+    .( mean_costs = mean(total_costs),
+       sd_costs = stats::sd(total_costs),
+       mean_qalys = mean(total_qalys),
+       sd_qlays = stats::sd(total_qalys),
+       mean_incremental_qalys = mean(incremental_qalys),
+       sd_incremental_qlays = stats::sd(incremental_qalys),
+       mean_incremental_costs = mean(incremental_costs),
+       sd_incremental_costs = stats::sd(incremental_costs),
+       mean_incremental_net_benefit = mean(incremental_net_benefit),
+       sd_incremental_net_benefit = stats::sd(incremental_net_benefit),
+       probability_cost_effective = sum(incremental_net_benefit > 0) / .N
+    ),
+    by = "intervention"
+  ][,
+    icer := mean_costs / mean_qalys
+    ,]
   
   output <- list(incremental_sims, summarised_sims)
+  
+  ## Convert output to tibble for nice presentation
+  output <- purrr::map(output, as_tibble)
   
   names(output) <- c("simulations_with_ce", "summarised_ce")
   

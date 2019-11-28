@@ -12,8 +12,8 @@
 markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
                             willingness_to_pay_thresold = 20000,
-                            sample_type = "base", sim_type = "base",
-                            map_fn = NULL, debug = FALSE, ...) {
+                            sample_type = "base", sim_type = "base", debug = FALSE, 
+                            batches = 1, batch_fn = NULL, ...) {
   
   
 
@@ -24,7 +24,8 @@ markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                                             samples = samples,
                                             sample_type = sample_type,
                                             sim_type = sim_type,
-                                            map_fn = map_fn,
+                                            batches = batches, 
+                                            batch_fn =  batch_fn,
                                             debug = debug, ...)
   
   # Analyse model -----------------------------------------------------------

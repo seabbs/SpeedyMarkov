@@ -11,7 +11,8 @@ markov_simulation_pipeline(
   samples = 1,
   sample_type = "base",
   sim_type = "base",
-  map_fn = NULL,
+  batches = 1,
+  batch_fn = NULL,
   debug = FALSE,
   ...
 )
@@ -32,12 +33,17 @@ Options and defaults inherited from \code{sample_markov}.}
 \item{sim_type}{A character string specifying the approach to use to simulate the model.
 Options and defaults inherited from \code{simulate_markov}.}
 
-\item{map_fn}{An R function used to iterate over the model samples and run simulations. Must accept a functon
-as an argument. Defaults to using \code{purrr::map} if not supplied.}
+\item{batches}{Numeric, defaults to 1. The number of batches to run simulation/sampling in. When set to
+values greater than 1 a \code{batch_fn} must also be supplied. It is likely that the most efficient option will
+be to use a batch number that corresponds to the number of cores being utilised.}
+
+\item{batch_fn}{Function, defaults to \code{NULL}. This is the function to be used to parallise across batches. Potential options
+include \code{parallel::mclapply} (not Windows) or \code{furrr::future_map} (requires the use of \code{future::plan} outside the function). When
+not given the funciton will default to using no batching.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 
-\item{...}{Additional arguements passed to \code{map_fn}.}
+\item{...}{Additional options to pass to \code{batch_fn}. For example this may be the \code{mc.cores} argument of \code{parallel::mclapply}.}
 }
 \value{
 A list containing the model samples and simulations.
@@ -49,7 +55,6 @@ Markov Sampling and Simulation Pipeline
 
 
 markov_simulation_pipeline(example_two_state_markov(), duration = 10, samples = 2)
-  
 }
 \seealso{
 sample_markov simulate_markov
