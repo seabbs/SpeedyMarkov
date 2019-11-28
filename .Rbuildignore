@@ -22,3 +22,5 @@
 ^vignettes/profile_two_state_example\.Rmd$
 ^vignettes/benchmarking.Rmd$
 ^pkgdown$
+^inst/scripts$
+^inst/benchmarks$

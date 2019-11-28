@@ -17,41 +17,59 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Benchmarking setp
+## Benchmarking setup
 
 
-The benchmarking grid has been implemented within `SpeedyMarkov` - see below. All benchmarking results have been run elsewhere and then saved.
+The benchmarking grid has been implemented within `SpeedyMarkov` - see below.
 
 ```{r}
 library(SpeedyMarkov)
-library(ggplot2)
 library(microbenchmark)
 library(parallel)
 library(furrr)
+library(ggplot2)
 
 SpeedyMarkov::benchmark_markov
 ```
 
+All benchmarking results have been run elsewhere (`inst/scripts/benchmarking`) and then saved (`inst/benchmarks`). These benchmarks can be recreated locally using the following in the package directory.
+
+```{bash, eval = FALSE}
+Rscript inst/scripts/benchmarking.R
+```
+
 ## Two state Markov model
 
-The benchmar
-Run the benchmarks for the two state model for 100 cycles, across 100,000 samples, 10 times for each test.
+The two state Markov model has been benchmarked for both 100 cycles and 1000 cycles (duration) for 100,000 samples - repeated 10 times per benchmark.
 
-```{r, eval = FALSE}
-## Specifiy the number of samples and duration over which to model
-## Specfiy the reference and SpeedyMarkov model
-results <- benchmark_approaches(model = example_two_state_markov, 
-                                reference = reference_two_state_markov,
-                                duration = 100, samples = 100000,
-                                times = 10) 
+### Duration: 100
 
-results
+
+* Table
+
+```{r}
+two_state_bench_dur_100 <- readRDS("../inst/benchmarks/two_state_duration_100.rds")
+
+two_state_bench_dur_100
 ```
 
-Plot benchmark results
+* Plot
+
+```{r, width = 12, height = 8}
+ggplot2::autoplot(two_state_bench_dur_100) +
+  theme_minimal()
+```
+
+### Duration: 1000
 
 ```{r, width = 10, height = 10, eval = FALSE}
-ggplot2::autoplot(results) +
-  ggplot2::theme_minimal()
+two_state_bench_dur_1000 <- readRDS("../inst/benchmarks/two_state_duration_1000.rds")
+
+two_state_bench_dur_1000
 ```
 
+
+```{r, width = 12, height = 8}
+ggplot2::autoplot(two_state_bench_dur_1000) +
+  theme_minimal()
+```

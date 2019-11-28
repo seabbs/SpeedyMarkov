@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 `SpeedyMarkov` uses a functional approach with the Markov model first being specified as a series of functions. These functions are then sampled using package functionality. Once samples from the model have been taken for each intervention `SpeedyMarkov` can then be used to simulate the Markov model and internally estimate total costs and QALYs, discounted forward in time. Finally, a separate function can be applied to produce cost effectiveness summary measures. These package steps are wrapped into a single function `markov_ce_pipeline` - exploring the documentation of this function and the code and documentation of the functions it itself wraps may be a useful approach to understanding the underlying mechanisms of the package. 
 
-In principle this functional approach may lead to slightly less efficient code as steps are separated from each other. On the other hand, it may aid generalisability, readability, and make optimising areas of the code easier. A major aim of `SpeedyMarkov` is to provide an easy to use end-to-end tool chain. However, all code should be highly reusable if users wish to use it in a more modular fashion or as part of more complex workflows.
+In principle this functional approach may lead to slightly less efficient code as steps are separated from each other. On the other hand, it may aid generalisability, readability, and make optimising areas of the code easier (as individual functions can be profiled and optimised). A major aim of `SpeedyMarkov` is to provide an easy to use end-to-end tool chain. However, all code should be highly reusable if users wish to use it in a more modular fashion or as part of more complex workflows.
 
 ## Profiling
 

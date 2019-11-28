@@ -34,7 +34,7 @@
 #'
 #'
 #'ggplot2::autoplot(results)
-#'}
+#'} 
 benchmark_markov <- function(markov_model = NULL, reference = NULL, 
                              duration = NULL, samples = NULL,
                              times = 1) {
@@ -83,7 +83,6 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
       )
     },
     "SpeedyMarkov - Rcpp simulation - furrr::future_map (4 cores)" = {
-      future::plan(future::multiprocess, workers = 4);
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
