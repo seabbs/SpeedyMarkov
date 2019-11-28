@@ -8,9 +8,14 @@
 * Optimised core implementation using profiling.
 * Added a`RcppArmadillo` based inner loop to optimise model solving.
 * Added a `RcppArmadillo` Markov simulation function to do CE summarisation
+* Added a benchmarking function to compare approaches
 
 ## Package updates
 
 * Added package infrastructure
 * Added framework for package
-* Added a quick start outlining the package workflow.
+* Added profiling vignettes to explore the two state Markov example. 
+* Added a benchmarking function to run benchmarks.
+* Added a benchmarking vignette to summarise benchmark results.
+* Update readme with a quick start
+

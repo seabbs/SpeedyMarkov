@@ -19,20 +19,25 @@ knitr::opts_chunk$set(
 
 ## Benchmarking setup
 
+The `SpeedMarkov` and reference implementations have been benchmarked with a range of optimisations including making use of `Rcpp` and parallisation. Several parallisation approaches have been explored as has the use of a varying number of cores. The benchmarking grid has been implemented within `SpeedyMarkov` - see below for details.
 
-The benchmarking grid has been implemented within `SpeedyMarkov` - see below.
+* Load required packages.
 
-```{r}
+```{r, include = FALSE}
 library(SpeedyMarkov)
 library(microbenchmark)
 library(parallel)
 library(furrr)
 library(ggplot2)
+```
 
+* Code for the benchmarking grid.
+
+```{r}
 SpeedyMarkov::benchmark_markov
 ```
 
-All benchmarking results have been run elsewhere (`inst/scripts/benchmarking`) and then saved (`inst/benchmarks`). These benchmarks can be recreated locally using the following in the package directory.
+All benchmarking results have been run elsewhere (`inst/scripts/benchmarking`) and then saved (`inst/benchmarks`). These benchmarks can be recreated locally by runningthe following in the package directory.
 
 ```{bash, eval = FALSE}
 Rscript inst/scripts/benchmarking.R
@@ -40,10 +45,9 @@ Rscript inst/scripts/benchmarking.R
 
 ## Two state Markov model
 
-The two state Markov model has been benchmarked for both 100 cycles and 1000 cycles (duration) for 100,000 samples - repeated 10 times per benchmark.
+The two state Markov model has been benchmarked for both 100 cycles and 200 cycles (duration) with 100,000 samples each time - repeated 10 times per benchmark.
 
 ### Duration: 100
-
 
 * Table
 
@@ -55,21 +59,25 @@ two_state_bench_dur_100
 
 * Plot
 
-```{r, width = 12, height = 8}
+```{r, width = 16, height = 12}
 ggplot2::autoplot(two_state_bench_dur_100) +
   theme_minimal()
 ```
 
-### Duration: 1000
+### Duration: 200
+
+* Table
 
 ```{r, width = 10, height = 10, eval = FALSE}
-two_state_bench_dur_1000 <- readRDS("../inst/benchmarks/two_state_duration_1000.rds")
+two_state_bench_dur_200 <- readRDS("../inst/benchmarks/two_state_duration_200.rds")
 
-two_state_bench_dur_1000
+two_state_bench_dur_200
 ```
 
 
-```{r, width = 12, height = 8}
+* Plot
+
+```{r, width = 16, height = 12}
 ggplot2::autoplot(two_state_bench_dur_1000) +
   theme_minimal()
 ```
