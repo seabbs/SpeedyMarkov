@@ -39,7 +39,7 @@ be to use a batch number that corresponds to the number of cores being utilised.
 
 \item{batch_fn}{Function, defaults to \code{NULL}. This is the function to be used to parallise across batches. Potential options
 include \code{parallel::mclapply} (not Windows) or \code{furrr::future_map} (requires the use of \code{future::plan} outside the function). When
-not given the funciton will default to using no batching.}
+not given the function will default to using no batching.}
 
 \item{debug}{Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.}
 
@@ -49,7 +49,9 @@ not given the funciton will default to using no batching.}
 A list containing the model samples and simulations.
 }
 \description{
-Markov Sampling and Simulation Pipeline
+This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to
+be run,  excluding the final analysis of the findings. It may also be used in batch mode to run analyses in
+parallel.
 }
 \examples{
 

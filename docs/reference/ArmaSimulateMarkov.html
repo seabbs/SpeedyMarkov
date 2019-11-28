@@ -186,7 +186,7 @@ and the output from <code>sample_markov</code>.</p>
     <tr>
       <th>sim</th>
       <td><p>Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons.</p></td>
+states in the model. Used to store model simulations.</p></td>
     </tr>
     <tr>
       <th>cohort</th>
@@ -208,7 +208,7 @@ see <code>example_two_state_markov</code> for an example of setting this up.</p>
     <tr>
       <th>discounting</th>
       <td><p>Numeric vector, the discount that should be applied to the costs and QALYs for each time period.
-This must be the same legnth as <code>duration</code>.</p></td>
+This must be the same length as <code>duration</code>.</p></td>
     </tr>
     <tr>
       <th>qalys</th>
@@ -284,9 +284,9 @@ and the duration of the model</p>
 #&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  expr
 #&gt;  simulate_markov_base(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100), markov_loop_fn = SpeedyMarkov::markov_loop)
 #&gt;                                                ArmaSimulateMarkov(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100))
-#&gt;      min      lq      mean   median      uq      max neval
-#&gt;  152.652 164.367 197.64116 171.2230 187.126 4292.826  1000
-#&gt;   63.509  66.179  76.91558  67.6445  72.551  446.325  1000</div></pre>
+#&gt;      min       lq      mean  median       uq      max neval
+#&gt;  151.180 161.3265 190.73035 166.737 175.5440 4497.112  1000
+#&gt;   62.282  65.2030  71.31516  66.380  68.6885  400.786  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

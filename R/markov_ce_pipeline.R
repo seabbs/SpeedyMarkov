@@ -1,5 +1,7 @@
 #' Markov Sampling, Simulation, and Cost Effectiveness Analysis Pipeline
 #'
+#' @description This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to 
+#' be run, including final analysis of the findings.
 #' @return A list containing the model samples and simulations and cost effectiveness summary measures.
 #' @export
 #' @inheritParams markov_simulation_pipeline
@@ -11,7 +13,7 @@
 #'   
 markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
-                            willingness_to_pay_thresold = 20000,
+                            willingness_to_pay_threshold = 20000,
                             sample_type = "base", sim_type = "base", debug = FALSE, 
                             batches = 1, batch_fn = NULL, ...) {
   
@@ -31,7 +33,7 @@ markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
   # Analyse model -----------------------------------------------------------
   
   sum <- SpeedyMarkov::analyse_ce(simulations, baseline = baseline,
-                                  willingness_to_pay_thresold = willingness_to_pay_thresold)
+                                  willingness_to_pay_threshold = willingness_to_pay_threshold)
   
   return(sum)
 }

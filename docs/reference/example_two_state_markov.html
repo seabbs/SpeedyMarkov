@@ -177,7 +177,7 @@ but instead represents a model definition.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A named list of functions that all require a samples argument. The list contains:</p><ul>
-<li><p>transitions_list: a list of transition functions, with the first taking the number of samples as an arguement
+<li><p>transitions_list: a list of transition functions, with the first taking the number of samples as an argument
 and the following being dependent on the a previous transition.</p></li>
 <li><p>qalys: a function that samples the qaly cost for each intervention.</p></li>
 <li><p>intervention_costs: a function that returns the costs for each intervention.</p></li>
@@ -198,8 +198,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     tmp &lt;- SpeedyMarkov::matrix_arrange(tmp)
 #&gt;     return(tmp)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a45b90&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x557683430220&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; $transitions_list$`Soc with Website`
 #&gt; function (baseline = NULL) 
@@ -213,8 +213,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     })
 #&gt;     return(updated)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a48e98&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x557683430d48&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; 
 #&gt; $qalys
@@ -233,8 +233,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a4d250&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x55768342e8b0&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; $intervention_costs
 #&gt; function (samples = NULL) 
@@ -243,8 +243,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- SpeedyMarkov::vector_arrange(tmp)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a4f1e0&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x55768342c958&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; $state_costs
 #&gt; function (samples = NULL) 
@@ -261,8 +261,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a4eb18&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x55768342d020&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; $cohorts
 #&gt; function (samples = NULL) 
@@ -279,8 +279,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x561596a56b58&gt;
-#&gt; &lt;environment: 0x561596b68960&gt;
+#&gt; &lt;bytecode: 0x55768342abf8&gt;
+#&gt; &lt;environment: 0x557687053750&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "SpeedyMarkov" "list"        </div><div class='input'>

@@ -2,11 +2,11 @@
 #'
 #'
 #'@description This function produces cost effectiveness summary measures using the output of `markov_simulation_pipeline`
-#' or similar data structures. At least two intervetions must be present.
+#' or similar data structures. At least two interventions must be present.
 #' @param markov_simulations A dataframe of markov samples and simulations as produced by `markov_simulation_pipeline`. At least two 
 #' interventions must be present.
-#' @param baseline Numeric, the intervetion to consider as the baseline for pairwise comparisons.
-#' @param willingness_to_pay_thresold Numeric, defaulting to 20,000. This is the thresold at which an intervention
+#' @param baseline Numeric, the intervention to consider as the baseline for pairwise comparisons.
+#' @param willingness_to_pay_threshold Numeric, defaulting to 20,000. This is the threshold at which an intervention
 #' may be considered cost effective in the UK.
 #' @param type A character string specifying the approach to use to simulate the model. Currently implemented
 #' approaches are "base" with "base" as the default.
@@ -25,7 +25,7 @@
 #'   
 analyse_ce <- function(markov_simulations = NULL, 
                        baseline = 1,
-                       willingness_to_pay_thresold = 20000,
+                       willingness_to_pay_threshold = 20000,
                        type = "base") { 
 
   ## NULL out variables to deal with package notes
@@ -41,7 +41,7 @@ analyse_ce <- function(markov_simulations = NULL,
                list(total_costs - total_costs[baseline],
                     total_qalys - total_qalys[baseline]),
              by = "sample"][,
-               incremental_net_benefit := willingness_to_pay_thresold * incremental_qalys - incremental_costs
+               incremental_net_benefit := willingness_to_pay_threshold * incremental_qalys - incremental_costs
              ,]
   
   ## Summarise costs

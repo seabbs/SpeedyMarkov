@@ -8,16 +8,16 @@
 
 **Work in progress**
 
-This package aims to:
+This package:
 
-  - Compare a functional markov modelling approach to a reference
+  - Compares a functional markov modelling approach to a reference
     approach for several example models.
-  - Explore approaches to speeding up Markov modelling in a principled
+  - Explores approaches to speeding up Markov modelling in a principled
     fashion making use of C++ when required.
-  - Detail the benefits of parallisation and provide a code structure in
-    which parallisation is easy to make use of.
-  - Provide a toolkit for use in discrete Markov modelling.
-  - Provide optimised code that may be ported into other applications
+  - Details the benefits of parallisation and provide a code structure
+    in which parallisation is easy to make use of.
+  - Provides a toolkit for use in discrete Markov modelling.
+  - Provides optimised code that may be ported into other applications
     and workflows.
 
 The work in this package was started at the Health Economic 2019
@@ -62,7 +62,7 @@ Status](https://img.shields.io/codecov/c/github/seabbs/SpeedyMarkov/master.svg)]
 
 ## Quick start
 
-The first step is to specify a Markov model in the format specificed by
+The first step is to specify a Markov model in the format specified by
 `SpeedyMarkov`. An example framework is `example_two_state_markov` which
 is a two state Markov model that compares an intervention to a baseline.
 See `?example_two_state_markov` for more details.
@@ -81,8 +81,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(tmp)
 #>   }
-#> <bytecode: 0x55b103d9a6e8>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c5d100>
+#> <environment: 0x558322ca9a78>
 #> 
 #> $transitions_list$`Soc with Website`
 #> function(baseline = NULL) {
@@ -100,8 +100,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(updated)
 #>   }
-#> <bytecode: 0x55b103da26e8>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c631e0>
+#> <environment: 0x558322ca9a78>
 #> 
 #> 
 #> $qalys
@@ -126,8 +126,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55b103dad2c8>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c6fca8>
+#> <environment: 0x558322ca9a78>
 #> 
 #> $intervention_costs
 #> function(samples = NULL) {
@@ -139,8 +139,8 @@ SpeedyMarkov::example_two_state_markov()
 #> 
 #>     return(out)
 #>   }
-#> <bytecode: 0x55b103dc09c0>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c7f5a8>
+#> <environment: 0x558322ca9a78>
 #> 
 #> $state_costs
 #> function(samples = NULL) {
@@ -164,8 +164,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55b103dc44f0>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c86f08>
+#> <environment: 0x558322ca9a78>
 #> 
 #> $cohorts
 #> function(samples = NULL) {
@@ -189,8 +189,8 @@ SpeedyMarkov::example_two_state_markov()
 #>     
 #>     return(out)
 #>   }
-#> <bytecode: 0x55b103dd7db8>
-#> <environment: 0x55b103de7060>
+#> <bytecode: 0x558322c95228>
+#> <environment: 0x558322ca9a78>
 #> 
 #> attr(,"class")
 #> [1] "SpeedyMarkov" "list"
@@ -236,8 +236,8 @@ SpeedyMarkov::markov_ce_pipeline(SpeedyMarkov::example_two_state_markov(),
 #> # A tibble: 2 x 13
 #>   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #>   <chr>             <dbl>    <dbl>      <dbl>    <dbl>            <dbl>
-#> 1 SoC                   0        0       14.0    0.105           0     
-#> 2 Soc with We…         50        0       14.0    0.115           0.0279
+#> 1 SoC                   0        0       14.0   0.0790           0     
+#> 2 Soc with We…         50        0       14.0   0.0727          -0.0148
 #> # … with 7 more variables: sd_incremental_qlays <dbl>,
 #> #   mean_incremental_costs <dbl>, sd_incremental_costs <dbl>,
 #> #   mean_incremental_net_benefit <dbl>, sd_incremental_net_benefit <dbl>,

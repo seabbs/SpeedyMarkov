@@ -7,7 +7,7 @@
 analyse_ce(
   markov_simulations = NULL,
   baseline = 1,
-  willingness_to_pay_thresold = 20000,
+  willingness_to_pay_threshold = 20000,
   type = "base"
 )
 }
@@ -15,9 +15,9 @@ analyse_ce(
 \item{markov_simulations}{A dataframe of markov samples and simulations as produced by \code{markov_simulation_pipeline}. At least two
 interventions must be present.}
 
-\item{baseline}{Numeric, the intervetion to consider as the baseline for pairwise comparisons.}
+\item{baseline}{Numeric, the intervention to consider as the baseline for pairwise comparisons.}
 
-\item{willingness_to_pay_thresold}{Numeric, defaulting to 20,000. This is the thresold at which an intervention
+\item{willingness_to_pay_threshold}{Numeric, defaulting to 20,000. This is the threshold at which an intervention
 may be considered cost effective in the UK.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
@@ -29,7 +29,7 @@ measures across samples.
 }
 \description{
 This function produces cost effectiveness summary measures using the output of \code{markov_simulation_pipeline}
-or similar data structures. At least two intervetions must be present.
+or similar data structures. At least two interventions must be present.
 }
 \examples{
 

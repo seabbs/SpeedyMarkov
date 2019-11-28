@@ -6,7 +6,7 @@
 #' @param transition  A transition matrix, see `example_two_state_markov` for an example of setting this up.
 #' @param duration Numeric, how many long to run the model for.
 #'
-#' @return A matrix of the same size as the inputed sim matrix.
+#' @return A matrix of the same size as the inputted sim matrix.
 #' @export
 #'
 #' @examples

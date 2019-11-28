@@ -17,7 +17,7 @@ ArmaSimulateMarkov(
 }
 \arguments{
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons.}
+states in the model. Used to store model simulations.}
 
 \item{cohort}{A vector containing the initial state.}
 
@@ -29,7 +29,7 @@ states in the model. Used to store model simulatons.}
 see \code{example_two_state_markov} for an example of setting this up.}
 
 \item{discounting}{Numeric vector, the discount that should be applied to the costs and QALYs for each time period.
-This must be the same legnth as \code{duration}.}
+This must be the same length as \code{duration}.}
 
 \item{qalys}{A list of QALYs for each intervention, see \code{example_two_state_markov} for an example of setting this up.}
 

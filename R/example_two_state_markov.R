@@ -5,7 +5,7 @@
 #' but instead represents a model definition.
 #'
 #' @return A named list of functions that all require a samples argument. The list contains:
-#' * transitions_list: a list of transition functions, with the first taking the number of samples as an arguement
+#' * transitions_list: a list of transition functions, with the first taking the number of samples as an argument
 #' and the following being dependent on the a previous transition.
 #' * qalys: a function that samples the qaly cost for each intervention.
 #' * intervention_costs: a function that returns the costs for each intervention.

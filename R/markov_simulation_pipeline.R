@@ -1,5 +1,8 @@
 #' Markov Sampling and Simulation Pipeline
 #'
+#' @description This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to 
+#' be run,  excluding the final analysis of the findings. It may also be used in batch mode to run analyses in 
+#' parallel.
 #' @param samples Numeric, defaults to 1. The number of markov model samples to use. 
 #' @param sample_type A character string specifying the approach to use to sample the model. 
 #' Options and defaults inherited from `sample_markov`.
@@ -11,7 +14,7 @@
 #' be to use a batch number that corresponds to the number of cores being utilised.
 #' @param batch_fn Function, defaults to `NULL`. This is the function to be used to parallise across batches. Potential options 
 #' include `parallel::mclapply` (not Windows) or `furrr::future_map` (requires the use of `future::plan` outside the function). When
-#' not given the funciton will default to using no batching.
+#' not given the function will default to using no batching.
 #' @param ... Additional options to pass to `batch_fn`. For example this may be the `mc.cores` argument of `parallel::mclapply`.
 #' @return A list containing the model samples and simulations.
 #' @export

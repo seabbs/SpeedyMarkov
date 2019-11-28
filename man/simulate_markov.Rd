@@ -21,7 +21,7 @@ for the correct data format.}
 \item{duration}{Numeric, how many long to run the model for.}
 
 \item{discounting}{Numeric vector, the discount that should be applied to the costs and QALYs for each time period.
-This must be the same legnth as \code{duration}.}
+This must be the same length as \code{duration}.}
 
 \item{type}{A character string specifying the approach to use to simulate the model. Currently implemented
 approaches are "base", "armadillo_inner" and "armadillo_all with "armadillo_inner" as the default.
@@ -33,7 +33,7 @@ approaches are "base", "armadillo_inner" and "armadillo_all with "armadillo_inne
 If not given then the input type will be checked and converted to a list as required.}
 
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons.}
+states in the model. Used to store model simulations.}
 }
 \value{
 A list containing total costs and total QALYs as matrices across states

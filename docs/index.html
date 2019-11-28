@@ -118,13 +118,13 @@
 </h1></div>
 
 <p><strong>Work in progress</strong></p>
-<p>This package aims to:</p>
+<p>This package:</p>
 <ul>
-<li>Compare a functional markov modelling approach to a reference approach for several example models.</li>
-<li>Explore approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.</li>
-<li>Detail the benefits of parallisation and provide a code structure in which parallisation is easy to make use of.</li>
-<li>Provide a toolkit for use in discrete Markov modelling.</li>
-<li>Provide optimised code that may be ported into other applications and workflows.</li>
+<li>Compares a functional markov modelling approach to a reference approach for several example models.</li>
+<li>Explores approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.</li>
+<li>Details the benefits of parallisation and provide a code structure in which parallisation is easy to make use of.</li>
+<li>Provides a toolkit for use in discrete Markov modelling.</li>
+<li>Provides optimised code that may be ported into other applications and workflows.</li>
 </ul>
 <p>The work in this package was started at the Health Economic 2019 hackathon hosted at Imperial. Much of this work is based on that developed by the <a href="https://github.com/HealthEconomicsHackathon/hermes6">hermes6</a> team. The original reference approach was developed by <a href="https://orcid.org/0000-0001-8576-5552">Howard Thom</a>.</p>
 <div id="installation" class="section level2">
@@ -149,7 +149,7 @@
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
-<p>The first step is to specify a Markov model in the format specificed by <code>SpeedyMarkov</code>. An example framework is <code>example_two_state_markov</code> which is a two state Markov model that compares an intervention to a baseline. See <code><a href="reference/example_two_state_markov.html">?example_two_state_markov</a></code> for more details.</p>
+<p>The first step is to specify a Markov model in the format specified by <code>SpeedyMarkov</code>. An example framework is <code>example_two_state_markov</code> which is a two state Markov model that compares an intervention to a baseline. See <code><a href="reference/example_two_state_markov.html">?example_two_state_markov</a></code> for more details.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">SpeedyMarkov<span class="op">::</span><span class="kw"><a href="samabbott.co.uk/SpeedyMarkov//reference/example_two_state_markov.html">example_two_state_markov</a></span>()</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; $transitions_list</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; $transitions_list$SoC</span></a>
@@ -163,8 +163,8 @@
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;     </span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;     return(tmp)</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; &lt;bytecode: 0x55b103d9a6e8&gt;</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; &lt;bytecode: 0x558322c5d100&gt;</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; $transitions_list$`Soc with Website`</span></a>
 <a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; function(baseline = NULL) {</span></a>
@@ -182,8 +182,8 @@
 <a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;     </span></a>
 <a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;     return(updated)</span></a>
 <a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; &lt;bytecode: 0x55b103da26e8&gt;</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; &lt;bytecode: 0x558322c631e0&gt;</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; $qalys</span></a>
@@ -208,8 +208,8 @@
 <a class="sourceLine" id="cb3-56" data-line-number="56"><span class="co">#&gt;     </span></a>
 <a class="sourceLine" id="cb3-57" data-line-number="57"><span class="co">#&gt;     return(out)</span></a>
 <a class="sourceLine" id="cb3-58" data-line-number="58"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="co">#&gt; &lt;bytecode: 0x55b103dad2c8&gt;</span></a>
-<a class="sourceLine" id="cb3-60" data-line-number="60"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="co">#&gt; &lt;bytecode: 0x558322c6fca8&gt;</span></a>
+<a class="sourceLine" id="cb3-60" data-line-number="60"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-61" data-line-number="61"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-62" data-line-number="62"><span class="co">#&gt; $intervention_costs</span></a>
 <a class="sourceLine" id="cb3-63" data-line-number="63"><span class="co">#&gt; function(samples = NULL) {</span></a>
@@ -221,8 +221,8 @@
 <a class="sourceLine" id="cb3-69" data-line-number="69"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-70" data-line-number="70"><span class="co">#&gt;     return(out)</span></a>
 <a class="sourceLine" id="cb3-71" data-line-number="71"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt; &lt;bytecode: 0x55b103dc09c0&gt;</span></a>
-<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt; &lt;bytecode: 0x558322c7f5a8&gt;</span></a>
+<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-74" data-line-number="74"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-75" data-line-number="75"><span class="co">#&gt; $state_costs</span></a>
 <a class="sourceLine" id="cb3-76" data-line-number="76"><span class="co">#&gt; function(samples = NULL) {</span></a>
@@ -246,8 +246,8 @@
 <a class="sourceLine" id="cb3-94" data-line-number="94"><span class="co">#&gt;     </span></a>
 <a class="sourceLine" id="cb3-95" data-line-number="95"><span class="co">#&gt;     return(out)</span></a>
 <a class="sourceLine" id="cb3-96" data-line-number="96"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-97" data-line-number="97"><span class="co">#&gt; &lt;bytecode: 0x55b103dc44f0&gt;</span></a>
-<a class="sourceLine" id="cb3-98" data-line-number="98"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-97" data-line-number="97"><span class="co">#&gt; &lt;bytecode: 0x558322c86f08&gt;</span></a>
+<a class="sourceLine" id="cb3-98" data-line-number="98"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-99" data-line-number="99"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-100" data-line-number="100"><span class="co">#&gt; $cohorts</span></a>
 <a class="sourceLine" id="cb3-101" data-line-number="101"><span class="co">#&gt; function(samples = NULL) {</span></a>
@@ -271,8 +271,8 @@
 <a class="sourceLine" id="cb3-119" data-line-number="119"><span class="co">#&gt;     </span></a>
 <a class="sourceLine" id="cb3-120" data-line-number="120"><span class="co">#&gt;     return(out)</span></a>
 <a class="sourceLine" id="cb3-121" data-line-number="121"><span class="co">#&gt;   }</span></a>
-<a class="sourceLine" id="cb3-122" data-line-number="122"><span class="co">#&gt; &lt;bytecode: 0x55b103dd7db8&gt;</span></a>
-<a class="sourceLine" id="cb3-123" data-line-number="123"><span class="co">#&gt; &lt;environment: 0x55b103de7060&gt;</span></a>
+<a class="sourceLine" id="cb3-122" data-line-number="122"><span class="co">#&gt; &lt;bytecode: 0x558322c95228&gt;</span></a>
+<a class="sourceLine" id="cb3-123" data-line-number="123"><span class="co">#&gt; &lt;environment: 0x558322ca9a78&gt;</span></a>
 <a class="sourceLine" id="cb3-124" data-line-number="124"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-125" data-line-number="125"><span class="co">#&gt; attr(,"class")</span></a>
 <a class="sourceLine" id="cb3-126" data-line-number="126"><span class="co">#&gt; [1] "SpeedyMarkov" "list"</span></a></code></pre></div>
@@ -312,8 +312,8 @@
 <a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt; # A tibble: 2 x 13</span></a>
 <a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt;   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…</span></a>
 <a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 1 SoC                   0        0       14.0    0.105           0     </span></a>
-<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 2 Soc with We…         50        0       14.0    0.115           0.0279</span></a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 1 SoC                   0        0       14.0   0.0790           0     </span></a>
+<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 2 Soc with We…         50        0       14.0   0.0727          -0.0148</span></a>
 <a class="sourceLine" id="cb4-38" data-line-number="38"><span class="co">#&gt; # … with 7 more variables: sd_incremental_qlays &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb4-39" data-line-number="39"><span class="co">#&gt; #   mean_incremental_costs &lt;dbl&gt;, sd_incremental_costs &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb4-40" data-line-number="40"><span class="co">#&gt; #   mean_incremental_net_benefit &lt;dbl&gt;, sd_incremental_net_benefit &lt;dbl&gt;,</span></a>

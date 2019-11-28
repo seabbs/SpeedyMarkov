@@ -1,4 +1,4 @@
-# getTBinR 0.1.0
+# SpeedyMarkov 0.1.0
 
 ## Feature updates
 

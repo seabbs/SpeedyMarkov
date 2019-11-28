@@ -49,7 +49,9 @@
 
 
 <meta property="og:title" content="Markov Sampling and Simulation Pipeline — markov_simulation_pipeline" />
-<meta property="og:description" content="Markov Sampling and Simulation Pipeline" />
+<meta property="og:description" content="This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to
+be run,  excluding the final analysis of the findings. It may also be used in batch mode to run analyses in
+parallel." />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -162,7 +164,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Markov Sampling and Simulation Pipeline</p>
+    <p>This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to
+be run,  excluding the final analysis of the findings. It may also be used in batch mode to run analyses in
+parallel.</p>
     </div>
 
     <pre class="usage"><span class='fu'>markov_simulation_pipeline</span>(
@@ -218,7 +222,7 @@ be to use a batch number that corresponds to the number of cores being utilised.
       <th>batch_fn</th>
       <td><p>Function, defaults to <code>NULL</code>. This is the function to be used to parallise across batches. Potential options
 include <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code> (not Windows) or <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>furrr::future_map</a></code> (requires the use of <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code> outside the function). When
-not given the funciton will default to using no batching.</p></td>
+not given the function will default to using no batching.</p></td>
     </tr>
     <tr>
       <th>debug</th>

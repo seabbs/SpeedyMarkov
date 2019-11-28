@@ -5,7 +5,7 @@
 #'  over using a series of nested for loops with a core loop running a the markov model for each sample and intervention. 
 #'  Profiling suggestions that this core loop may take the majority of compute time.
 #'
-#' @param cycles Numeric, the number of cylces (time horizon / cycle length). No default supplied.
+#' @param cycles Numeric, the number of cycles (time horizon / cycle length). No default supplied.
 #' @param samples Numeric, the number of samples to use. No default supplied.
 #' @return A named list of cost effectiveness output.
 #' @export

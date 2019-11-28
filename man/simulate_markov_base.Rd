@@ -31,10 +31,10 @@ see \code{example_two_state_markov} for an example of setting this up.}
 \item{duration}{Numeric, how many long to run the model for.}
 
 \item{discounting}{Numeric vector, the discount that should be applied to the costs and QALYs for each time period.
-This must be the same legnth as \code{duration}.}
+This must be the same length as \code{duration}.}
 
 \item{sim}{Matrix with the same number of rows as the duration of the model and the same number of columns as the number of
-states in the model. Used to store model simulatons.}
+states in the model. Used to store model simulations.}
 
 \item{markov_loop_fn}{A function, defaults to ] \code{NULL}. The function to use to solve the inner markov loops. Built in examples
 are \code{markov_loop} (using \code{R}) and \code{ArmaMarkovLoop} (using \code{RcppArmadillo})}

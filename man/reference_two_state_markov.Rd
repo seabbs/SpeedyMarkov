@@ -7,7 +7,7 @@
 reference_two_state_markov(cycles = NULL, samples = NULL)
 }
 \arguments{
-\item{cycles}{Numeric, the number of cylces (time horizon / cycle length). No default supplied.}
+\item{cycles}{Numeric, the number of cycles (time horizon / cycle length). No default supplied.}
 
 \item{samples}{Numeric, the number of samples to use. No default supplied.}
 }

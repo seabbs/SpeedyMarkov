@@ -116,9 +116,9 @@ simulate_markov <- function(markov_sample = NULL,
 #' @param intervention_cost A vector of intervention costs, see `example_two_state_markov` for an example of setting this up.
 #' @param qalys A list of QALYs for each intervention, see `example_two_state_markov` for an example of setting this up.
 #' @param discounting Numeric vector, the discount that should be applied to the costs and QALYs for each time period. 
-#' This must be the same legnth as `duration`.
+#' This must be the same length as `duration`.
 #' @param sim Matrix with the same number of rows as the duration of the model and the same number of columns as the number of 
-#' states in the model. Used to store model simulatons.
+#' states in the model. Used to store model simulations.
 #' @param markov_loop_fn A function, defaults to ] \code{NULL}. The function to use to solve the inner markov loops. Built in examples
 #' are `markov_loop` (using `R`) and `ArmaMarkovLoop` (using `RcppArmadillo`)
 #' @return A list containing total costs and total QALYs as matrices across states

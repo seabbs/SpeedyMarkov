@@ -19,13 +19,13 @@ knitr::opts_chunk$set(
 
 **Work in progress**
 
-This package aims to: 
+This package: 
 
-* Compare a functional markov modelling approach to a reference approach for several example models.
-* Explore approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.
-* Detail the benefits of parallisation and provide a code structure in which parallisation is easy to make use of.
-* Provide a toolkit for use in discrete Markov modelling.
-* Provide optimised code that may be ported into other applications and workflows.
+* Compares a functional markov modelling approach to a reference approach for several example models.
+* Explores approaches to speeding up Markov modelling in a principled fashion making use of C++ when required.
+* Details the benefits of parallisation and provide a code structure in which parallisation is easy to make use of.
+* Provides a toolkit for use in discrete Markov modelling.
+* Provides optimised code that may be ported into other applications and workflows.
 
 The work in this package was started at the Health Economic 2019 hackathon hosted at Imperial. Much of this work is based on that developed by the [hermes6](https://github.com/HealthEconomicsHackathon/hermes6) team. The original reference approach was developed by [Howard Thom](https://orcid.org/0000-0001-8576-5552). 
 
@@ -60,7 +60,7 @@ remotes::install_github("seabbs/SpeedyMarkov")
 
 ## Quick start
 
-The first step is to specify a Markov model in the format specificed by `SpeedyMarkov`. An example framework is `example_two_state_markov` which is a two state Markov model that compares an intervention to a baseline. See `?example_two_state_markov` for more details.
+The first step is to specify a Markov model in the format specified by `SpeedyMarkov`. An example framework is `example_two_state_markov` which is a two state Markov model that compares an intervention to a baseline. See `?example_two_state_markov` for more details.
 
 ```{r}
 SpeedyMarkov::example_two_state_markov()

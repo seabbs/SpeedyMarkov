@@ -49,7 +49,8 @@
 
 
 <meta property="og:title" content="Markov Sampling, Simulation, and Cost Effectiveness Analysis Pipeline — markov_ce_pipeline" />
-<meta property="og:description" content="Markov Sampling, Simulation, and Cost Effectiveness Analysis Pipeline" />
+<meta property="og:description" content="This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to
+be run, including final analysis of the findings." />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -162,7 +163,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Markov Sampling, Simulation, and Cost Effectiveness Analysis Pipeline</p>
+    <p>This functions wraps multiple modular functions and allows an end-to-end cost effectiveness to
+be run, including final analysis of the findings.</p>
     </div>
 
     <pre class="usage"><span class='fu'>markov_ce_pipeline</span>(
@@ -171,7 +173,7 @@
   <span class='kw'>discount</span> <span class='kw'>=</span> <span class='fl'>1.035</span>,
   <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>baseline</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>willingness_to_pay_thresold</span> <span class='kw'>=</span> <span class='fl'>20000</span>,
+  <span class='kw'>willingness_to_pay_threshold</span> <span class='kw'>=</span> <span class='fl'>20000</span>,
   <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -202,11 +204,11 @@ for the correct format.</p></td>
     </tr>
     <tr>
       <th>baseline</th>
-      <td><p>Numeric, the intervetion to consider as the baseline for pairwise comparisons.</p></td>
+      <td><p>Numeric, the intervention to consider as the baseline for pairwise comparisons.</p></td>
     </tr>
     <tr>
-      <th>willingness_to_pay_thresold</th>
-      <td><p>Numeric, defaulting to 20,000. This is the thresold at which an intervention
+      <th>willingness_to_pay_threshold</th>
+      <td><p>Numeric, defaulting to 20,000. This is the threshold at which an intervention
 may be considered cost effective in the UK.</p></td>
     </tr>
     <tr>
@@ -233,7 +235,7 @@ be to use a batch number that corresponds to the number of cores being utilised.
       <th>batch_fn</th>
       <td><p>Function, defaults to <code>NULL</code>. This is the function to be used to parallise across batches. Potential options
 include <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code> (not Windows) or <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>furrr::future_map</a></code> (requires the use of <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code> outside the function). When
-not given the funciton will default to using no batching.</p></td>
+not given the function will default to using no batching.</p></td>
     </tr>
     <tr>
       <th>...</th>

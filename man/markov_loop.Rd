@@ -17,7 +17,7 @@ states in the model.}
 \item{duration}{Numeric, how many long to run the model for.}
 }
 \value{
-A matrix of the same size as the inputed sim matrix.
+A matrix of the same size as the inputted sim matrix.
 }
 \description{
 Inner Markov Loop in base R
