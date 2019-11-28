@@ -2,6 +2,7 @@ pandoc: 2.3.1
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
+  benchmarking: benchmarking.html
   profile_reference: profile_reference.html
   profile_two_state_example: profile_two_state_example.html
 urls:

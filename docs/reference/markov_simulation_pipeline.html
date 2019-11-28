@@ -170,7 +170,8 @@
   <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>map_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -211,6 +212,10 @@ as an argument. Defaults to using <code><a href='https://purrr.tidyverse.org/ref
     <tr>
       <th>debug</th>
       <td><p>Logical, defaults to <code>FALSE</code>. Turns on all debug checks - this may impact runtimes.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguements passed to <code>map_fn</code>.</p></td>
     </tr>
     </table>
 

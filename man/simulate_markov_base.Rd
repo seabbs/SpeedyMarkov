@@ -47,8 +47,6 @@ and the duration of the model
 This model agnostic function runs a single markov model for the specified duration using a base R implementation.
 See \code{example_two_state_markov} for an example of the required input. Alternatively use \code{sample_markov(type = "base")} and
 the output from \code{sample_markov}.
-
-see \code{example_two_state_markov} for an example of setting this up.
 }
 \examples{
   

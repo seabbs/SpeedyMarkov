@@ -171,7 +171,9 @@
   <span class='kw'>willingness_to_pay_thresold</span> <span class='kw'>=</span> <span class='fl'>20000</span>,
   <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
-  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>map_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -214,8 +216,17 @@ Options and defaults inherited from <code>sample_markov</code>.</p></td>
 Options and defaults inherited from <code>simulate_markov</code>.</p></td>
     </tr>
     <tr>
+      <th>map_fn</th>
+      <td><p>An R function used to iterate over the model samples and run simulations. Must accept a functon
+as an argument. Defaults to using <code><a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map</a></code> if not supplied.</p></td>
+    </tr>
+    <tr>
       <th>debug</th>
       <td><p>Logical, defaults to <code>FALSE</code>. Turns on all debug checks - this may impact runtimes.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguements passed to <code>map_fn</code>.</p></td>
     </tr>
     </table>
 

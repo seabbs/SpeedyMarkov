@@ -37,6 +37,7 @@ Suggests:
     rmarkdown (>= 1.17),
     testthat (>= 2.3.0),
     profvis (>= 0.3.6),
+    future (>= 1.15.0),
     furrr (>= 0.1.0),
     microbenchmark (>= 1.4.7)
 VignetteBuilder: 

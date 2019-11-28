@@ -235,7 +235,7 @@ and the duration of the model</p>
  <span class='no'>markov_sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sample_markov.html'>sample_markov</a></span>(<span class='fu'><a href='example_two_state_markov.html'>example_two_state_markov</a></span>())
 
  <span class='fu'>simulate_markov_base</span>(
-     <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='no'>duration</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]])),
+     <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]])),
      <span class='kw'>transition</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>transition</span><span class='kw'>[[</span><span class='fl'>1</span>]],
      <span class='kw'>cohort</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>cohort</span><span class='kw'>[[</span><span class='fl'>1</span>]],
      <span class='kw'>state_cost</span> <span class='kw'>=</span> <span class='no'>markov_sample</span>$<span class='no'>state_cost</span><span class='kw'>[[</span><span class='fl'>1</span>]],
@@ -244,7 +244,12 @@ and the duration of the model</p>
      <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>,
      <span class='kw'>discounting</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='fu'><a href='samabbott.co.uk/SpeedyMarkov//reference/calc_discounting.html'>calc_discounting</a></span>(<span class='fl'>1.035</span>, <span class='fl'>10</span>),
      <span class='kw'>markov_loop_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SpeedyMarkov</span><span class='kw ns'>::</span><span class='no'><a href='samabbott.co.uk/SpeedyMarkov//reference/markov_loop.html'>markov_loop</a></span>
- )</div><div class='output co'>#&gt; <span class='error'>Error in matrix(NA, nrow = duration, ncol = nrow(markov_sample$transition[[1]])): object 'duration' not found</span></div><div class='input'>  
+ )</div><div class='output co'>#&gt; $total_costs
+#&gt; [1] 0
+#&gt; 
+#&gt; $total_qalys
+#&gt; [1] 4.103684
+#&gt; </div><div class='input'>  
   
 </div></pre>
   </div>

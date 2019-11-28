@@ -111,8 +111,6 @@ simulate_markov <- function(markov_sample = NULL,
 #' @description This model agnostic function runs a single markov model for the specified duration using a base R implementation.
 #'  See `example_two_state_markov` for an example of the required input. Alternatively use `sample_markov(type = "base")` and 
 #'  the output from `sample_markov`.
-#' 
-#' see `example_two_state_markov` for an example of setting this up.
 #' @param state_cost A list of state costs for each intervention, 
 #' see `example_two_state_markov` for an example of setting this up.
 #' @param intervention_cost A vector of intervention costs, see `example_two_state_markov` for an example of setting this up.

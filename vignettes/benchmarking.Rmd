@@ -39,32 +39,32 @@ benchmark_approaches <- function(model = NULL, reference = NULL,
   "Reference" = {
     reference(cycles = duration, samples = samples)
     },
-  "SpeedyMarkov - R" = {
+  "R" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
                        sim_type = "base")
     },
-    "SpeedyMarkov - Rcpp inner loop" = {
+    "Rcpp inner loop" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
                        sim_type = "armadillo_inner")
     },
-    "SpeedyMarkov - Rcpp simulation" = {
+    "Rcpp simulation" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
                        sim_type = "armadillo_all")
     },
-    "SpeedyMarkov - Rcpp simulation - lapply" = {
+    "Rcpp simulation - lapply" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
                        sim_type = "armadillo_all",
                        map_fn = lapply)
     },
-   "SpeedyMarkov - Rcpp simulation - mclapply (2 cores)" = {
+   "Rcpp simulation - mclapply (2 cores)" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
@@ -72,7 +72,7 @@ benchmark_approaches <- function(model = NULL, reference = NULL,
                        map_fn = parallel::mclapply,
                        mc.cores = 2)
     },
-     "SpeedyMarkov - Rcpp simulation - mclapply (4 cores)" = {
+     "Rcpp simulation - mclapply (4 cores)" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
                        samples = samples,
@@ -83,7 +83,7 @@ benchmark_approaches <- function(model = NULL, reference = NULL,
        "SpeedyMarkov - Rcpp simulation - furrr::future_map (4 cores)" = {
     markov_ce_pipeline(model(),
                        duration = duration, 
-                       samples = samples,
+                       samples = samples / 10,
                        sim_type = "armadillo_all",
                        map_fn = furrr::future_map)
     },
