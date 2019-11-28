@@ -8,3 +8,4 @@ inst/shiny/ce_dashboard/rsconnect/
 .local
 .config
 pkgdown
+docs
