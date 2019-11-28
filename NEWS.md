@@ -17,5 +17,7 @@
 * Added profiling vignettes to explore the two state Markov example. 
 * Added a benchmarking function to run benchmarks.
 * Added a benchmarking vignette to summarise benchmark results.
-* Update readme with a quick start
+* Update readme with a quick start.
+* Added basic tests for `Rcpp` code compare to R code.
+* Added C and code coverage.
 
