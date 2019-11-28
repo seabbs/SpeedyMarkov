@@ -128,46 +128,54 @@
 <div id="benchmarking-setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#benchmarking-setup" class="anchor"></a>Benchmarking setup</h2>
-<p>The <code>SpeedMarkov</code> and reference implementations have been benchmarked with a range of optimisations including making use of <code>Rcpp</code> and parallisation. Several parallisation approaches have been explored as has the use of a varying number of cores. The benchmarking grid has been implemented within <code>SpeedyMarkov</code> - see below for details.</p>
+<p>The <code>SpeedyMarkov</code> and reference implementations have been benchmarked with a range of optimisations including making use of <code>Rcpp</code> and parallisation. Several parallisation approaches have been explored as has the use of a varying number of cores. The benchmarking grid has been implemented within <code>SpeedyMarkov</code> - see below for details.</p>
 <ul>
-<li><p>Load required packages.</p></li>
-<li><p>Code for the benchmarking grid.</p></li>
+<li>Load required packages.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">SpeedyMarkov<span class="op">::</span>benchmark_markov</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; function (markov_model = NULL, reference = NULL, duration = NULL, </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;     samples = NULL, times = 1) </span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; {</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;     future::plan(future::multiprocess, workers = 4)</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;     benchmark &lt;- microbenchmark::microbenchmark(Reference = {</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;         reference(cycles = duration, samples = samples)</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;     }, R = {</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt;             samples = samples, sim_type = "base")</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;     }, `Rcpp inner loop` = {</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_inner")</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;     }, `Rcpp simulation` = {</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all")</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (2 cores)` = {</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 2, </span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 2)</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (4 cores)` = {</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 4)</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt;     }, `Rcpp simulation - furrr::future_map (4 cores)` = {</span></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt;             batch_fn = furrr::future_map)</span></a>
-<a class="sourceLine" id="cb1-29" data-line-number="29"><span class="co">#&gt;     }, times = times)</span></a>
-<a class="sourceLine" id="cb1-30" data-line-number="30"><span class="co">#&gt;     return(benchmark)</span></a>
-<a class="sourceLine" id="cb1-31" data-line-number="31"><span class="co">#&gt; }</span></a>
-<a class="sourceLine" id="cb1-32" data-line-number="32"><span class="co">#&gt; &lt;bytecode: 0x55d74edac4f0&gt;</span></a>
-<a class="sourceLine" id="cb1-33" data-line-number="33"><span class="co">#&gt; &lt;environment: namespace:SpeedyMarkov&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(SpeedyMarkov)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(microbenchmark)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parallel)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(furrr)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Loading required package: future</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a></code></pre></div>
+<ul>
+<li>Code for the benchmarking grid.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">SpeedyMarkov<span class="op">::</span>benchmark_markov</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; function (markov_model = NULL, reference = NULL, duration = NULL, </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt;     samples = NULL, times = 1) </span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; {</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;     future::plan(future::multiprocess, workers = 4)</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;     benchmark &lt;- microbenchmark::microbenchmark(Reference = {</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;         reference(cycles = duration, samples = samples)</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;     }, R = {</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;             samples = samples, sim_type = "base")</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;     }, `Rcpp inner loop` = {</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_inner")</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;     }, `Rcpp simulation` = {</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all")</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (2 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 2, </span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 2)</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 4)</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;     }, `Rcpp simulation - furrr::future_map (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;             batch_fn = furrr::future_map)</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;     }, times = times)</span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;     return(benchmark)</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; }</span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; &lt;bytecode: 0x55c187abcd68&gt;</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt; &lt;environment: namespace:SpeedyMarkov&gt;</span></a></code></pre></div>
 <p>All benchmarking results have been run elsewhere (<code>inst/scripts/benchmarking</code>) and then saved (<code>inst/benchmarks</code>). These benchmarks can be recreated locally by running the following in the package directory (<em>Warning:: This is likely to take upwards of an hour and a half</em>)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="ex">Rscript</span> inst/scripts/benchmarking.R</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">Rscript</span> inst/scripts/benchmarking.R</a></code></pre></div>
 </div>
 <div id="two-state-markov-model" class="section level2">
 <h2 class="hasAnchor">
@@ -176,35 +184,37 @@
 <div id="duration-100" class="section level3">
 <h3 class="hasAnchor">
 <a href="#duration-100" class="anchor"></a>Duration: 100</h3>
+<p>Benchmarking results show that both <code>Rcpp</code> implementations consistently outperform other implementations with the full <code>Rcpp</code> implementation being overall slightly faster but with potentially some instability. Parallisation appears to work well and scale with the number of cores used. Both parallisation approaches work equally well with <code>furrr</code> preferred due to its support for Windows. On a 4 core machine a parallel approach takes around 10% of the reference approaches runtime. There was also a substantial speed up - though less dramatic - when compared to the R <code>SpeedyMarkov</code> approach.</p>
+<p>Increasing the number of cycles (duration) resulted in a an approximate doubling of the runtime for both the reference and R <code>SpeedyMarkov</code> approaches. However, all C++ based approaches had only small increases in runtime highlighting the increased performance that C provides (though the difference between the partial and full C++ approaches did increase). In fact the parallel C++ implementations showed no apparent increase in runtime when the duration was doubled. This indicates that this approach should scale well to more complex models and/or longer runtimes.</p>
 <ul>
 <li>Table</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">two_state_bench_dur_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"../inst/benchmarks/two_state_duration_100.rds"</span>) </a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">two_state_bench_dur_<span class="dv">100</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;                                           expr       min        lq      mean</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;                                      Reference 52.377248 54.081342 55.931822</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;                                              R 35.511732 36.727933 37.749872</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop 17.166327 17.404030 18.466126</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation 14.571177 15.507327 17.105037</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  8.537413  8.937290  9.288988</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)  4.707571  5.184884  5.743455</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)  4.822564  5.694475  6.245535</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;     median        uq       max neval</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  56.459692 57.055064 59.953596    10</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  37.944520 39.134406 39.371618    10</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  17.872061 18.709635 22.205278    10</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  16.042290 16.381843 28.292223    10</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;   9.296722  9.484275 10.705180    10</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;   5.686001  5.714562  8.500436    10</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;   5.890772  6.837399  9.094804    10</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">two_state_bench_dur_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"../inst/benchmarks/two_state_duration_100.rds"</span>) </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">two_state_bench_dur_<span class="dv">100</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;                                           expr       min        lq      mean</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;                                      Reference 52.377248 54.081342 55.931822</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;                                              R 35.511732 36.727933 37.749872</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop 17.166327 17.404030 18.466126</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation 14.571177 15.507327 17.105037</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  8.537413  8.937290  9.288988</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)  4.707571  5.184884  5.743455</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)  4.822564  5.694475  6.245535</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;     median        uq       max neval</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  56.459692 57.055064 59.953596    10</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  37.944520 39.134406 39.371618    10</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  17.872061 18.709635 22.205278    10</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  16.042290 16.381843 28.292223    10</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   9.296722  9.484275 10.705180    10</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   5.686001  5.714562  8.500436    10</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   5.890772  6.837399  9.094804    10</span></a></code></pre></div>
 <ul>
 <li>Plot</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(two_state_bench_dur_<span class="dv">100</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">theme_minimal</span>()</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(two_state_bench_dur_<span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></a></code></pre></div>
 <p><img src="benchmarking_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="duration-200" class="section level3">
@@ -213,32 +223,32 @@
 <ul>
 <li>Table</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">two_state_bench_dur_<span class="dv">200</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"../inst/benchmarks/two_state_duration_200.rds"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">two_state_bench_dur_<span class="dv">200</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;                                           expr        min         lq       mean</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;                                      Reference 103.827180 111.976671 115.603659</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;                                              R  85.319134  86.017056  91.215040</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop  22.043169  23.552167  24.107632</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation  19.458262  20.035175  20.984306</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  11.713925  12.059636  12.283096</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)   6.401576   6.780320   7.133101</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)   6.091053   6.374329   7.174349</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;      median         uq        max neval</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  113.695596 116.167576 137.550620    10</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;   90.621628  96.182515  99.844707    10</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;   23.844648  24.944081  25.782172    10</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;   20.996432  21.580285  22.721555    10</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;   12.219192  12.628788  12.944961    10</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;    7.166611   7.537798   7.674049    10</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;    6.921388   8.102352   9.009986    10</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">two_state_bench_dur_<span class="dv">200</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"../inst/benchmarks/two_state_duration_200.rds"</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">two_state_bench_dur_<span class="dv">200</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;                                           expr        min         lq       mean</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;                                      Reference 103.827180 111.976671 115.603659</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;                                              R  85.319134  86.017056  91.215040</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop  22.043169  23.552167  24.107632</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation  19.458262  20.035175  20.984306</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  11.713925  12.059636  12.283096</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)   6.401576   6.780320   7.133101</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)   6.091053   6.374329   7.174349</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;      median         uq        max neval</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  113.695596 116.167576 137.550620    10</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;   90.621628  96.182515  99.844707    10</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;   23.844648  24.944081  25.782172    10</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;   20.996432  21.580285  22.721555    10</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;   12.219192  12.628788  12.944961    10</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;    7.166611   7.537798   7.674049    10</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;    6.921388   8.102352   9.009986    10</span></a></code></pre></div>
 <ul>
 <li>Plot</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(two_state_bench_dur_<span class="dv">200</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">theme_minimal</span>()</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(two_state_bench_dur_<span class="dv">200</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></a></code></pre></div>
 <p><img src="benchmarking_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
