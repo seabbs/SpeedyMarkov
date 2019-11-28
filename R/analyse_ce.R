@@ -14,7 +14,7 @@
 #' measures across samples.
 #' @export
 #' @importFrom purrr map
-#' @importFrom data.table as.data.table
+#' @importFrom data.table as.data.table .N ":="
 #' @importFrom stats sd
 #' @examples
 #' 
@@ -31,13 +31,13 @@ analyse_ce <- function(markov_simulations = NULL,
   ## NULL out variables to deal with package notes
   total_costs <- NULL; total_qalys <- NULL; incremental_qalys <- NULL; incremental_costs <- NULL;
   intervention <- NULL; incremental_net_benefit <- NULL; mean_costs <- NULL; mean_qalys <- NULL;
-  total_costs <- NULL; total_costs <- NULL;
+  total_costs <- NULL; total_costs <- NULL; icer <- NULL; . <- NULL;
   
   ## Convert to data.table
-  incremental_sims <- data.table::as.data.table(incremental_sims) 
+  markov_simulations <- data.table::as.data.table(markov_simulations) 
   
   ## Calculate incremental costs and qalys
-  incremental_sims <- incremental_sims[, c("incremental_costs", "incremental_qalys") :=
+  incremental_sims <- markov_simulations[, c("incremental_costs", "incremental_qalys") :=
                list(total_costs - total_costs[baseline],
                     total_qalys - total_qalys[baseline]),
              by = "sample"][,
