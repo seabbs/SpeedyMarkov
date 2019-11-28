@@ -107,6 +107,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../articles/benchmarking.html">Benchmarks</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     News
@@ -169,7 +172,8 @@
   <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
   <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
-  <span class='kw'>map_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>batches</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>batch_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )</pre>
@@ -205,9 +209,16 @@ Options and defaults inherited from <code>sample_markov</code>.</p></td>
 Options and defaults inherited from <code>simulate_markov</code>.</p></td>
     </tr>
     <tr>
-      <th>map_fn</th>
-      <td><p>An R function used to iterate over the model samples and run simulations. Must accept a functon
-as an argument. Defaults to using <code><a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map</a></code> if not supplied.</p></td>
+      <th>batches</th>
+      <td><p>Numeric, defaults to 1. The number of batches to run simulation/sampling in. When set to
+values greater than 1 a <code>batch_fn</code> must also be supplied. It is likely that the most efficient option will
+be to use a batch number that corresponds to the number of cores being utilised.</p></td>
+    </tr>
+    <tr>
+      <th>batch_fn</th>
+      <td><p>Function, defaults to <code>NULL</code>. This is the function to be used to parallise across batches. Potential options
+include <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code> (not Windows) or <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>furrr::future_map</a></code> (requires the use of <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code> outside the function). When
+not given the funciton will default to using no batching.</p></td>
     </tr>
     <tr>
       <th>debug</th>
@@ -215,7 +226,7 @@ as an argument. Defaults to using <code><a href='https://purrr.tidyverse.org/ref
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguements passed to <code>map_fn</code>.</p></td>
+      <td><p>Additional options to pass to <code>batch_fn</code>. For example this may be the <code>mc.cores</code> argument of <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code>.</p></td>
     </tr>
     </table>
 
@@ -229,15 +240,14 @@ as an argument. Defaults to using <code><a href='https://purrr.tidyverse.org/ref
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='fu'>markov_simulation_pipeline</span>(<span class='fu'><a href='example_two_state_markov.html'>example_two_state_markov</a></span>(), <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 9</span><span>
+<span class='fu'>markov_simulation_pipeline</span>(<span class='fu'><a href='example_two_state_markov.html'>example_two_state_markov</a></span>(), <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 9</span><span>
 #&gt;   sample intervention transition state_cost intervention_co… cohort qalys
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;named li&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;named li&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;name&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;nam&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 SoC          </span><span style='color: #555555;'>&lt;dbl[,2] </span><span>… </span><span style='color: #555555;'>&lt;dbl [2]&gt;</span><span>                 0 </span><span style='color: #555555;'>&lt;dbl </span><span>… </span><span style='color: #555555;'>&lt;dbl</span><span>…
-#&gt; </span><span style='color: #555555;'>2</span><span>      1 Soc with We… </span><span style='color: #555555;'>&lt;dbl[,2] </span><span>… </span><span style='color: #555555;'>&lt;dbl [2]&gt;</span><span>                50 </span><span style='color: #555555;'>&lt;dbl </span><span>… </span><span style='color: #555555;'>&lt;dbl</span><span>…
-#&gt; </span><span style='color: #555555;'>3</span><span>      2 SoC          </span><span style='color: #555555;'>&lt;dbl[,2] </span><span>… </span><span style='color: #555555;'>&lt;dbl [2]&gt;</span><span>                 0 </span><span style='color: #555555;'>&lt;dbl </span><span>… </span><span style='color: #555555;'>&lt;dbl</span><span>…
-#&gt; </span><span style='color: #555555;'>4</span><span>      2 Soc with We… </span><span style='color: #555555;'>&lt;dbl[,2] </span><span>… </span><span style='color: #555555;'>&lt;dbl [2]&gt;</span><span>                50 </span><span style='color: #555555;'>&lt;dbl </span><span>… </span><span style='color: #555555;'>&lt;dbl</span><span>…
-#&gt; </span><span style='color: #555555;'># … with 2 more variables: total_costs </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, total_qalys </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>  
-</div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;named li&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;named li&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;name&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;nam&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 SoC          </span><span style='color: #949494;'>&lt;dbl[,2] </span><span>… </span><span style='color: #949494;'>&lt;dbl [2]&gt;</span><span>                 0 </span><span style='color: #949494;'>&lt;dbl </span><span>… </span><span style='color: #949494;'>&lt;dbl</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      1 Soc with We… </span><span style='color: #949494;'>&lt;dbl[,2] </span><span>… </span><span style='color: #949494;'>&lt;dbl [2]&gt;</span><span>                50 </span><span style='color: #949494;'>&lt;dbl </span><span>… </span><span style='color: #949494;'>&lt;dbl</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      2 SoC          </span><span style='color: #949494;'>&lt;dbl[,2] </span><span>… </span><span style='color: #949494;'>&lt;dbl [2]&gt;</span><span>                 0 </span><span style='color: #949494;'>&lt;dbl </span><span>… </span><span style='color: #949494;'>&lt;dbl</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>      2 Soc with We… </span><span style='color: #949494;'>&lt;dbl[,2] </span><span>… </span><span style='color: #949494;'>&lt;dbl [2]&gt;</span><span>                50 </span><span style='color: #949494;'>&lt;dbl </span><span>… </span><span style='color: #949494;'>&lt;dbl</span><span>…
+#&gt; </span><span style='color: #949494;'># … with 2 more variables: total_costs </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, total_qalys </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

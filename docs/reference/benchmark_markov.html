@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • SpeedyMarkov</title>
+<title>Benchmarks Markov Model Simulation Approaches — benchmark_markov • SpeedyMarkov</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,18 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Benchmarks Markov Model Simulation Approaches — benchmark_markov" />
+<meta property="og:description" content="This function runs a benchmark across multiple approaches to Markov model
+simulation. This includes multiple approaches using Rcpp and different strategies for parallisation.
+Unless otherwise stated the default settings for SpeedyMarkov are used (which are to maximise the use
+of Rcpp). Note: mclapply uses mutlicore parallisation which is only available on Mac and Linux. future
+and furrr default to multicore parallisation but this will again not be used on Windows or in an interactive
+Rstudio session. This may impact benchmark performance.).
+This function relies on suggested packages and so requires the installation of the following packages:
+microbenchmark
+furrr
+
+" />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -69,7 +80,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -153,183 +164,90 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Benchmarks Markov Model Simulation Approaches</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seabbs/SpeedyMarkov/blob/master/R/benchmark_markov.R'><code>R/benchmark_markov.R</code></a></small>
+    <div class="hidden name"><code>benchmark_markov.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function runs a benchmark across multiple approaches to Markov model
+simulation. This includes multiple approaches using <code>Rcpp</code> and different strategies for parallisation.
+Unless otherwise stated the default settings for <code>SpeedyMarkov</code> are used (which are to maximise the use
+of <code>Rcpp</code>). <strong>Note: <code>mclapply</code> uses mutlicore parallisation which is only available on Mac and Linux. <code>future</code>
+and <code>furrr</code> default to multicore parallisation but this will again not be used on Windows or in an interactive
+Rstudio session. This may impact benchmark performance.</strong>).</p>
+<p>This function relies on suggested packages and so requires the installation of the following packages:</p><ul>
+<li><p>microbenchmark</p></li>
+<li><p>furrr</p></li>
+</ul>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-pipeline-wrapper-functions" class="hasAnchor"><a href="#section-pipeline-wrapper-functions" class="anchor"></a>Pipeline/Wrapper Functions</h2>
-          <p class="section-desc"><p>These functions wrap multiple modular components into functional pipelines.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="markov_ce_pipeline.html">markov_ce_pipeline()</a></code> </p>
-        </td>
-        <td><p>Markov Sampling, Simulation, and Cost Effectiveness Analysis Pipeline</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="markov_simulation_pipeline.html">markov_simulation_pipeline()</a></code> </p>
-        </td>
-        <td><p>Markov Sampling and Simulation Pipeline</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-modular-sampling-simulation-and-analysis-functions" class="hasAnchor"><a href="#section-modular-sampling-simulation-and-analysis-functions" class="anchor"></a>Modular Sampling, Simulation and Analysis Functions</h2>
-          <p class="section-desc"><p>Functions (both R and Rcpp) that facilitate model sampling, simulation and analysis.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="sample_markov.html">sample_markov()</a></code> </p>
-        </td>
-        <td><p>Sample a Markov Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sample_markov_base.html">sample_markov_base()</a></code> </p>
-        </td>
-        <td><p>Sample a Markov Model Sample using Base R</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="simulate_markov.html">simulate_markov()</a></code> </p>
-        </td>
-        <td><p>Simulate a Markov Model Sample</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="simulate_markov_base.html">simulate_markov_base()</a></code> </p>
-        </td>
-        <td><p>Simulate a Markov Model Sample using Base R</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ArmaSimulateMarkov.html">ArmaSimulateMarkov()</a></code> </p>
-        </td>
-        <td><p>Simulate a Markov Model Sample using RcppArmadillo</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="analyse_ce.html">analyse_ce()</a></code> </p>
-        </td>
-        <td><p>Analyse the Cost Effectiveness of Interventions</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-internal-tooling" class="hasAnchor"><a href="#section-internal-tooling" class="anchor"></a>Internal tooling</h2>
-          <p class="section-desc"><p>These functions (both R and Rcpp) are used internally by other functions to make simple operations modular.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="markov_loop.html">markov_loop()</a></code> </p>
-        </td>
-        <td><p>Inner Markov Loop in base R</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ArmaMarkovLoop.html">ArmaMarkovLoop()</a></code> </p>
-        </td>
-        <td><p>An inner Markov loop implemented using RcppArmadillo</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-package-and-reference-models" class="hasAnchor"><a href="#section-package-and-reference-models" class="anchor"></a>Package and Reference Models</h2>
-          <p class="section-desc"><p>Example reference models and their SpeedyMarkov implementations.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="reference_two_state_markov.html">reference_two_state_markov()</a></code> </p>
-        </td>
-        <td><p>Reference Two State Markov Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="example_two_state_markov.html">example_two_state_markov()</a></code> </p>
-        </td>
-        <td><p>Reference Two State Markov Model</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
-          <p class="section-desc"><p>Helper functions used in other package functions and to explore package functionality.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="vector_arrange.html">vector_arrange()</a></code> </p>
-        </td>
-        <td><p>Arrange Vectorised Vector Samples</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="matrix_arrange.html">matrix_arrange()</a></code> </p>
-        </td>
-        <td><p>Arrange Vectorised Matrix Samples</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calc_discounting.html">calc_discounting()</a></code> </p>
-        </td>
-        <td><p>Calculate Discounting Over the Model Run Time.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="benchmark_markov.html">benchmark_markov()</a></code> </p>
-        </td>
-        <td><p>Benchmarks Markov Model Simulation Approaches</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-exports-from-other-packages" class="hasAnchor"><a href="#section-exports-from-other-packages" class="anchor"></a>Exports from other packages</h2>
-          <p class="section-desc"><p>Functions imported from other packages.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="reexports.html">reexports</a></code> </p>
-        </td>
-        <td><p>Objects exported from other packages</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>benchmark_markov</span>(
+  <span class='kw'>markov_model</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>reference</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>duration</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1</span>
+)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>markov_model</th>
+      <td><p>A list of functions that define a markov model across multiple interventions. See <code>example_two_state_markov</code>
+for the correct format.</p></td>
+    </tr>
+    <tr>
+      <th>reference</th>
+      <td><p>Function, the reference model to compare the <code>SpeedyMarkov</code> approaches to. An example
+of a reference model is <code>reference_two_state_markov</code>.</p></td>
+    </tr>
+    <tr>
+      <th>duration</th>
+      <td><p>Numeric, how many long to run the model for.</p></td>
+    </tr>
+    <tr>
+      <th>samples</th>
+      <td><p>Numeric, defaults to 1. The number of markov model samples to use.</p></td>
+    </tr>
+    <tr>
+      <th>times</th>
+      <td><p>Numeric, the number of times to repeat the benchmark. Defaults to once. Repeating the benchmark
+can help control for stochastic effects.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns a <code>microbenchmark</code> data.frame of benchmarking results</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># Run a benchmark across approaches for a small number of samples </span>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>benchmark_markov</span>(<span class='kw'>markov_model</span> <span class='kw'>=</span> <span class='no'>example_two_state_markov</span>,
+                            <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>reference_two_state_markov</span>,
+                            <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+                            <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+
+<span class='no'>results</span>
+
+
+<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>results</span>)
+}</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-pipeline-wrapper-functions">Pipeline/Wrapper Functions</a></li>
-      <li><a href="#section-modular-sampling-simulation-and-analysis-functions">Modular Sampling, Simulation and Analysis Functions</a></li>
-      <li><a href="#section-internal-tooling">Internal tooling</a></li>
-      <li><a href="#section-package-and-reference-models">Package and Reference Models</a></li>
-      <li><a href="#section-utilities">Utilities</a></li>
-      <li><a href="#section-exports-from-other-packages">Exports from other packages</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

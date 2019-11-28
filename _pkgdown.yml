@@ -20,6 +20,8 @@ navbar:
         href: articles/profile_reference.html
       - text: Profiling the {SpeedyMarkov} implementation
         href: articles/profile_two_state_example.html
+    - text: "Benchmarks"
+      href: articles/benchmarking.html
     - text: News
       menu:
       - text: "Change log"
@@ -27,4 +29,41 @@ navbar:
     - icon: fa-file-code-o 
       text: "Functions"
       href: reference/index.html
-        
+      
+      
+reference:
+    - title: Pipeline/Wrapper Functions
+      desc:  These functions wrap multiple modular components into functional pipelines.
+      contents:
+      - markov_ce_pipeline
+      - markov_simulation_pipeline
+    - title: Modular Sampling, Simulation and Analysis Functions
+      desc: Functions (both R and Rcpp) that facilitate model sampling, simulation and analysis.
+      contents:
+      - sample_markov
+      - sample_markov_base
+      - simulate_markov
+      - simulate_markov_base
+      - ArmaSimulateMarkov
+      - analyse_ce
+    - title: Internal tooling
+      desc: These functions (both R and Rcpp) are used internally by other functions to make simple operations modular. 
+      contents:
+      - markov_loop
+      - ArmaMarkovLoop
+    - title: Package and Reference Models
+      desc: Example reference models and their SpeedyMarkov implementations.
+      contents:
+      - reference_two_state_markov
+      - example_two_state_markov
+    - title: Utilities
+      desc: Helper functions used in other package functions and to explore package functionality.
+      contents:
+      - vector_arrange
+      - matrix_arrange
+      - calc_discounting
+      - benchmark_markov
+    - title: Exports from other packages
+      desc: Functions imported from other packages.
+      contents:
+      - "%>%"
