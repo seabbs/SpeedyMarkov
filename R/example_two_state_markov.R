@@ -17,7 +17,7 @@
 #' @export
 #' @importFrom VGAM rdiric
 #' @importFrom stats rnorm
-#' @importFrom purrr map map2 ranspose
+#' @importFrom purrr map map2 transpose
 #' @author Sam Abbott
 #' @examples 
 #' ## Example model run
