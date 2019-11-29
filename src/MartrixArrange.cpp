@@ -1,5 +1,6 @@
 
-#include <RcppArmadillo.h>
+#include <Rcpp.h>
+using namespace Rcpp;
 
 //' @title Arrange Vectorised Matrix Samples using Rcpp
 //' 
@@ -9,6 +10,7 @@
 //' @inherit matrix_arrange_inner
 //' @export
 //' @useDynLib SpeedyMarkov, .registration=TRUE
+//' @importFrom Rcpp evalCpp
 //' @examples
 //' 
 //' 

@@ -107,6 +107,7 @@ ArmaSimulateMarkov <- function(sim, cohort, transition, duration, state_cost, di
 #' @inherit matrix_arrange_inner
 #' @export
 #' @useDynLib SpeedyMarkov, .registration=TRUE
+#' @importFrom Rcpp evalCpp
 #' @examples
 #' 
 #' 
