@@ -72,7 +72,7 @@ profvis({
 
 ### R implementation using Rcpp for both simulation and sampling
 
-Now that simulations have been optimised using `Rcpp` a further - relatively simple - optimisation is to speed up model sampling where possible using `Rcpp`. This is likely to give a small performance boost though this may grow more significant as model complexity grows.
+Now that simulations have been optimised using `Rcpp` a further - relatively simple - optimisation is to speed up model sampling where possible using `Rcpp`. These optimisations lead to a relatively small performance boost though this may grow more significant as model complexity grows.
 
 
 ```{r}

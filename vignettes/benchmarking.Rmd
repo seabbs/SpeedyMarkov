@@ -47,11 +47,11 @@ Rscript inst/scripts/benchmarking.R
 
 The two state Markov model has been benchmarked for both 100 cycles and 200 cycles (duration) with 100,000 samples each time - repeated 10 times per benchmark.
 
-### Duration: 100
-
 Benchmarking results show that both `Rcpp` implementations consistently outperform other implementations with the full `Rcpp` implementation being overall slightly faster but with potentially some instability. Parallisation appears to work well and scale with the number of cores used. Both parallisation approaches work equally well with `furrr` preferred due to its support for Windows. On a 4 core machine a parallel approach takes around 10% of the reference approaches runtime. There was also a substantial speed up - though less dramatic - when compared to the R `SpeedyMarkov` approach. 
 
 Increasing the number of cycles (duration) resulted in a an approximate doubling of the runtime for both the reference and R `SpeedyMarkov` approaches. However, all C++ based approaches had only small increases in runtime highlighting the increased performance that C provides (though the difference between the partial and full C++ approaches did increase). In fact the parallel C++ implementations showed no apparent increase in runtime when the duration was doubled. This indicates that this approach should scale well to more complex models and/or longer runtimes.
+
+### Duration: 100
 
 * Table
 

@@ -94,7 +94,7 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
                          mc.cores = 4
       )
     },
-    "Rcpp simulation - furrr::future_map (4 cores)" = {
+    "Rcpp simulation + sampling - furrr::future_map (4 cores)" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
