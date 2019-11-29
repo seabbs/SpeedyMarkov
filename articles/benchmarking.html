@@ -169,14 +169,14 @@
 <a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
 <a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp", </span></a>
 <a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;             batches = 4, batch_fn = parallel::mclapply, mc.cores = 4)</span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;     }, `Rcpp simulation - furrr::future_map (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;     }, `Rcpp simulation + sampling - furrr::future_map (4 cores)` = {</span></a>
 <a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
 <a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp", </span></a>
 <a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt;             batches = 4, batch_fn = furrr::future_map)</span></a>
 <a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt;     }, times = times)</span></a>
 <a class="sourceLine" id="cb2-34" data-line-number="34"><span class="co">#&gt;     return(benchmark)</span></a>
 <a class="sourceLine" id="cb2-35" data-line-number="35"><span class="co">#&gt; }</span></a>
-<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; &lt;bytecode: 0x6b2ee70&gt;</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; &lt;bytecode: 0x79f45a0&gt;</span></a>
 <a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt; &lt;environment: namespace:SpeedyMarkov&gt;</span></a></code></pre></div>
 <p>All benchmarking results have been run elsewhere (<code>inst/scripts/benchmarking.R</code>) and then saved (<code>inst/benchmarks</code>). These benchmarks can be recreated locally by running the following in the package directory (<em>Warning:: This is likely to take upwards of an hour and a half</em>).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">Rscript</span> inst/scripts/benchmarking.R</a></code></pre></div>
@@ -185,11 +185,11 @@
 <h2 class="hasAnchor">
 <a href="#two-state-markov-model" class="anchor"></a>Two state Markov model</h2>
 <p>The two state Markov model has been benchmarked for both 100 cycles and 200 cycles (duration) with 100,000 samples each time - repeated 10 times per benchmark.</p>
+<p>Benchmarking results show that both <code>Rcpp</code> implementations consistently outperform other implementations with the full <code>Rcpp</code> implementation being overall slightly faster but with potentially some instability. Parallisation appears to work well and scale with the number of cores used. Both parallisation approaches work equally well with <code>furrr</code> preferred due to its support for Windows. On a 4 core machine a parallel approach takes around 10% of the reference approaches runtime. There was also a substantial speed up - though less dramatic - when compared to the R <code>SpeedyMarkov</code> approach.</p>
+<p>Increasing the number of cycles (duration) resulted in a an approximate doubling of the runtime for both the reference and R <code>SpeedyMarkov</code> approaches. However, all C++ based approaches had only small increases in runtime highlighting the increased performance that C provides (though the difference between the partial and full C++ approaches did increase). In fact the parallel C++ implementations showed no apparent increase in runtime when the duration was doubled. This indicates that this approach should scale well to more complex models and/or longer runtimes.</p>
 <div id="duration-100" class="section level3">
 <h3 class="hasAnchor">
 <a href="#duration-100" class="anchor"></a>Duration: 100</h3>
-<p>Benchmarking results show that both <code>Rcpp</code> implementations consistently outperform other implementations with the full <code>Rcpp</code> implementation being overall slightly faster but with potentially some instability. Parallisation appears to work well and scale with the number of cores used. Both parallisation approaches work equally well with <code>furrr</code> preferred due to its support for Windows. On a 4 core machine a parallel approach takes around 10% of the reference approaches runtime. There was also a substantial speed up - though less dramatic - when compared to the R <code>SpeedyMarkov</code> approach.</p>
-<p>Increasing the number of cycles (duration) resulted in a an approximate doubling of the runtime for both the reference and R <code>SpeedyMarkov</code> approaches. However, all C++ based approaches had only small increases in runtime highlighting the increased performance that C provides (though the difference between the partial and full C++ approaches did increase). In fact the parallel C++ implementations showed no apparent increase in runtime when the duration was doubled. This indicates that this approach should scale well to more complex models and/or longer runtimes.</p>
 <ul>
 <li>Table</li>
 </ul>
@@ -197,22 +197,24 @@
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">two_state_bench_dur_<span class="dv">100</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;                                           expr       min        lq      mean</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;                                      Reference 52.377248 54.081342 55.931822</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;                                              R 35.511732 36.727933 37.749872</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop 17.166327 17.404030 18.466126</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation 14.571177 15.507327 17.105037</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  8.537413  8.937290  9.288988</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)  4.707571  5.184884  5.743455</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)  4.822564  5.694475  6.245535</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;     median        uq       max neval</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  56.459692 57.055064 59.953596    10</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  37.944520 39.134406 39.371618    10</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  17.872061 18.709635 22.205278    10</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  16.042290 16.381843 28.292223    10</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   9.296722  9.484275 10.705180    10</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   5.686001  5.714562  8.500436    10</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   5.890772  6.837399  9.094804    10</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;                                                      expr       min        lq</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;                                                 Reference 54.989872 55.869334</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;                                                         R 38.568696 38.759678</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;                                           Rcpp inner loop 18.410020 18.581289</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;                                           Rcpp simulation 16.374845 16.774056</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;                                Rcpp simulation + sampling 14.874469 15.969232</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation + sampling - mclapply (2 cores)  8.625512  8.892727</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;           Rcpp simulation + sampling - mclapply (4 cores)  5.851540  5.950880</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  Rcpp simulation + sampling - furrr::future_map (4 cores)  5.356556  5.640592</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;       mean    median        uq       max neval</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  58.896261 56.649133 60.296755 72.009385    10</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  41.935015 39.457551 44.683183 53.184453    10</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  19.773877 19.403610 21.174786 21.860430    10</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  18.062765 17.628571 18.948150 20.339418    10</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;  16.497025 16.212314 17.143633 18.502348    10</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   9.798848  9.357564 10.094640 13.764093    10</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;   6.624164  6.591916  6.934140  8.174308    10</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;   6.011063  5.807804  6.401614  6.809297    10</span></a></code></pre></div>
 <ul>
 <li>Plot</li>
 </ul>
@@ -231,22 +233,24 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">two_state_bench_dur_<span class="dv">200</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Unit: seconds</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;                                           expr        min         lq       mean</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;                                      Reference 103.827180 111.976671 115.603659</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;                                              R  85.319134  86.017056  91.215040</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;                                Rcpp inner loop  22.043169  23.552167  24.107632</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;                                Rcpp simulation  19.458262  20.035175  20.984306</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;           Rcpp simulation - mclapply (2 cores)  11.713925  12.059636  12.283096</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation - mclapply (4 cores)   6.401576   6.780320   7.133101</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  Rcpp simulation - furrr::future_map (4 cores)   6.091053   6.374329   7.174349</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;      median         uq        max neval</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  113.695596 116.167576 137.550620    10</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;   90.621628  96.182515  99.844707    10</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;   23.844648  24.944081  25.782172    10</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;   20.996432  21.580285  22.721555    10</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;   12.219192  12.628788  12.944961    10</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;    7.166611   7.537798   7.674049    10</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;    6.921388   8.102352   9.009986    10</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;                                                      expr        min        lq</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;                                                 Reference 103.404101 109.51157</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;                                                         R  61.634548  62.04970</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;                                           Rcpp inner loop  22.670598  23.49049</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;                                           Rcpp simulation  20.706474  21.21908</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;                                Rcpp simulation + sampling  20.891429  21.37689</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;           Rcpp simulation + sampling - mclapply (2 cores)  11.063885  12.12204</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;           Rcpp simulation + sampling - mclapply (4 cores)   6.864305   6.97836</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  Rcpp simulation + sampling - furrr::future_map (4 cores)   7.229277   7.41441</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;        mean     median         uq       max neval</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  117.183988 114.988147 124.358568 135.73738    10</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;   67.180067  67.373485  72.463807  75.25504    10</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;   25.204511  24.479672  25.337990  33.34344    10</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;   22.619666  22.336734  23.754734  26.51986    10</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;   21.848582  21.497400  22.755706  23.38562    10</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;   12.298438  12.307333  12.784983  13.47349    10</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;    7.870799   8.008468   8.548714   9.25951    10</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt;    8.271889   8.159995   8.328269  11.33887    10</span></a></code></pre></div>
 <ul>
 <li>Plot</li>
 </ul>

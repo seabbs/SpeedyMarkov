@@ -203,12 +203,12 @@ for an example use case. Implemented using Rcpp.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span>(<span class='fu'><a href='matrix_arrange_inner.html'>matrix_arrange_inner</a></span>(<span class='no'>matrix_samples</span>),
                <span class='fu'>MatrixArrange</span>(<span class='no'>matrix_samples</span>),
                <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
-#&gt;                                  expr    min      lq     mean  median      uq
-#&gt;  matrix_arrange_inner(matrix_samples) 61.578 64.4020 73.06361 68.9550 75.1355
-#&gt;         MatrixArrange(matrix_samples)  5.023  6.2285  7.46683  7.0125  7.9370
+#&gt;                                  expr    min     lq     mean median      uq
+#&gt;  matrix_arrange_inner(matrix_samples) 61.137 64.042 71.62362 68.235 73.7225
+#&gt;         MatrixArrange(matrix_samples)  5.004  6.144  7.34590  6.879  7.7045
 #&gt;      max neval
-#&gt;  434.433  1000
-#&gt;   32.730  1000</div></pre>
+#&gt;  351.032  1000
+#&gt;   77.869  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
