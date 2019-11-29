@@ -199,23 +199,23 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     tmp &lt;- SpeedyMarkov::matrix_arrange(tmp, ...)
 #&gt;     return(tmp)
 #&gt; }
-#&gt; &lt;bytecode: 0x8890630&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d411b0&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; $transitions_list$`Soc with Website`
 #&gt; function (baseline = NULL, ...) 
 #&gt; {
 #&gt;     samples &lt;- length(baseline)
-#&gt;     tmp &lt;- VGAM::rdiric(samples, c(85, 15))
-#&gt;     updated &lt;- purrr::map(1:samples, function(sample) {
-#&gt;         update &lt;- baseline[[sample]]
-#&gt;         update[1, ] &lt;- tmp[sample, ]
-#&gt;         return(update)
+#&gt;     new_row_sample &lt;- VGAM::rdiric(samples, c(85, 15))
+#&gt;     updated &lt;- purrr::map2(baseline, 1:samples, function(transition, 
+#&gt;         sample) {
+#&gt;         transition[1, ] &lt;- new_row_sample[sample, ]
+#&gt;         return(transition)
 #&gt;     })
 #&gt;     return(updated)
 #&gt; }
-#&gt; &lt;bytecode: 0x8897708&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d48288&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; 
 #&gt; $qalys
@@ -234,8 +234,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x889a1e8&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d46ab0&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; $intervention_costs
 #&gt; function (samples = NULL, ...) 
@@ -244,8 +244,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- SpeedyMarkov::vector_arrange(tmp)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x889dff0&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d49018&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; $state_costs
 #&gt; function (samples = NULL, ...) 
@@ -262,8 +262,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x889d8f0&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d4e668&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; $cohorts
 #&gt; function (samples = NULL, ...) 
@@ -280,8 +280,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x889fd18&gt;
-#&gt; &lt;environment: 0x5ba98d8&gt;
+#&gt; &lt;bytecode: 0x8d4cc60&gt;
+#&gt; &lt;environment: 0x6052d60&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "SpeedyMarkov" "list"        </div><div class='input'>
