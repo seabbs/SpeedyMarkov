@@ -17,7 +17,7 @@
 #' @export
 #' @importFrom VGAM rdiric
 #' @importFrom stats rnorm
-#' @importFrom purrr map transpose
+#' @importFrom purrr map map2 ranspose
 #' @author Sam Abbott
 #' @examples 
 #' ## Example model run
@@ -46,13 +46,12 @@ example_two_state_markov <- function() {
     
     #Sample transitions for each baseline matrix
     samples <- length(baseline)
-    tmp <- VGAM::rdiric(samples,c(85,15))
+    new_row_sample <- VGAM::rdiric(samples,c(85,15))
     
     # Update baseline
-    updated <- purrr::map(1:samples, function(sample) {
-      update <- baseline[[sample]]
-      update[1, ] <- tmp[sample, ]
-      return(update)
+    updated <- purrr::map2(baseline, 1:samples, function(transition, sample) {
+      transition[1, ] <- new_row_sample[sample, ]
+      return(transition)
       })
     
     return(updated)
