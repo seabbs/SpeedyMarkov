@@ -150,30 +150,34 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;         reference(cycles = duration, samples = samples)</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;     }, R = {</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;             samples = samples, sim_type = "base")</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;             samples = samples, sim_type = "base", sample_type = "base")</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;     }, `Rcpp inner loop` = {</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_inner")</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;     }, `Rcpp simulation` = {</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all")</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (2 cores)` = {</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 2, </span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 2)</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;     }, `Rcpp simulation - mclapply (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_inner", </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;             sample_type = "base")</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;     }, `Rcpp simulation` = {</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "base")</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;     }, `Rcpp simulation + sampling` = {</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp")</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;     }, `Rcpp simulation + sampling - mclapply (2 cores)` = {</span></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;             batch_fn = parallel::mclapply, mc.cores = 4)</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;     }, `Rcpp simulation - furrr::future_map (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp", </span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;             batches = 2, batch_fn = parallel::mclapply, mc.cores = 2)</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;     }, `Rcpp simulation + sampling - mclapply (4 cores)` = {</span></a>
 <a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", batches = 4, </span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;             batch_fn = furrr::future_map)</span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;     }, times = times)</span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;     return(benchmark)</span></a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; }</span></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; &lt;bytecode: 0x721d790&gt;</span></a>
-<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt; &lt;environment: namespace:SpeedyMarkov&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp", </span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;             batches = 4, batch_fn = parallel::mclapply, mc.cores = 4)</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;     }, `Rcpp simulation - furrr::future_map (4 cores)` = {</span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;         markov_ce_pipeline(markov_model(), duration = duration, </span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt;             samples = samples, sim_type = "armadillo_all", sample_type = "rcpp", </span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt;             batches = 4, batch_fn = furrr::future_map)</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt;     }, times = times)</span></a>
+<a class="sourceLine" id="cb2-34" data-line-number="34"><span class="co">#&gt;     return(benchmark)</span></a>
+<a class="sourceLine" id="cb2-35" data-line-number="35"><span class="co">#&gt; }</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; &lt;bytecode: 0x6b2ee70&gt;</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt; &lt;environment: namespace:SpeedyMarkov&gt;</span></a></code></pre></div>
 <p>All benchmarking results have been run elsewhere (<code>inst/scripts/benchmarking.R</code>) and then saved (<code>inst/benchmarks</code>). These benchmarks can be recreated locally by running the following in the package directory (<em>Warning:: This is likely to take upwards of an hour and a half</em>).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">Rscript</span> inst/scripts/benchmarking.R</a></code></pre></div>
 </div>
