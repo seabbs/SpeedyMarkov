@@ -63,7 +63,6 @@ sample_markov <- function(markov_model = NULL,
 #' @return A data.frame of samples of a model encoded in the `SpeedyMarkov` format (see `example_two_state_markov` for details).
 #' @export
 #' @importFrom purrr map transpose
-#' @importFrom tidyr unnest
 #' @importFrom tibble tibble
 #' @examples
 #'   

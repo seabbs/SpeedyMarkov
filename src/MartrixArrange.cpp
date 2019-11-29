@@ -1,5 +1,5 @@
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 //' @title Arrange Vectorised Matrix Samples using Rcpp
 //' 

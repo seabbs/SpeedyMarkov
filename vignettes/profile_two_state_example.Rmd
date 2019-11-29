@@ -35,7 +35,6 @@ Strategies for optimisation suggested for the reference application also hold he
 
 ```{r}
 library(profvis)
-library(profvis)
 # Load SpeedyMarkov from local source.
 devtools::load_all("..")
 

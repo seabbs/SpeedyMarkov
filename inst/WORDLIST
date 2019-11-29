@@ -4,8 +4,6 @@ ceplotr
 develVersion
 furrr
 hermes
-img
-io
 ip
 markov
 microbenchmark
@@ -13,10 +11,12 @@ mutlicore
 optmisations
 ORCID
 parallisation
+Parallisation
 parallise
 qaly
 qalys
 QALYs
+rcpp
 Rcpp
 RcppArmadillo
 rstudio
@@ -24,4 +24,3 @@ Rstudio
 runtimes
 sim
 standalone
-svg

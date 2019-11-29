@@ -19,7 +19,6 @@
 #' @return A list containing the model samples and simulations.
 #' @export
 #' @importFrom data.table rbindlist
-#' @importFrom dplyr bind_cols
 #' @importFrom tibble as_tibble
 #' @importFrom purrr transpose map
 #' @inheritParams simulate_markov
@@ -84,7 +83,7 @@ markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
     results <- data.table::rbindlist(results)
     
     ## Combine samples and simulation results
-    combined <- dplyr::bind_cols(model_samples, results)
+    combined <- cbind(model_samples, results)
   
     return(combined)
   }
