@@ -31,8 +31,8 @@
 #' markov_simulation_pipeline(example_two_state_markov(), duration = 10, samples = 2)
 markov_simulation_pipeline <- function(markov_model = NULL, duration = NULL,
                                        discount = 1.035, samples = 1, 
-                                       sample_type = "base",
-                                       sim_type = "base",
+                                       sample_type = "rcpp",
+                                       sim_type = "armadillo_all",
                                        batches = 1, 
                                        batch_fn = NULL,
                                        debug = FALSE,

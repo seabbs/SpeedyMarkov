@@ -38,10 +38,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// MatrixArrange
+Rcpp::List MatrixArrange(Rcpp::List samples);
+RcppExport SEXP _SpeedyMarkov_MatrixArrange(SEXP samplesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type samples(samplesSEXP);
+    rcpp_result_gen = Rcpp::wrap(MatrixArrange(samples));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SpeedyMarkov_ArmaMarkovLoop", (DL_FUNC) &_SpeedyMarkov_ArmaMarkovLoop, 4},
     {"_SpeedyMarkov_ArmaSimulateMarkov", (DL_FUNC) &_SpeedyMarkov_ArmaSimulateMarkov, 8},
+    {"_SpeedyMarkov_MatrixArrange", (DL_FUNC) &_SpeedyMarkov_MatrixArrange, 1},
     {NULL, NULL, 0}
 };
 

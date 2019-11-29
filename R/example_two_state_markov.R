@@ -4,7 +4,8 @@
 #' that can then be simulated and analysed. Unlike `reference_two_state_markov`  this is not a standalone analysis pipeline
 #' but instead represents a model definition.
 #'
-#' @return A named list of functions that all require a samples argument. The list contains:
+#' @return A named list of functions that all require a samples argument and pass additional arguments (using ...).
+#'  The list contains:
 #' * transitions_list: a list of transition functions, with the first taking the number of samples as an argument
 #' and the following being dependent on the a previous transition.
 #' * qalys: a function that samples the qaly cost for each intervention.
@@ -27,20 +28,21 @@ example_two_state_markov <- function() {
   # Transitions -------------------------------------------------------------
   # 1. Specify transition matrices for each intervention
   # Baseline - Soc
-  soc_transition <- function(samples = NULL) {
+  # Pass additional arguments internally
+  soc_transition <- function(samples = NULL, ...) {
     # Sample transitions
     tmp <- list(VGAM::rdiric(samples, c(88, 12)),
-                 VGAM::rdiric(samples, c(8, 92)))
+                VGAM::rdiric(samples, c(8, 92)))
     
     # Arrange as matrices
-    tmp <- SpeedyMarkov::matrix_arrange(tmp)
+    tmp <- SpeedyMarkov::matrix_arrange(tmp, ...)
     
     return(tmp)
   }
   
   # Intervention - Soc with website
   # Depends on Soc
-  soc_with_website_transition <- function(baseline = NULL) {
+  soc_with_website_transition <- function(baseline = NULL, ...) {
     
     #Sample transitions for each baseline matrix
     samples <- length(baseline)
@@ -73,8 +75,8 @@ example_two_state_markov <- function() {
   # Qualies -----------------------------------------------------------------
   # 2. Specify qaly costs per intervention (random sampling)
 
-  qalys <- function(samples = NULL) {
-    qaly <- function(samples = 1) {
+  qalys <- function(samples = NULL, ...) {
+    qaly <- function(samples = 1, ...) {
       ## Sample
       tmp <- list(stats::rnorm(samples, mean = 0.95,sd = 0.01) / 2,
                    rep(1 / 2, samples))
@@ -101,7 +103,7 @@ example_two_state_markov <- function() {
   # Costs -------------------------------------------------------------------
   # 3. Specify costs per intervention (random sampling)
   
-  intervention_costs <- function(samples = NULL) {
+  intervention_costs <- function(samples = NULL, ...) {
     ## Sample
     tmp <- list(rep(0, samples),
                  rep(50, samples))
@@ -113,7 +115,7 @@ example_two_state_markov <- function() {
   
   # intervention_costs()
   
-  state_costs <- function(samples = NULL) {
+  state_costs <- function(samples = NULL, ...) {
     state_cost <- function(samples = 1) {
       tmp <- list(rep(0, samples),
                  rep(0, samples))
@@ -140,7 +142,7 @@ example_two_state_markov <- function() {
   # Cohort ------------------------------------------------------------------
   #4. Define cohort
   
-  cohorts <- function(samples = NULL) {
+  cohorts <- function(samples = NULL, ...) {
     
     cohort <- function(samples = 1) {
       tmp <- list(rep(1, samples),

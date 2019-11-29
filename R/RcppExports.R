@@ -99,3 +99,35 @@ ArmaSimulateMarkov <- function(sim, cohort, transition, duration, state_cost, di
     .Call(`_SpeedyMarkov_ArmaSimulateMarkov`, sim, cohort, transition, duration, state_cost, discounting, qalys, intervention_cost)
 }
 
+#' @title Arrange Vectorised Matrix Samples using Rcpp
+#' 
+#' @description A convenience function used to arrange vectorised matrix samples into the correct
+#' matrix format for several functions used to specify Markov model. See `example_two_state_markov`
+#' for an example use case. Implemented using Rcpp.
+#' @inherit matrix_arrange_inner
+#' @export
+#' @useDynLib SpeedyMarkov, .registration=TRUE
+#' @examples
+#' 
+#' 
+#' matrix_samples <- list(VGAM::rdiric(1:5, c(88, 12)),
+#'                       VGAM::rdiric(1:5, c(8, 92)))
+#' 
+#' # R implementation
+#' samples_r <- matrix_arrange_inner(matrix_samples)
+#' 
+#' 
+#' # Rcpp implementation
+#' samples_rcpp <- MatrixArrange(matrix_samples)
+#' 
+#' all.equal(samples_r, samples_rcpp)
+#' 
+#' # Benchmark
+#' library(microbenchmark)
+#' microbenchmark(matrix_arrange_inner(matrix_samples), 
+#'                MatrixArrange(matrix_samples), 
+#'                times = 1000)
+MatrixArrange <- function(samples) {
+    .Call(`_SpeedyMarkov_MatrixArrange`, samples)
+}
+

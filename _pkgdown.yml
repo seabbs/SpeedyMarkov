@@ -61,6 +61,8 @@ reference:
       contents:
       - vector_arrange
       - matrix_arrange
+      - matrix_arrange_inner
+      - MatrixArrange
       - calc_discounting
       - benchmark_markov
     - title: Exports from other packages

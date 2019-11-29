@@ -54,7 +54,7 @@ Profiling this new approach we see a substantial decrease in run-time of around 
 ```{r}
 profvis({
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
-                     sim_type = "armadillo_inner")
+                     sim_type = "armadillo_inner", sample_type = "base")
 })
 ```
 
@@ -67,7 +67,18 @@ Using profiling we see a small speed up (of 20% compared to the previous impleme
 ```{r}
 profvis({
   markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
-                     sim_type = "armadillo_all")
+                     sim_type = "armadillo_all", sample_type = "base")
 })
 ```
 
+### R implementation using Rcpp for both simulation and sampling
+
+Now that simulations have been optimised using `Rcpp` a further - relatively simple - optimisation is to speed up model sampling where possible using `Rcpp`. This is likely to give a small performance boost though this may grow more significant as model complexity grows.
+
+
+```{r}
+profvis({
+  markov_ce_pipeline(example_two_state_markov(), duration = 100, samples = 100000,
+                     sim_type = "armadillo_all", sample_type = "rcpp")
+})
+```

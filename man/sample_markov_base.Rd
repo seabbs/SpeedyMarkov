@@ -10,7 +10,8 @@ sample_markov_base(
   intervention_costs = NULL,
   cohorts = NULL,
   qalys = NULL,
-  samples = 1
+  samples = 1,
+  type = "rcpp"
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ see \code{example_two_state_markov} for an example of setting this up.}
 \item{qalys}{A function that generates a list of QALYs for each intervention, see \code{example_two_state_markov} for an example of setting this up.}
 
 \item{samples}{Numeric, defaults to 1. The number of samples to take from the Markov model}
+
+\item{type}{A character string specifying the approach to use to sample the model. Currently implemented
+approaches are "base" and "rcpp" with "rcpp" as the default.}
 }
 \value{
 A data.frame of samples of a model encoded in the \code{SpeedyMarkov} format (see \code{example_two_state_markov} for details).

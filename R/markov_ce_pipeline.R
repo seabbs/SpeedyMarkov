@@ -14,7 +14,7 @@
 markov_ce_pipeline <- function(markov_model = NULL, duration = NULL,
                             discount = 1.035, samples = 1, baseline = 1,
                             willingness_to_pay_threshold = 20000,
-                            sample_type = "base", sim_type = "base", debug = FALSE, 
+                            sample_type = "rcpp", sim_type = "armadillo_all", debug = FALSE, 
                             batches = 1, batch_fn = NULL, ...) {
   
   

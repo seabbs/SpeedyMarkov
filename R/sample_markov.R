@@ -6,8 +6,6 @@
 #' 
 #' @param markov_model A list of functions that define a markov model across multiple interventions. See `example_two_state_markov` 
 #' for the correct format.
-#' @param type A character string specifying the approach to use to simulate the model. Currently implemented
-#' approaches are "base" with "base" as the default.
 #' @param debug Logical, defaults to \code{FALSE}. Turns on all debug checks - this may impact runtimes.
 #' @export
 #' @inheritParams sample_markov_base
@@ -18,7 +16,7 @@
 #'   
 #' sample
 sample_markov <- function(markov_model = NULL, 
-                          type = "base", 
+                          type = "rcpp", 
                           debug = FALSE, 
                           samples = 1) { 
   
@@ -29,17 +27,17 @@ sample_markov <- function(markov_model = NULL,
     }
   }
 
-  
-  if (type == "base") {
-    out <- sample_markov_base(
-      transitions = markov_model[["transitions_list"]],
-      cohorts = markov_model[["cohorts"]],
-      state_costs = markov_model[["state_costs"]], 
-      intervention_costs = markov_model[["intervention_costs"]], 
-      qalys = markov_model[["qalys"]],
-      samples = samples
-    )
-  }
+
+  out <- sample_markov_base(
+    transitions = markov_model[["transitions_list"]],
+    cohorts = markov_model[["cohorts"]],
+    state_costs = markov_model[["state_costs"]], 
+    intervention_costs = markov_model[["intervention_costs"]], 
+    qalys = markov_model[["qalys"]],
+    samples = samples,
+    type = type
+  )
+
   
   return(out)
 }
@@ -60,6 +58,8 @@ sample_markov <- function(markov_model = NULL,
 #' @param intervention_costs A function that generates a vector of intervention costs, see `example_two_state_markov` for an example of setting this up.
 #' @param qalys A function that generates a list of QALYs for each intervention, see `example_two_state_markov` for an example of setting this up.
 #' @param samples Numeric, defaults to 1. The number of samples to take from the Markov model
+#' @param type A character string specifying the approach to use to sample the model. Currently implemented
+#' approaches are "base" and "rcpp" with "rcpp" as the default.
 #' @return A data.frame of samples of a model encoded in the `SpeedyMarkov` format (see `example_two_state_markov` for details).
 #' @export
 #' @importFrom purrr map transpose
@@ -80,13 +80,13 @@ sample_markov <- function(markov_model = NULL,
 #'   
 sample_markov_base <- function(transitions = NULL, state_costs = NULL,
                                intervention_costs = NULL, cohorts = NULL, 
-                               qalys = NULL, samples = 1) {
+                               qalys = NULL, samples = 1, type = "rcpp") {
   
   #sample baseline transition matrix
-  baseline <- transitions[[1]](samples = samples)
+  baseline <- transitions[[1]](samples = samples, type = type)
   
   #sample all interventions depending on baseline
-  interventions <- purrr::map(2:length(transitions), ~ transitions[[.]](baseline))
+  interventions <- purrr::map(2:length(transitions), ~ transitions[[.]](baseline, type = type))
   
   #update transitions as a single sample
   transitions[[1]] <- baseline
@@ -99,10 +99,10 @@ sample_markov_base <- function(transitions = NULL, state_costs = NULL,
                                                         ~ rep(., length(transitions)))),
                              intervention = rep(names(transitions), samples),
                              transition = purrr::flatten(purrr::transpose(transitions)), 
-                             state_cost = purrr::flatten(state_costs(samples = samples)), 
-                             intervention_cost = unlist(intervention_costs(samples = samples)),
-                             cohort = purrr::flatten(cohorts(samples = samples)),
-                             qalys = purrr::flatten(qalys(samples = samples)))
+                             state_cost = purrr::flatten(state_costs(samples = samples, type = type)), 
+                             intervention_cost = unlist(intervention_costs(samples = samples, type = type)),
+                             cohort = purrr::flatten(cohorts(samples = samples, type = type)),
+                             qalys = purrr::flatten(qalys(samples = samples, type = type)))
   
 
   return(samples_df)
