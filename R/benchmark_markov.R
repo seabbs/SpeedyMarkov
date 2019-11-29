@@ -49,34 +49,46 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
-                         sim_type = "base")
+                         sim_type = "base",
+                         sample_type = "base")
     },
     "Rcpp inner loop" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
-                         sim_type = "armadillo_inner")
+                         sim_type = "armadillo_inner",
+                         sample_type = "base")
     },
     "Rcpp simulation" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
-                         sim_type = "armadillo_all")
+                         sim_type = "armadillo_all",
+                         sample_type = "base")
     },
-    "Rcpp simulation - mclapply (2 cores)" = {
+    "Rcpp simulation + sampling" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
+                         sample_type = "rcpp")
+    },
+    "Rcpp simulation + sampling - mclapply (2 cores)" = {
+      markov_ce_pipeline(markov_model(),
+                         duration = duration, 
+                         samples = samples,
+                         sim_type = "armadillo_all",
+                         sample_type = "rcpp",
                          batches = 2,
                          batch_fn = parallel::mclapply,
                          mc.cores = 2)
     },
-    "Rcpp simulation - mclapply (4 cores)" = {
+    "Rcpp simulation + sampling - mclapply (4 cores)" = {
       markov_ce_pipeline(markov_model(),
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
+                         sample_type = "rcpp",
                          batches = 4,
                          batch_fn = parallel::mclapply,
                          mc.cores = 4
@@ -87,6 +99,7 @@ benchmark_markov <- function(markov_model = NULL, reference = NULL,
                          duration = duration, 
                          samples = samples,
                          sim_type = "armadillo_all",
+                         sample_type = "rcpp",
                          batches = 4,
                          batch_fn = furrr::future_map)
     },
