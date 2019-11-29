@@ -174,8 +174,8 @@ be run, including final analysis of the findings.</p>
   <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>baseline</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>willingness_to_pay_threshold</span> <span class='kw'>=</span> <span class='fl'>20000</span>,
-  <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
-  <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"base"</span>,
+  <span class='kw'>sample_type</span> <span class='kw'>=</span> <span class='st'>"rcpp"</span>,
+  <span class='kw'>sim_type</span> <span class='kw'>=</span> <span class='st'>"armadillo_all"</span>,
   <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>batches</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>batch_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -274,8 +274,8 @@ not given the function will default to using no batching.</p></td>
 #&gt; # A tibble: 2 x 13
 #&gt;   intervention mean_costs sd_costs mean_qalys sd_qlays mean_incrementa…
 #&gt;   &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;
-#&gt; 1 SoC                   0        0       4.15   0.0143           0     
-#&gt; 2 Soc with We…         50        0       4.16   0.0208           0.0144
+#&gt; 1 SoC                   0        0       4.17   0.0348          0      
+#&gt; 2 Soc with We…         50        0       4.17   0.0414          0.00783
 #&gt; # … with 7 more variables: sd_incremental_qlays &lt;dbl&gt;,
 #&gt; #   mean_incremental_costs &lt;dbl&gt;, sd_incremental_costs &lt;dbl&gt;,
 #&gt; #   mean_incremental_net_benefit &lt;dbl&gt;, sd_incremental_net_benefit &lt;dbl&gt;,

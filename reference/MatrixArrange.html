@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample a Markov Model Sample using Base R — sample_markov_base • SpeedyMarkov</title>
+<title>Arrange Vectorised Matrix Samples using Rcpp — MatrixArrange • SpeedyMarkov</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,10 +48,10 @@
 
 
 
-<meta property="og:title" content="Sample a Markov Model Sample using Base R — sample_markov_base" />
-<meta property="og:description" content="This model agnostic function samples a markov model specification using a base R implementation.
-See example_two_state_markov for an example of the required input. Alternatively use sample_markov(type = &quot;base&quot;) passing the
-model specification function." />
+<meta property="og:title" content="Arrange Vectorised Matrix Samples using Rcpp — MatrixArrange" />
+<meta property="og:description" content="A convenience function used to arrange vectorised matrix samples into the correct
+matrix format for several functions used to specify Markov model. See example_two_state_markov
+for an example use case. Implemented using Rcpp." />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -158,85 +158,57 @@ model specification function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample a Markov Model Sample using Base R</h1>
-    <small class="dont-index">Source: <a href='https://github.com/seabbs/SpeedyMarkov/blob/master/R/sample_markov.R'><code>R/sample_markov.R</code></a></small>
-    <div class="hidden name"><code>sample_markov_base.Rd</code></div>
+    <h1>Arrange Vectorised Matrix Samples using Rcpp</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seabbs/SpeedyMarkov/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
+    <div class="hidden name"><code>MatrixArrange.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This model agnostic function samples a markov model specification using a base R implementation.
-See <code>example_two_state_markov</code> for an example of the required input. Alternatively use <code><a href='sample_markov.html'>sample_markov(type = "base")</a></code> passing the
-model specification function.</p>
+    <p>A convenience function used to arrange vectorised matrix samples into the correct
+matrix format for several functions used to specify Markov model. See <code>example_two_state_markov</code>
+for an example use case. Implemented using Rcpp.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sample_markov_base</span>(
-  <span class='kw'>transitions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>state_costs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>intervention_costs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cohorts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rcpp"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>MatrixArrange</span>(<span class='no'>samples</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>transitions</th>
-      <td><p>A function that generates a list of transition matrices,
-see <code>example_two_state_markov</code> for an example of setting this up.</p></td>
-    </tr>
-    <tr>
-      <th>state_costs</th>
-      <td><p>A function that generates a list of state costs for each intervention,
-see <code>example_two_state_markov</code> for an example of setting this up.</p></td>
-    </tr>
-    <tr>
-      <th>intervention_costs</th>
-      <td><p>A function that generates a vector of intervention costs, see <code>example_two_state_markov</code> for an example of setting this up.</p></td>
-    </tr>
-    <tr>
-      <th>cohorts</th>
-      <td><p>A function that generates a list containing the initial state for each intervention,
-see <code>example_two_state_markov</code> for an example of setting this up.</p></td>
-    </tr>
-    <tr>
-      <th>qalys</th>
-      <td><p>A function that generates a list of QALYs for each intervention, see <code>example_two_state_markov</code> for an example of setting this up.</p></td>
-    </tr>
-    <tr>
       <th>samples</th>
-      <td><p>Numeric, defaults to 1. The number of samples to take from the Markov model</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>A character string specifying the approach to use to sample the model. Currently implemented
-approaches are "base" and "rcpp" with "rcpp" as the default.</p></td>
+      <td><p>A list of vectorised matrix samples</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame of samples of a model encoded in the <code>SpeedyMarkov</code> format (see <code>example_two_state_markov</code> for details).</p>
+    <p>A list of matrices with each matrix representing a single sample.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
- <span class='no'>markov_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='example_two_state_markov.html'>example_two_state_markov</a></span>()
+<span class='no'>matrix_samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw pkg'>VGAM</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/VGAM/man/rdiric.html'>rdiric</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>88</span>, <span class='fl'>12</span>)),
+                      <span class='kw pkg'>VGAM</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/VGAM/man/rdiric.html'>rdiric</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>92</span>)))
 
- <span class='fu'>sample_markov_base</span>(
-     <span class='kw'>transitions</span> <span class='kw'>=</span> <span class='no'>markov_model</span>$<span class='no'>transitions_list</span>,
-     <span class='kw'>cohorts</span> <span class='kw'>=</span> <span class='no'>markov_model</span>$<span class='no'>cohorts</span>,
-     <span class='kw'>state_costs</span> <span class='kw'>=</span> <span class='no'>markov_model</span>$<span class='no'>state_costs</span>,
-     <span class='kw'>intervention_costs</span> <span class='kw'>=</span> <span class='no'>markov_model</span>$<span class='no'>intervention_costs</span>,
-     <span class='kw'>qalys</span> <span class='kw'>=</span> <span class='no'>markov_model</span>$<span class='no'>qalys</span>
- )</div><div class='output co'>#&gt; # A tibble: 2 x 7
-#&gt;   sample intervention   transition   state_cost  intervention_co… cohort  qalys 
-#&gt;    &lt;int&gt; &lt;chr&gt;          &lt;named list&gt; &lt;named lis&gt;            &lt;dbl&gt; &lt;named&gt; &lt;name&gt;
-#&gt; 1      1 SoC            &lt;dbl[,2] [2… &lt;dbl [2]&gt;                  0 &lt;dbl [… &lt;dbl …
-#&gt; 2      1 Soc with Webs… &lt;dbl[,2] [2… &lt;dbl [2]&gt;                 50 &lt;dbl [… &lt;dbl …</div><div class='input'>  
-</div></pre>
+<span class='co'># R implementation</span>
+<span class='no'>samples_r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='matrix_arrange_inner.html'>matrix_arrange_inner</a></span>(<span class='no'>matrix_samples</span>)
+
+
+<span class='co'># Rcpp implementation</span>
+<span class='no'>samples_rcpp</span> <span class='kw'>&lt;-</span> <span class='fu'>MatrixArrange</span>(<span class='no'>matrix_samples</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>samples_r</span>, <span class='no'>samples_rcpp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Benchmark</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>microbenchmark</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span>(<span class='fu'><a href='matrix_arrange_inner.html'>matrix_arrange_inner</a></span>(<span class='no'>matrix_samples</span>),
+               <span class='fu'>MatrixArrange</span>(<span class='no'>matrix_samples</span>),
+               <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
+#&gt;                                  expr    min      lq      mean  median      uq
+#&gt;  matrix_arrange_inner(matrix_samples) 59.871 62.3200 68.138041 64.5145 68.3970
+#&gt;         MatrixArrange(matrix_samples)  5.106  5.9755  6.893944  6.6555  7.3115
+#&gt;      max neval
+#&gt;  375.863  1000
+#&gt;   27.894  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

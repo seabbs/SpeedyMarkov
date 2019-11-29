@@ -51,7 +51,7 @@
 <meta property="og:title" content="Arrange Vectorised Matrix Samples — matrix_arrange" />
 <meta property="og:description" content="A convenience function used to arrange vectorised matrix samples into the correct
 matrix format for several functions used to specify Markov model. See example_two_state_markov
-for an example use case." />
+for an example use case. Both a R and C++ implementation are available." />
 <meta property="og:image" content="samabbott.co.uk/SpeedyMarkov/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -166,10 +166,10 @@ for an example use case." />
     <div class="ref-description">
     <p>A convenience function used to arrange vectorised matrix samples into the correct
 matrix format for several functions used to specify Markov model. See <code>example_two_state_markov</code>
-for an example use case.</p>
+for an example use case. Both a R and C++ implementation are available.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>matrix_arrange</span>(<span class='no'>samples</span>)</pre>
+    <pre class="usage"><span class='fu'>matrix_arrange</span>(<span class='no'>samples</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rcpp"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,6 +177,11 @@ for an example use case.</p>
     <tr>
       <th>samples</th>
       <td><p>A list of vectorised matrix samples</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>A character string specifying the approach to use. Currently implemented
+approaches are "base", and "rcpp" with "rcpp" as the default.</p></td>
     </tr>
     </table>
 
@@ -189,31 +194,83 @@ for an example use case.</p>
 <span class='no'>matrix_samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw pkg'>VGAM</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/VGAM/man/rdiric.html'>rdiric</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>88</span>, <span class='fl'>12</span>)),
                        <span class='kw pkg'>VGAM</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/VGAM/man/rdiric.html'>rdiric</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>92</span>)))
 
+<span class='co'># Default usage</span>
 <span class='fu'>matrix_arrange</span>(<span class='no'>matrix_samples</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;            [,1]       [,2]
-#&gt; [1,] 0.92311887 0.07688113
-#&gt; [2,] 0.02935638 0.97064362
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.84342242 0.1565776
+#&gt; [2,] 0.07292427 0.9270757
 #&gt; 
 #&gt; [[2]]
-#&gt;            [,1]      [,2]
-#&gt; [1,] 0.88474177 0.1152582
-#&gt; [2,] 0.05873376 0.9412662
+#&gt;            [,1]       [,2]
+#&gt; [1,] 0.90233022 0.09766978
+#&gt; [2,] 0.04882021 0.95117979
 #&gt; 
 #&gt; [[3]]
 #&gt;            [,1]      [,2]
-#&gt; [1,] 0.86534299 0.1346570
-#&gt; [2,] 0.09194692 0.9080531
+#&gt; [1,] 0.86451370 0.1354863
+#&gt; [2,] 0.07360987 0.9263901
 #&gt; 
 #&gt; [[4]]
 #&gt;            [,1]      [,2]
-#&gt; [1,] 0.86911524 0.1308848
-#&gt; [2,] 0.08046579 0.9195342
+#&gt; [1,] 0.89066732 0.1093327
+#&gt; [2,] 0.06245647 0.9375435
 #&gt; 
 #&gt; [[5]]
 #&gt;            [,1]      [,2]
-#&gt; [1,] 0.88467258 0.1153274
-#&gt; [2,] 0.08335734 0.9166427
-#&gt; </div></pre>
+#&gt; [1,] 0.84868762 0.1513124
+#&gt; [2,] 0.08050864 0.9194914
+#&gt; </div><div class='input'><span class='co'># R implementation</span>
+<span class='fu'>matrix_arrange</span>(<span class='no'>matrix_samples</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"base"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.84342242 0.1565776
+#&gt; [2,] 0.07292427 0.9270757
+#&gt; 
+#&gt; [[2]]
+#&gt;            [,1]       [,2]
+#&gt; [1,] 0.90233022 0.09766978
+#&gt; [2,] 0.04882021 0.95117979
+#&gt; 
+#&gt; [[3]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.86451370 0.1354863
+#&gt; [2,] 0.07360987 0.9263901
+#&gt; 
+#&gt; [[4]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.89066732 0.1093327
+#&gt; [2,] 0.06245647 0.9375435
+#&gt; 
+#&gt; [[5]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.84868762 0.1513124
+#&gt; [2,] 0.08050864 0.9194914
+#&gt; </div><div class='input'><span class='co'># Rcpp implementation</span>
+<span class='fu'>matrix_arrange</span>(<span class='no'>matrix_samples</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rcpp"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.84342242 0.1565776
+#&gt; [2,] 0.07292427 0.9270757
+#&gt; 
+#&gt; [[2]]
+#&gt;            [,1]       [,2]
+#&gt; [1,] 0.90233022 0.09766978
+#&gt; [2,] 0.04882021 0.95117979
+#&gt; 
+#&gt; [[3]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.86451370 0.1354863
+#&gt; [2,] 0.07360987 0.9263901
+#&gt; 
+#&gt; [[4]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.89066732 0.1093327
+#&gt; [2,] 0.06245647 0.9375435
+#&gt; 
+#&gt; [[5]]
+#&gt;            [,1]      [,2]
+#&gt; [1,] 0.84868762 0.1513124
+#&gt; [2,] 0.08050864 0.9194914
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

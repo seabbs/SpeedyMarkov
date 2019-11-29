@@ -176,7 +176,8 @@ but instead represents a model definition.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named list of functions that all require a samples argument. The list contains:</p><ul>
+    <p>A named list of functions that all require a samples argument and pass additional arguments (using ...).
+The list contains:</p><ul>
 <li><p>transitions_list: a list of transition functions, with the first taking the number of samples as an argument
 and the following being dependent on the a previous transition.</p></li>
 <li><p>qalys: a function that samples the qaly cost for each intervention.</p></li>
@@ -191,18 +192,18 @@ and the following being dependent on the a previous transition.</p></li>
     <pre class="examples"><div class='input'><span class='co'>## Example model run</span>
 <span class='fu'>example_two_state_markov</span>()</div><div class='output co'>#&gt; $transitions_list
 #&gt; $transitions_list$SoC
-#&gt; function (samples = NULL) 
+#&gt; function (samples = NULL, ...) 
 #&gt; {
 #&gt;     tmp &lt;- list(VGAM::rdiric(samples, c(88, 12)), VGAM::rdiric(samples, 
 #&gt;         c(8, 92)))
-#&gt;     tmp &lt;- SpeedyMarkov::matrix_arrange(tmp)
+#&gt;     tmp &lt;- SpeedyMarkov::matrix_arrange(tmp, ...)
 #&gt;     return(tmp)
 #&gt; }
-#&gt; &lt;bytecode: 0x894a0e0&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x8890630&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; $transitions_list$`Soc with Website`
-#&gt; function (baseline = NULL) 
+#&gt; function (baseline = NULL, ...) 
 #&gt; {
 #&gt;     samples &lt;- length(baseline)
 #&gt;     tmp &lt;- VGAM::rdiric(samples, c(85, 15))
@@ -213,14 +214,14 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     })
 #&gt;     return(updated)
 #&gt; }
-#&gt; &lt;bytecode: 0x89495b8&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x8897708&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; 
 #&gt; $qalys
-#&gt; function (samples = NULL) 
+#&gt; function (samples = NULL, ...) 
 #&gt; {
-#&gt;     qaly &lt;- function(samples = 1) {
+#&gt;     qaly &lt;- function(samples = 1, ...) {
 #&gt;         tmp &lt;- list(stats::rnorm(samples, mean = 0.95, sd = 0.01)/2, 
 #&gt;             rep(1/2, samples))
 #&gt;         out &lt;- SpeedyMarkov::vector_arrange(tmp)
@@ -233,21 +234,21 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x894d970&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x889a1e8&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; $intervention_costs
-#&gt; function (samples = NULL) 
+#&gt; function (samples = NULL, ...) 
 #&gt; {
 #&gt;     tmp &lt;- list(rep(0, samples), rep(50, samples))
 #&gt;     out &lt;- SpeedyMarkov::vector_arrange(tmp)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x8953740&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x889dff0&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; $state_costs
-#&gt; function (samples = NULL) 
+#&gt; function (samples = NULL, ...) 
 #&gt; {
 #&gt;     state_cost &lt;- function(samples = 1) {
 #&gt;         tmp &lt;- list(rep(0, samples), rep(0, samples))
@@ -261,11 +262,11 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x8956ea8&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x889d8f0&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; $cohorts
-#&gt; function (samples = NULL) 
+#&gt; function (samples = NULL, ...) 
 #&gt; {
 #&gt;     cohort &lt;- function(samples = 1) {
 #&gt;         tmp &lt;- list(rep(1, samples), rep(0, samples))
@@ -279,8 +280,8 @@ and the following being dependent on the a previous transition.</p></li>
 #&gt;     out &lt;- purrr::transpose(out)
 #&gt;     return(out)
 #&gt; }
-#&gt; &lt;bytecode: 0x89554d8&gt;
-#&gt; &lt;environment: 0x88c2f50&gt;
+#&gt; &lt;bytecode: 0x889fd18&gt;
+#&gt; &lt;environment: 0x5ba98d8&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "SpeedyMarkov" "list"        </div><div class='input'>

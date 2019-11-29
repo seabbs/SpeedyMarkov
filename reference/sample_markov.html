@@ -167,7 +167,7 @@ that may offer various advantages and disadvantages." />
 that may offer various advantages and disadvantages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sample_markov</span>(<span class='kw'>markov_model</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"base"</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>sample_markov</span>(<span class='kw'>markov_model</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rcpp"</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,8 +179,8 @@ for the correct format.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A character string specifying the approach to use to simulate the model. Currently implemented
-approaches are "base" with "base" as the default.</p></td>
+      <td><p>A character string specifying the approach to use to sample the model. Currently implemented
+approaches are "base" and "rcpp" with "rcpp" as the default.</p></td>
     </tr>
     <tr>
       <th>debug</th>
