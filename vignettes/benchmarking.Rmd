@@ -37,7 +37,7 @@ library(ggplot2)
 SpeedyMarkov::benchmark_markov
 ```
 
-All benchmarking results have been run elsewhere (`inst/scripts/benchmarking`) and then saved (`inst/benchmarks`). These benchmarks can be recreated locally by running the following in the package directory (*Warning:: This is likely to take upwards of an hour and a half*)
+All benchmarking results have been run elsewhere (`inst/scripts/benchmarking.R`) and then saved (`inst/benchmarks`). These benchmarks can be recreated locally by running the following in the package directory (*Warning:: This is likely to take upwards of an hour and a half*).
 
 ```{bash, eval = FALSE}
 Rscript inst/scripts/benchmarking.R
