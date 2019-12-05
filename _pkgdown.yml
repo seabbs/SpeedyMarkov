@@ -3,8 +3,8 @@ template:
   params:
     bootswatch: lumen
     docsearch:
-      api_key: 6c737a6c632ea7eab75c912a6b07b5f1
-      index_name: SpeedyMarkov
+      api_key: 9ace17177af489aa7e0527d91c05b1dc
+      index_name: speedymarkov
 
 development:
   mode: release
