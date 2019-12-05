@@ -284,9 +284,9 @@ and the duration of the model</p>
 #&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  expr
 #&gt;  simulate_markov_base(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100), markov_loop_fn = SpeedyMarkov::markov_loop)
 #&gt;                                                ArmaSimulateMarkov(sim = matrix(NA, nrow = 100, ncol = nrow(markov_sample$transition[[1]])),      transition = markov_sample$transition[[1]], cohort = markov_sample$cohort[[1]],      state_cost = markov_sample$state_cost[[1]], intervention_cost = markov_sample$intervention_cost[[1]],      qalys = markov_sample$qalys[[1]], duration = 100, discounting = SpeedyMarkov::calc_discounting(1.035,          100))
-#&gt;     min       lq      mean  median       uq      max neval
-#&gt;  140.20 153.3655 172.24260 161.514 171.8680 4060.840  1000
-#&gt;   36.13  39.0120  42.80305  40.837  43.4665  243.024  1000</div></pre>
+#&gt;     min       lq      mean   median       uq      max neval
+#&gt;  133.53 150.9975 167.33180 158.7730 168.7055 3465.560  1000
+#&gt;   34.61  38.7095  46.11557  40.4695  42.6670 3463.457  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -318,8 +318,8 @@ and the duration of the model</p>
   docsearch({
     
     
-    apiKey: '6c737a6c632ea7eab75c912a6b07b5f1',
-    indexName: 'SpeedyMarkov',
+    apiKey: '9ace17177af489aa7e0527d91c05b1dc',
+    indexName: 'speedymarkov',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

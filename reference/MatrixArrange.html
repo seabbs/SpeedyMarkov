@@ -203,12 +203,12 @@ for an example use case. Implemented using Rcpp.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span>(<span class='fu'><a href='matrix_arrange_inner.html'>matrix_arrange_inner</a></span>(<span class='no'>matrix_samples</span>),
                <span class='fu'>MatrixArrange</span>(<span class='no'>matrix_samples</span>),
                <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
-#&gt;                                  expr    min     lq      mean median      uq
-#&gt;  matrix_arrange_inner(matrix_samples) 60.636 62.249 66.297710 63.348 67.0550
-#&gt;         MatrixArrange(matrix_samples)  4.985  5.760  6.621251  6.493  7.0625
+#&gt;                                  expr    min      lq      mean  median     uq
+#&gt;  matrix_arrange_inner(matrix_samples) 52.265 59.4765 65.090315 62.1895 66.784
+#&gt;         MatrixArrange(matrix_samples)  4.488  5.3030  6.266853  5.9495  6.543
 #&gt;      max neval
-#&gt;  318.807  1000
-#&gt;   22.922  1000</div></pre>
+#&gt;  316.104  1000
+#&gt;   24.965  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -240,8 +240,8 @@ for an example use case. Implemented using Rcpp.</p>
   docsearch({
     
     
-    apiKey: '6c737a6c632ea7eab75c912a6b07b5f1',
-    indexName: 'SpeedyMarkov',
+    apiKey: '9ace17177af489aa7e0527d91c05b1dc',
+    indexName: 'speedymarkov',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

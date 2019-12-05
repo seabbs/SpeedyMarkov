@@ -213,12 +213,12 @@ states in the model.</p></td>
 <span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span>(<span class='fu'><a href='markov_loop.html'>markov_loop</a></span>(<span class='no'>sim</span>, <span class='no'>cohort</span>, <span class='no'>transition</span>, <span class='no'>duration</span>),
                <span class='fu'>ArmaMarkovLoop</span>(<span class='no'>sim</span>, <span class='no'>cohort</span>, <span class='no'>transition</span>, <span class='no'>duration</span>),
                <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; Unit: microseconds
-#&gt;                                               expr    min       lq     mean
-#&gt;     markov_loop(sim, cohort, transition, duration) 99.973 112.6645 138.5785
-#&gt;  ArmaMarkovLoop(sim, cohort, transition, duration)  6.140   7.1545   8.8305
+#&gt;                                               expr    min      lq       mean
+#&gt;     markov_loop(sim, cohort, transition, duration) 91.527 108.015 132.765544
+#&gt;  ArmaMarkovLoop(sim, cohort, transition, duration)  5.660   6.949   8.638334
 #&gt;    median      uq      max neval
-#&gt;  126.7585 159.504 4194.072  1000
-#&gt;    7.9180   9.451   62.439  1000</div></pre>
+#&gt;  120.2755 151.989 3711.278  1000
+#&gt;    7.6175   9.390   32.980  1000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -250,8 +250,8 @@ states in the model.</p></td>
   docsearch({
     
     
-    apiKey: '6c737a6c632ea7eab75c912a6b07b5f1',
-    indexName: 'SpeedyMarkov',
+    apiKey: '9ace17177af489aa7e0527d91c05b1dc',
+    indexName: 'speedymarkov',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {
