@@ -1,10 +1,10 @@
 ---
-title: "Benchmarking {SpeedyMarkov}"
+title: "Profiling the {SpeedyMarkov} implementation"
 author: "Sam Abbott"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Benchmarking {SpeedyMarkov}}
+  %\VignetteIndexEntry{Profiling the {SpeedyMarkov} implementation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
