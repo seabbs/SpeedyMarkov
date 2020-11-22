@@ -99,6 +99,10 @@ ArmaSimulateMarkov <- function(sim, cohort, transition, duration, state_cost, di
     .Call(`_SpeedyMarkov_ArmaSimulateMarkov`, sim, cohort, transition, duration, state_cost, discounting, qalys, intervention_cost)
 }
 
+ArmaTDMarkovLoop <- function(m_TR, a_P) {
+    .Call(`_SpeedyMarkov_ArmaTDMarkovLoop`, m_TR, a_P)
+}
+
 #' @title Arrange Vectorised Matrix Samples using Rcpp
 #' 
 #' @description A convenience function used to arrange vectorised matrix samples into the correct
